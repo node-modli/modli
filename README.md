@@ -2,9 +2,17 @@
 [![Code Climate](https://codeclimate.com/github/TechnologyAdvice/modli/badges/gpa.svg)](https://codeclimate.com/github/TechnologyAdvice/modli)
 [![Test Coverage](https://codeclimate.com/github/TechnologyAdvice/modli/badges/coverage.svg)](https://codeclimate.com/github/TechnologyAdvice/modli/coverage)
 
+[![NPM](https://nodei.co/npm/modli.png)](https://www.npmjs.com/package/modli)
+
 # Modli
 
 A module for building models and adapters for multiple data sources.
+
+## Installation
+
+```
+npm install modli --save
+```
 
 ## Docs
 

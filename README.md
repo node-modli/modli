@@ -2,6 +2,11 @@
 
 A module for building models and adapters for multiple data sources.
 
+## Docs
+
+To view documentation on the code run `make doc` and access the ESDoc 
+output by opening `/docs/index.html` in a web browser.
+
 ## Models
 
 ...Coming soon...

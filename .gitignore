@@ -3,3 +3,4 @@ logs/
 **/*.log
 report
 coverage
+docs

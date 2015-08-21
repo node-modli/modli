@@ -20,15 +20,24 @@ describe('model', () => {
 
   describe('validate', () => {
 
+    // Define pass data
+    const testPassData = {
+      id: 12345,
+      fname: 'John',
+      lname: 'Doe',
+      email: 'jdoe@gmail.com'
+    };
+
+    // Define fail data
+    const testFailData = {
+      id: 'foo',
+      fname: 123,
+      lname: [ 'bar' ],
+      email: 'jdoe[at]gmail.com'
+    };
+
     // Pass validation condition
     it('passes validation when object matches rules', () => {
-      let testPassData = {
-        id: 12345,
-        fname: 'John',
-        lname: 'Doe',
-        email: 'jdoe@gmail.com'
-      };
-
       let passTest = true;
 
       testModel.validate(testPassData).pass(() => {
@@ -41,13 +50,6 @@ describe('model', () => {
     });
     // Fail validation condition
     it('fails validation when object does not match rules', () => {
-      let testFailData = {
-        id: 'foo',
-        fname: 123,
-        lname: [ 'bar' ],
-        email: 'jdoe[at]gmail.com'
-      };
-
       let passTest = true;
 
       testModel.validate(testFailData).pass(() => {
@@ -55,9 +57,23 @@ describe('model', () => {
       }).fail(() => {
         passTest = false;
       });
-      
+
       expect(passTest).to.be.false;
+    });
+    // Use custom formatter
+    it('uses a custom validation error format when specified', () => {
+      // Define custom formatter
+      model.customValidationError = (err) => {
+        return err.details[0].message;
+      }
+      testModel.validate(testFailData).fail((err) => {
+        expect(err).to.equal('"id" must be a number');
+      })
     })
+
   });
 
 });
+
+
+

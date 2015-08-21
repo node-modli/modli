@@ -66,6 +66,26 @@ to be assigned to a variable (if needed) and acted upon when required.
 
 ### Validation Error Formatting
 
+By default, the `validation` methods `fail` response will return the Joi error
+object. This can be overridden using the following:
+
+```javascript
+model.customValidationError = (err) => {
+  // ... custom formatting here ...
+};
+```
+
+For example, if you wanted to just show the "human" error:Adapters
+
+```javascript
+model.customValidationError = (err) => {
+  return err.details[0].message;
+}
+```
+
+The above would return `"id" must be a number` if the above model was tested 
+with an invalid (`string`) id.
+
 ## Adapters
 
 ...Coming soon...

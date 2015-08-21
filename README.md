@@ -1,10 +1,14 @@
+[![Build Status](https://travis-ci.org/TechnologyAdvice/modli.svg)](https://travis-ci.org/TechnologyAdvice/modli)
+[![Code Climate](https://codeclimate.com/github/TechnologyAdvice/modli/badges/gpa.svg)](https://codeclimate.com/github/TechnologyAdvice/modli)
+[![Test Coverage](https://codeclimate.com/github/TechnologyAdvice/modli/badges/coverage.svg)](https://codeclimate.com/github/TechnologyAdvice/modli/coverage)
+
 # Modli
 
 A module for building models and adapters for multiple data sources.
 
 ## Docs
 
-To view documentation on the code run `make doc` and access the ESDoc 
+To view documentation on the code run `make doc` and access the ESDoc
 output by opening `/docs/index.html` in a web browser.
 
 ## Models

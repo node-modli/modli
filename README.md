@@ -75,7 +75,7 @@ model.customValidationError = (err) => {
 };
 ```
 
-For example, if you wanted to just show the "human" error:Adapters
+For example, if you wanted to just show the "human" error response text:
 
 ```javascript
 model.customValidationError = (err) => {
@@ -83,7 +83,7 @@ model.customValidationError = (err) => {
 }
 ```
 
-The above would return `"id" must be a number` if the above model was tested 
+The above would return `"id" must be a number` if the above model was tested
 with an invalid (`string`) id.
 
 ## Adapters

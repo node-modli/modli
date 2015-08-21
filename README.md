@@ -21,13 +21,13 @@ output by opening `/docs/index.html` in a web browser.
 
 ## Models
 
-Models are simple objects which use [Joi](https://www.npmjs.com/package/joi) for 
-property definition and validation. Modli abstracts on this slightly and provides 
+Models are simple objects which use [Joi](https://www.npmjs.com/package/joi) for
+property definition and validation. Modli abstracts on this slightly and provides
 methods for easily creating and validating data models.
 
 ### Create Model
 
-Simply passing an object to  `model.create` with the Joi defined properties will 
+Simply passing an object to  `model.create` with the Joi defined properties will
 create a model instance.
 
 ```javascript
@@ -43,7 +43,7 @@ const testModel = model.create({
 
 ### Validate Model Data
 
-Validating a model (using the above example) is then simply a matter of the 
+Validating a model (using the above example) is then simply a matter of the
 model's `validate` method:
 
 ```javascript
@@ -55,17 +55,16 @@ const testData = {
   email: 'jdoe@gmail.com'
 };
 
+// Run validation
 testModel.validate(testData)
-  .pass(() => {
-    console.log('All good!');
-  })
-  .fail((err) => {
-    console.error('Failed', err);
-  });
+  .pass(() => console.log('All good!'))
+  .fail((err) => console.error('Failed', err));
 ```
 
-The `validate` method returns `pass` and `fail` methods allowing the validation 
+The `validate` method returns `pass` and `fail` methods allowing the validation
 to be assigned to a variable (if needed) and acted upon when required.
+
+### Validation Error Formatting
 
 ## Adapters
 

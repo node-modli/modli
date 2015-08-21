@@ -30,16 +30,9 @@ task method:
 * `clean` will remove the `/node_modules` directories
 * `build` will transpile ES2015 code in `/src` to `/build`
 * `test` will run all spec files in `/test/src`
-* `cover` will run code coverage on all tests
+* `test-cover` will run code coverage on all tests
 * `lint` will lint all files in `/src`
 * `doc` will run ESDoc on all files in `/src` and output to `/docs`
-* `report` will run Plato static analysis on `/build` and output to `/report`
-* `dev` will run...
-  * linting, then...
-  * tests, then...
-  * build/transpile, then...
-  * the main script.
-* `watch` will run the `dev` task and rerun on change of `/src` files
 
 **Test Inidividual File**
 

@@ -19,11 +19,9 @@
     "clean": "make clean",
     "build": "make build",
     "test": "make test",
-    "cover": "make cover",
+    "test-cover": "make test-cover",
     "lint": "make lint",
-    "doc": "make doc",
-    "report": "make report",
-    "dev": "make dev"
+    "doc": "make doc"
   },
   "license": "MIT",
   "devDependencies": {
@@ -37,15 +35,14 @@
     "istanbul-harmony": "^0.3.16",
     "mocha": "^2.2.5",
     "nodemon": "^1.4.0",
-    "plato": "^1.5.0",
     "should": "^7.0.2",
     "sinon": "^1.15.4",
-    "sinon-chai": "^2.8.0",
-    "supertest": "^1.0.1"
+    "sinon-chai": "^2.8.0"
   },
   "dependencies": {
     "bluebird": "^2.9.34",
     "bristol": "^0.3.2",
+    "joi": "^6.6.1",
     "lodash": "^3.10.1"
   }
 }

@@ -50,11 +50,11 @@ lint:
 test:
 	$(call colorecho, "Testing $(TESTS)$(FILE)")
 	$(BIN)/mocha $(T_ARGS)
-	
-cover:
+
+test-cover:
 	$(call colorecho, "Running coverage report")
 	$(BIN)/istanbul cover $(BIN)/_mocha -- $(T_ARGS)
-	
+
 build:
 	$(call colorecho, "Building $(SRC) to $(BUILD)")
 	$(BIN)/babel $(SRC) --out-dir $(BUILD)
@@ -67,23 +67,13 @@ doc:
 	$(call colorecho, "Building Docs")
 	$(BIN)/esdoc -c esdoc.json
 
-report:
-	$(call colorecho, "Running Static Analysis")
-	$(BIN)/plato -r -d report $(BUILD)
-
 tag:
 	$(call colorecho, "Deploying to Git")
 	$(TAG_CMD)
 
 deploy: lint test build doc tag
 
-dev: lint test build start
-
-watch:
-	$(call colorecho, "Starting watch")
-	$(BIN)/nodemon --exec "make dev" --watch $(SRC)
-
-all: clean install lint test build doc report
+all: clean install lint test build doc
 
 
 # Phonies

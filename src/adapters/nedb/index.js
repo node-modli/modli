@@ -4,7 +4,7 @@
 /**
  * @namespace nedb
  */
-const nedb = {};
+export const nedb = {};
 
 /**
  * Accepts config parameters
@@ -56,5 +56,3 @@ nedb.update = (id, body) => {
 nedb.delete = (id) => {
   return id;
 };
-
-export default nedb;

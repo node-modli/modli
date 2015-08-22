@@ -3,20 +3,33 @@ import '../../setup';
 import { model, Joi } from '../../../src/lib/model';
 
 describe('model', () => {
+  
+  // Define adapter
+  const adapterObj = {
+    use: 'nedb',
+    config: {
+      inMemoryOnly: true
+    }
+  }
+  
+  // Define model
+  const modelObj = {
+    table: 'foo',
+    adapter: adapterObj,
+    schema: {
+      id: Joi.number().integer(),
+      fname: Joi.string().min(3).max(30),
+      lname: Joi.string().min(3).max(30),
+      email: Joi.string().email().min(3).max(30).required()
+    }
+  }
 
+  // Hoist placeholder for sharing across tests
   let testModel = {};
 
   describe('create', () => {
     it('creates a new model', () => {
-      testModel = model.create({ 
-        table: 'foo',
-        schema: {
-            id: Joi.number().integer(),
-            fname: Joi.string().min(3).max(30),
-            lname: Joi.string().min(3).max(30),
-            email: Joi.string().email().min(3).max(30).required()
-        }
-      });
+      testModel = model.create(modelObj);
       expect(testModel).to.be.an.object;
     });
   });

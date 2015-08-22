@@ -16,9 +16,9 @@ export const model = {};
  */
 model.create = (m) => {
   return {
-    model: Joi.object().keys(m.schema),
+    schema: Joi.object().keys(m.schema),
     validate: function (data) {
-      return Joi.validate(data, this.model, (err) => {
+      return Joi.validate(data, this.schema, (err) => {
         return {
           /**
            * Called when validation passes
@@ -63,4 +63,34 @@ model.formatValidationError = (err) => {
  * @memberof model
  */
 model.customValidationError = false;
+
+/**
+ * @namespace model.adapter
+ */
+model.adapter = {};
+
+/**
+ * @property {Array} builtIns Available built-in adapters
+ */
+model.adapter.builtIns = [
+  'nedb'
+];
+
+/**
+ * Gets adapter and calls config
+ * @memberof adapter
+ * @param {String} adapter The adapter to require/import
+ * @param {Object} [config] Optional configuration object for the adapter
+ * @returns {Object} Adapter
+ */
+model.adapter.use = (a, opts = {}) => {
+  const path = (model.adapter.builtIns.indexOf(a) >= 0) ? `./../adapters/${a}/index` : a;
+  const module = require(path);
+  // Check config object
+  if (Object.keys(opts).length) {
+    // Apply opts using the config method
+    module.config(opts);
+  }
+  return module;
+};
 

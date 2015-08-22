@@ -98,6 +98,8 @@ model.adapter.init = (a, opts = {}) => {
   if (Object.keys(opts).length) {
     // Apply opts using the config method
     adapter.config(opts);
+  } else {
+    _.noop();
   }
   return adapter;
 };

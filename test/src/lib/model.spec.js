@@ -28,11 +28,22 @@ describe('model', () => {
   let testModel = {};
 
   describe('create', () => {
-    it('creates a new model', () => {
+    it('creates a new model with built-in adapter', () => {
       testModel = model.create(modelObj);
-      console.log(testModel);
       expect(testModel).to.be.an.object;
     });
+
+    it('creates a new model with custom adapter', () => {
+      const testCustomAdapterModel = model.create({
+        adapter: {
+          use: '../../test/mocks/adapter'
+        },
+        schema: {
+          id: Joi.number().integer()
+        }
+      });
+      expect(testCustomAdapterModel).to.be.an.object;
+    })
   });
 
   describe('validate', () => {

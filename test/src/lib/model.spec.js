@@ -1,4 +1,4 @@
-/* global sinon, expect, request, describe, it, before, after */
+/* global expect, request, describe, it, before, after */
 import '../../setup';
 import { model, Joi } from '../../../src/lib/model';
 

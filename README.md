@@ -38,18 +38,27 @@ output by opening `/docs/index.html` in a web browser.
 
 Models are simple objects which use [Joi](https://www.npmjs.com/package/joi) for
 property definition and validation. Modli abstracts on this slightly and provides
-methods for easily creating and validating data models.
-
-### Create Model
-
-Simply passing an object to  `model.create` with the Joi defined properties will
-create a model instance.
+methods for easily creating and validating data models and attaching to the 
+appropriate adapter.
 
 ```javascript
 import { model, Joi } from 'modli';
 
+// Create adapter object
+const modelAdapter = {
+  // Uses the built-in NeDB adapter
+  name: 'nedb',
+  // Initiates adapter with following config
+  config: {
+    inMemoryOnly: true
+  }
+};
+
+// Create Model
 const testModel = model.create({
-  table: 'foo',
+  // Set the adapter
+  adapter: modelAdapter
+  // Define the schema
   schema: {
     id: Joi.number().integer(),
     fname: Joi.string().min(3).max(30),
@@ -59,9 +68,8 @@ const testModel = model.create({
 });
 ```
 
-The `schema` in the above example is where the object definition and validation 
-is performed. Any properties needed for a specific adapter (such as `table`) can 
-be added to the root keys of the model object.
+The above example will return the model object with a number of methods for 
+performing data operations.
 
 ### Validate Model Data
 

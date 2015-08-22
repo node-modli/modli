@@ -1,9 +1,11 @@
-export default {
+const mockAdapter = {
   configProps: {},
   config: function (opts) {
-    this.configProps = opts;
+    mockAdapter.configProps = opts;
   },
   mockMethod: () => {
     return true;
   }
 };
+
+export default mockAdapter;

@@ -6,7 +6,22 @@
 
 # Modli
 
-A module for building models and adapters for multiple data sources.
+A module for building models and adapters for multiple data sources. The core
+goal of this project is to create a minimal barrier to entrance for creating
+model-validated CRUD operations on data sources.
+
+This is done by addressing two core areas:
+
+**Models**
+
+Create a simple, universally similar modelling structure for any and all data
+sources to which an application may be connected.
+
+**Adapters**
+
+Create basic CRUD operations that function similarly between all adapters
+which can be connected to a model to perform the CRUD operations and are easily
+extensible for more complex operations.
 
 ## Installation
 

@@ -4,6 +4,10 @@
  */
 export const adapter = {};
 
+adapter.builtIns = [
+  'nedb'
+];
+
 /**
  * Set the adapter
  * @memberof adapter
@@ -12,7 +16,8 @@ export const adapter = {};
  * @returns {Object} Adapter
  */
 adapter.use = (a, opts = {}) => {
-  const module = require(a);
+  const path = (adapter.builtIns.indexOf(a) >= 0) ? `./../adapters/${a}/index` : a;
+  const module = require(path);
   // Check config object
   if (Object.keys(opts).length) {
     // Apply opts using the config method

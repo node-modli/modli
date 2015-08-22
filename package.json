@@ -35,14 +35,11 @@
     "istanbul-harmony": "^0.3.16",
     "mocha": "^2.2.5",
     "nodemon": "^1.4.0",
-    "should": "^7.0.2",
-    "sinon": "^1.15.4",
-    "sinon-chai": "^2.8.0"
+    "should": "^7.0.2"
   },
   "dependencies": {
     "bluebird": "^2.9.34",
     "bristol": "^0.3.2",
-    "joi": "^6.6.1",
-    "lodash": "^3.10.1"
+    "joi": "^6.6.1"
   }
 }

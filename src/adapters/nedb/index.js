@@ -1,7 +1,20 @@
+// const Datastore = require('nedb');
+// const Promise = require('bluebird');
+
 /**
  * @namespace nedb
  */
 const nedb = {};
+
+/**
+ * Accepts config parameters
+ * @memberof nedb
+ * @param {Object} cfg Configuration
+ */
+nedb.config = (cfg) => {
+  return cfg;
+  // const db = new Datastore(cfg);
+};
 
 /**
  * Creates a new entry in the database

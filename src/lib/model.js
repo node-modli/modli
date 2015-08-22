@@ -16,7 +16,7 @@ export const model = {};
  */
 model.create = (m) => {
   return {
-    model: Joi.object().keys(m),
+    model: Joi.object().keys(m.schema),
     validate: function (data) {
       return Joi.validate(data, this.model, (err) => {
         return {

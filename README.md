@@ -49,12 +49,19 @@ create a model instance.
 import { model, Joi } from 'modli';
 
 const testModel = model.create({
-  id: Joi.number().integer(),
-  fname: Joi.string().min(3).max(30),
-  lname: Joi.string().min(3).max(30),
-  email: Joi.string().email().min(3).max(30).required()
+  table: 'foo',
+  schema: {
+    id: Joi.number().integer(),
+    fname: Joi.string().min(3).max(30),
+    lname: Joi.string().min(3).max(30),
+    email: Joi.string().email().min(3).max(30).required()
+  }
 });
 ```
+
+The `schema` in the above example is where the object definition and validation 
+is performed. Any properties needed for a specific adapter (such as `table`) can 
+be added to the root keys of the model object.
 
 ### Validate Model Data
 

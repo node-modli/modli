@@ -5,7 +5,7 @@ import { adapter } from '../../../src/lib/adapter';
 describe('adapter', () => {
 
   describe('use', () => {
-    
+
     // Loads built-in adapters
     it('loads built-in adapters', () => {
       const testBuiltIn = adapter.use('nedb');

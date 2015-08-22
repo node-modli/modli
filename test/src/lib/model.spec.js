@@ -8,11 +8,14 @@ describe('model', () => {
 
   describe('create', () => {
     it('creates a new model', () => {
-      testModel = model.create({
-        id: Joi.number().integer(),
-        fname: Joi.string().min(3).max(30),
-        lname: Joi.string().min(3).max(30),
-        email: Joi.string().email().min(3).max(30).required()
+      testModel = model.create({ 
+        table: 'foo',
+        schema: {
+            id: Joi.number().integer(),
+            fname: Joi.string().min(3).max(30),
+            lname: Joi.string().min(3).max(30),
+            email: Joi.string().email().min(3).max(30).required()
+        }
       });
       expect(testModel).to.be.an.object;
     });

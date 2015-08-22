@@ -3,7 +3,7 @@ import '../../setup';
 import { model, Joi } from '../../../src/lib/model';
 
 describe('model', () => {
-  
+
   // Define adapter
   const adapterObj = {
     use: 'nedb',
@@ -11,7 +11,7 @@ describe('model', () => {
       inMemoryOnly: true
     }
   }
-  
+
   // Define model
   const modelObj = {
     table: 'foo',
@@ -30,6 +30,7 @@ describe('model', () => {
   describe('create', () => {
     it('creates a new model', () => {
       testModel = model.create(modelObj);
+      console.log(testModel);
       expect(testModel).to.be.an.object;
     });
   });

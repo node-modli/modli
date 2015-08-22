@@ -1,3 +1,5 @@
+const _ = require('lodash');
+
 /**
  * Exports Joi so no additional import/require needed
  */
@@ -15,7 +17,10 @@ export const model = {};
  * @param {Object} m The model
  */
 model.create = (m) => {
-  return {
+  // Get adapter object
+  const adapter = model.adapter.init(m.adapter.use, m.adapter.config);
+  // Get model object
+  const modelObj = {
     schema: Joi.object().keys(m.schema),
     validate: function (data) {
       return Joi.validate(data, this.schema, (err) => {
@@ -42,6 +47,8 @@ model.create = (m) => {
       });
     }
   };
+  // Merge model with adapter properties
+  return _.extend(modelObj, adapter);
 };
 
 /**
@@ -83,14 +90,15 @@ model.adapter.builtIns = [
  * @param {Object} [config] Optional configuration object for the adapter
  * @returns {Object} Adapter
  */
-model.adapter.use = (a, opts = {}) => {
+model.adapter.init = (a, opts = {}) => {
   const path = (model.adapter.builtIns.indexOf(a) >= 0) ? `./../adapters/${a}/index` : a;
   const module = require(path);
+  const adapter = module[Object.keys(module)[0]];
   // Check config object
   if (Object.keys(opts).length) {
     // Apply opts using the config method
-    module.config(opts);
+    adapter.config(opts);
   }
-  return module;
+  return adapter;
 };
 

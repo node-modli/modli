@@ -159,6 +159,7 @@ task method:
 * `clean` will remove the `/node_modules` directories
 * `build` will transpile ES2015 code in `/src` to `/build`
 * `test` will run all spec files in `/test/src`
+* `test-integration` will run integration test
 * `test-cover` will run code coverage on all tests
 * `lint` will lint all files in `/src`
 * `doc` will run ESDoc on all files in `/src` and output to `/docs`

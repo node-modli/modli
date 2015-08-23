@@ -19,6 +19,7 @@
     "clean": "make clean",
     "build": "make build",
     "test": "make test",
+    "test-integration": "make test-integration",
     "test-cover": "make test-cover",
     "lint": "make lint",
     "doc": "make doc"

@@ -24,26 +24,10 @@ model.create = (m) => {
     schema: Joi.object().keys(m.schema),
     validate: function (data) {
       return Joi.validate(data, this.schema, (err) => {
-        return {
-          /**
-           * Called when validation passes
-           * @param {Function} cb The function to call
-           * @returns this
-           */
-          pass: function (cb) {
-            if (!err) { cb(); }
-            return this;
-          },
-          /**
-           * Called when validation fails
-           * @param {Function} cb The function to call
-           * @returns this
-           */
-          fail: function (cb) {
-            if (err) { cb(model.formatValidationError(err)); }
-            return this;
-          }
-        };
+        if (err) {
+          return model.formatValidationError(err);
+        }
+        return null;
       });
     }
   };

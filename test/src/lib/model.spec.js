@@ -66,27 +66,13 @@ describe('model', () => {
 
     // Pass validation condition
     it('passes validation when object matches rules', () => {
-      let passTest = true;
-
-      testModel.validate(testPassData).pass(() => {
-        passTest = true;
-      }).fail(() => {
-        passTest = false;
-      });
-
-      expect(passTest).to.be.true;
+      let passTest = testModel.validate(testPassData);
+      expect(passTest).to.be.null;
     });
     // Fail validation condition
     it('fails validation when object does not match rules', () => {
-      let passTest = true;
-
-      testModel.validate(testFailData).pass(() => {
-        passTest = true;
-      }).fail(() => {
-        passTest = false;
-      });
-
-      expect(passTest).to.be.false;
+      let passTest = testModel.validate(testFailData);
+      expect(passTest).to.not.be.null;
     });
     // Use custom formatter
     it('uses a custom validation error format when specified', () => {
@@ -94,9 +80,8 @@ describe('model', () => {
       model.customValidationError = (err) => {
         return err.details[0].message;
       }
-      testModel.validate(testFailData).fail((err) => {
-        expect(err).to.equal('"id" must be a number');
-      })
+      let testCustom = testModel.validate(testFailData);
+      expect(testCustom).to.equal('"id" must be a number');
     })
 
   });

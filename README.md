@@ -86,13 +86,15 @@ const testData = {
 };
 
 // Run validation
-testModel.validate(testData)
-  .pass(() => console.log('All good!'))
-  .fail((err) => console.error('Failed', err));
+const testValid = testModel.validate(testData);
+if (testValid === null) {
+  // Everything passed
+  console.log('Passed!');
+} else {
+  // Failed, logs 'Failed' along with the validation errors
+  console.log('Failed', testValid);
+}
 ```
-
-The `validate` method returns `pass` and `fail` methods allowing the validation
-to be assigned to a variable (if needed) and acted upon when required.
 
 ### Validation Error Formatting
 

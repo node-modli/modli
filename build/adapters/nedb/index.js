@@ -6,8 +6,6 @@ Object.defineProperty(exports, '__esModule', {
 var Promise = require('bluebird');
 var Datastore = require('nedb');
 
-var db = undefined;
-
 /**
  * @namespace nedb
  */
@@ -20,7 +18,7 @@ exports.nedb = nedb;
  * @param {Object} cfg Configuration
  */
 nedb.config = function (cfg) {
-  db = Promise.promisifyAll(new Datastore(cfg));
+  nedb.db = Promise.promisifyAll(new Datastore(cfg));
   return true;
 };
 
@@ -39,7 +37,7 @@ nedb.create = function (body) {
     if (validationErrors) {
       reject(validationErrors);
     } else {
-      resolve(db.insertAsync(body));
+      resolve(nedb.db.insertAsync(body));
     }
   });
 };
@@ -51,7 +49,7 @@ nedb.create = function (body) {
  * @returns {Object} promise
  */
 nedb.read = function (query) {
-  return db.findAsync(query);
+  return nedb.db.findAsync(query);
 };
 
 /**
@@ -70,7 +68,7 @@ nedb.update = function (query, body) {
     if (validationErrors) {
       reject(validationErrors);
     } else {
-      resolve(db.updateAsync(query, { $set: body }, { multi: true }));
+      resolve(nedb.db.updateAsync(query, { $set: body }, { multi: true }));
     }
   });
 };
@@ -82,5 +80,15 @@ nedb.update = function (query, body) {
  * @returns {Object} promise
  */
 nedb['delete'] = function (query) {
-  return db.removeAsync(query, { multi: true });
+  return nedb.db.removeAsync(query, { multi: true });
+};
+
+/**
+ * Extends adapter by adding new method
+ * @memberof nedb
+ * @param {String} name The name of the method
+ * @param {Function} fn The method to add
+ */
+nedb.extend = function (name, fn) {
+  nedb[name] = fn.bind(nedb);
 };

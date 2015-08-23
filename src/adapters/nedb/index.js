@@ -72,3 +72,13 @@ nedb.update = (query, body) => {
  * @returns {Object} promise
  */
 nedb.delete = (query) => nedb.db.removeAsync(query, { multi: true });
+
+/**
+ * Extends adapter by adding new method
+ * @memberof nedb
+ * @param {String} name The name of the method
+ * @param {Function} fn The method to add
+ */
+nedb.extend = (name, fn) => {
+  nedb[name] = fn.bind(nedb);
+};

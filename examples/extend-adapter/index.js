@@ -16,9 +16,7 @@ app.use(bodyParser.json());
 /**
  * Extend NeDB adapter
  */
-nedb.createWithRand = function (body) {
-  console.log('called createWithRand')
-  console.log('db', nedb.db);
+nedb.extend('createWithRand', function (body) {
   // Automatically add a property "randNum" with value between 1 and 5
   body.randNum = Math.floor(Math.random() * 5) + 1
   // Test validation
@@ -32,7 +30,7 @@ nedb.createWithRand = function (body) {
       resolve(nedb.db.insertAsync(body));
     }
   });
-}
+});
 
 /**
  * Create a model
@@ -51,8 +49,6 @@ var user = modli.model.create({
     randNum: Joi.number().integer().min(1).max(5)
   }
 });
-
-console.log(user);
 
 /**
  * Define requests

@@ -69,4 +69,11 @@ describe('nedb', () => {
         .catch((err) => done(err));
     });
   });
+  
+  describe('extend', () => {
+    it('extends the adapter with a new method', () => {
+      nedb.extend('testMethod', () => { return null });
+      expect(nedb).to.have.property('testMethod');
+    })
+  })
 });

@@ -1,12 +1,12 @@
+/* eslint no-unused-expressions: 0 */
 /* global expect, request, describe, it, before, after */
 import '../../../setup';
 import { nedb } from '../../../../src/adapters/nedb/index';
 
 // Mock validation method, this is automatically done by the model
-nedb.validate = (data) => null;
+nedb.validate = () => null;
 
 describe('nedb', () => {
-
   let testId = null;
 
   describe('config', () => {
@@ -23,7 +23,7 @@ describe('nedb', () => {
       const testEntry = {
         name: 'jsmith',
         email: 'jsmith@gmail.com'
-      }
+      };
       nedb.create(testEntry)
         .then((data) => {
           expect(data).to.be.an.object;
@@ -42,14 +42,14 @@ describe('nedb', () => {
           done();
         })
         .catch((err) => done(err));
-    })
-  })
+    });
+  });
 
   describe('update', () => {
     it('updates an items based on query and object passed', (done) => {
       const testUpdate = {
         name: 'jsmith1'
-      }
+      };
       nedb.update({ _id: testId }, testUpdate)
         .then((numUpdated) => {
           expect(numUpdated).to.equal(1);
@@ -64,10 +64,9 @@ describe('nedb', () => {
       nedb.delete({ _id: testId })
         .then((numDeleted) => {
           expect(numDeleted).to.equal(1);
-          done()
+          done();
         })
         .catch((err) => done(err));
-    })
-  })
-
-})
+    });
+  });
+});

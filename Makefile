@@ -46,6 +46,8 @@ install: $(PKG)
 lint:
 	$(call colorecho, "Linting $(SRC)")
 	$(BIN)/eslint $(SRC)
+	$(call colorecho, "Linting ./test")
+	$(BIN)/eslint ./test
 
 test:
 	$(call colorecho, "Testing $(TESTS)$(FILE)")

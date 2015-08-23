@@ -1,16 +1,16 @@
+/* eslint no-unused-expressions: 0 */
 /* global expect, request, describe, it, before, after */
 import '../../setup';
 import { model, Joi } from '../../../src/lib/model';
 
 describe('model', () => {
-
   // Define adapter
   const adapterObj = {
     use: 'nedb',
     config: {
       inMemoryOnly: true
     }
-  }
+  };
 
   // Define model
   const modelObj = {
@@ -22,7 +22,7 @@ describe('model', () => {
       lname: Joi.string().min(3).max(30),
       email: Joi.string().email().min(3).max(30).required()
     }
-  }
+  };
 
   // Hoist placeholder for sharing across tests
   let testModel = {};
@@ -43,11 +43,10 @@ describe('model', () => {
         }
       });
       expect(testCustomAdapterModel).to.be.an.object;
-    })
+    });
   });
 
   describe('validate', () => {
-
     // Define pass data
     const testPassData = {
       id: 12345,
@@ -79,14 +78,9 @@ describe('model', () => {
       // Define custom formatter
       model.customValidationError = (err) => {
         return err.details[0].message;
-      }
+      };
       const testCustom = testModel.validate(testFailData);
       expect(testCustom).to.equal('"id" must be a number');
-    })
-
+    });
   });
-
 });
-
-
-

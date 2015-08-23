@@ -1,11 +1,11 @@
-# Example
+# Basic Example
 
-The included example gives a basic view of the code required to complete basic 
+The included example gives a basic view of the code required to complete basic
 CRUD operations on a model defined with Modli.
 
 ## Running the Code
 
-The example is a simple express service with endpoint `/user` which has handlers 
+The example is a simple express service with endpoint `/user` which has handlers
 defined for `GET`, `POST`, `PUT` and `DELETE`.
 
 To start the server simply run the application:

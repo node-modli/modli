@@ -71,8 +71,8 @@ describe('model', () => {
     });
     // Fail validation condition
     it('fails validation when object does not match rules', () => {
-      let passTest = testModel.validate(testFailData);
-      expect(passTest).to.not.be.null;
+      let failTest = testModel.validate(testFailData);
+      expect(failTest).to.not.be.null;
     });
     // Use custom formatter
     it('uses a custom validation error format when specified', () => {

@@ -38,7 +38,7 @@ output by opening `/docs/index.html` in a web browser.
 
 Models are simple objects which use [Joi](https://www.npmjs.com/package/joi) for
 property definition and validation. Modli abstracts on this slightly and provides
-methods for easily creating and validating data models and attaching to the 
+methods for easily creating and validating data models and attaching to the
 appropriate adapter.
 
 ```javascript
@@ -68,7 +68,7 @@ const testModel = model.create({
 });
 ```
 
-The above example will return the model object with a number of methods for 
+The above example will return the model object with a number of methods for
 performing data operations.
 
 ### Validate Model Data
@@ -118,7 +118,37 @@ with an invalid (`string`) id.
 
 ## Adapters
 
-...Coming soon...
+Adapters allow for creating standard CRUD methods which are then extended upon
+the model to make interacting with the datasource simple.
+
+### Default methods
+
+All adapters have 5 main methods which are exposed on the model; `create`, `read`,
+`update`, `delete` and `config`.
+
+While these methods are mostly self-explanatory, some noteworthy specifics:
+
+The `config` method is called automatically by the model when the adapter is
+bound to it (see above model example).
+
+### Validation
+
+Validation is performed automatically on both `create` and `update` methods. This
+is done by first running the models validation, then (on `pass`) calling the
+adapters native method.
+
+To accomplish this the model will look to validate data at the first argument
+in `create` and the second argument in `update`:
+
+```javascript
+// On create, first argument:
+myModel.create({ foo: 'bar' })
+
+// On update, second argument:
+myModel.update({ _id: 12345 }, { foo: 'bar' });
+```
+
+### Model Validation
 
 ## Makefile and Scripts
 

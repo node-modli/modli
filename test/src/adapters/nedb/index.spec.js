@@ -2,6 +2,9 @@
 import '../../../setup';
 import { nedb } from '../../../../src/adapters/nedb/index';
 
+// Mock validation method, this is automatically done by the model
+nedb.validate = (data) => null;
+
 describe('nedb', () => {
 
   let testId = null;

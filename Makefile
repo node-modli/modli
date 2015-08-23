@@ -54,7 +54,7 @@ test:
 test-cover:
 	$(call colorecho, "Running coverage report")
 	$(BIN)/istanbul cover $(BIN)/_mocha -- $(T_ARGS)
-	
+
 test-integration:
 	$(call colorecho, "Integration Testing ./test/index.js")
 	$(BIN)/mocha --compilers js:babel/register ./test/index.js

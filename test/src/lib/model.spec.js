@@ -66,12 +66,12 @@ describe('model', () => {
 
     // Pass validation condition
     it('passes validation when object matches rules', () => {
-      let passTest = testModel.validate(testPassData);
+      const passTest = testModel.validate(testPassData);
       expect(passTest).to.be.null;
     });
     // Fail validation condition
     it('fails validation when object does not match rules', () => {
-      let failTest = testModel.validate(testFailData);
+      const failTest = testModel.validate(testFailData);
       expect(failTest).to.not.be.null;
     });
     // Use custom formatter
@@ -80,7 +80,7 @@ describe('model', () => {
       model.customValidationError = (err) => {
         return err.details[0].message;
       }
-      let testCustom = testModel.validate(testFailData);
+      const testCustom = testModel.validate(testFailData);
       expect(testCustom).to.equal('"id" must be a number');
     })
 

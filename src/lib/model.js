@@ -31,6 +31,8 @@ model.create = (m) => {
       });
     }
   };
+  // Expose validate method on adapter object
+  adapter.validate = modelObj.validate;
   // Merge model with adapter properties
   return _.extend(modelObj, adapter);
 };

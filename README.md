@@ -74,7 +74,7 @@ performing data operations.
 ### Validate Model Data
 
 Validating a model (using the above example) is then simply a matter of the
-model's `validate` method:
+model's `validate` method which returns any (or `null`)  validation errors:
 
 ```javascript
 // Some data
@@ -86,13 +86,13 @@ const testData = {
 };
 
 // Run validation
-const testValid = testModel.validate(testData);
-if (testValid === null) {
+const validationErrors = testModel.validate(testData);
+if (!validationErrors) {
   // Everything passed
   console.log('Passed!');
 } else {
   // Failed, logs 'Failed' along with the validation errors
-  console.log('Failed', testValid);
+  console.log('Failed', validationErrors);
 }
 ```
 

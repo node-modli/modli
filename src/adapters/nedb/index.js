@@ -24,7 +24,11 @@ nedb.config = (cfg) => {
  * @param {Object} body Contents to create entry
  * @returns {Object} promise
  */
-nedb.create = (body) => db.insertAsync(body);
+nedb.create = (body) => {
+  const validationErrors = nedb.validate(body);
+  // If valid perform insert, else return errors
+  return !validationErrors ? db.insertAsync(body) : validationErrors;
+};
 
 /**
  * Reads from the database
@@ -41,7 +45,11 @@ nedb.read = (query) => db.findAsync(query);
  * @param {Object} body Contents to update
  * @returns {Object} promise
  */
-nedb.update = (query, body) => db.updateAsync(query, { $set: body }, { multi: true });
+nedb.update = (query, body) => {
+  const validationErrors = nedb.validate(body);
+  // If valid perform update, else return errors
+  return !validationErrors ? db.updateAsync(query, { $set: body }, { multi: true }) : validationErrors;
+};
 
 /**
  * Deletes an item from the database

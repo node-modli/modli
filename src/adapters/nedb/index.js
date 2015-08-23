@@ -25,9 +25,17 @@ nedb.config = (cfg) => {
  * @returns {Object} promise
  */
 nedb.create = (body) => {
+  // Test validation
   const validationErrors = nedb.validate(body);
-  // If valid perform insert, else return errors
-  return !validationErrors ? db.insertAsync(body) : validationErrors;
+  // Return promise
+  return new Promise((resolve, reject) => {
+    /* istanbul ignore if */
+    if (validationErrors) {
+      reject(validationErrors);
+    } else {
+      resolve(db.insertAsync(body));
+    }
+  });
 };
 
 /**
@@ -46,9 +54,17 @@ nedb.read = (query) => db.findAsync(query);
  * @returns {Object} promise
  */
 nedb.update = (query, body) => {
+  // Test validation
   const validationErrors = nedb.validate(body);
-  // If valid perform update, else return errors
-  return !validationErrors ? db.updateAsync(query, { $set: body }, { multi: true }) : validationErrors;
+  // Return promise
+  return new Promise((resolve, reject) => {
+    /* istanbul ignore if */
+    if (validationErrors) {
+      reject(validationErrors);
+    } else {
+      resolve(db.updateAsync(query, { $set: body }, { multi: true }));
+    }
+  });
 };
 
 /**

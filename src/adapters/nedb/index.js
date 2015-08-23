@@ -1,8 +1,6 @@
 const Promise = require('bluebird');
 const Datastore = require('nedb');
 
-let db;
-
 /**
  * @namespace nedb
  */
@@ -14,7 +12,7 @@ export const nedb = {};
  * @param {Object} cfg Configuration
  */
 nedb.config = (cfg) => {
-  db = Promise.promisifyAll(new Datastore(cfg));
+  nedb.db = Promise.promisifyAll(new Datastore(cfg));
   return true;
 };
 
@@ -33,7 +31,7 @@ nedb.create = (body) => {
     if (validationErrors) {
       reject(validationErrors);
     } else {
-      resolve(db.insertAsync(body));
+      resolve(nedb.db.insertAsync(body));
     }
   });
 };
@@ -44,7 +42,7 @@ nedb.create = (body) => {
  * @param {Object} query Specific id or query to construct read
  * @returns {Object} promise
  */
-nedb.read = (query) => db.findAsync(query);
+nedb.read = (query) => nedb.db.findAsync(query);
 
 /**
  * Updates an entry in the database
@@ -62,7 +60,7 @@ nedb.update = (query, body) => {
     if (validationErrors) {
       reject(validationErrors);
     } else {
-      resolve(db.updateAsync(query, { $set: body }, { multi: true }));
+      resolve(nedb.db.updateAsync(query, { $set: body }, { multi: true }));
     }
   });
 };
@@ -73,4 +71,4 @@ nedb.update = (query, body) => {
  * @param {Object} query Query to locate entries to delete
  * @returns {Object} promise
  */
-nedb.delete = (query) => db.removeAsync(query, { multi: true });
+nedb.delete = (query) => nedb.db.removeAsync(query, { multi: true });

@@ -1,5 +1,5 @@
 // Dependencies
-var modli = require('../build/index');
+var modli = require('../../build/index');
 var app = require('express')();
 var bodyParser = require('body-parser');
 

@@ -148,8 +148,6 @@ myModel.create({ foo: 'bar' })
 myModel.update({ _id: 12345 }, { foo: 'bar' });
 ```
 
-### Model Validation
-
 ## Makefile and Scripts
 
 A `Makefile` is included for managing build and install tasks. The commands are

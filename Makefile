@@ -57,7 +57,7 @@ test-cover:
 
 test-integration:
 	$(call colorecho, "Integration Testing ./test/index.js")
-	$(BIN)/mocha --compilers js:babel/register ./test/index.js
+	$(BIN)/mocha --compilers js:babel/register ./test/index.int.js
 
 build:
 	$(call colorecho, "Building $(SRC) to $(BUILD)")

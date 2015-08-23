@@ -37,4 +37,28 @@ describe('integration', () => {
     
   });
   
+  describe('create item', () => {
+    it('creates an item in the datastore', () => {
+      
+    });
+  });
+  
+  describe('read item', () => {
+    it('reads an item in the datastore', () => {
+      
+    });
+  });
+  
+  describe('update item', () => {
+    it('updates an item in the datastore', () => {
+      
+    });
+  });
+  
+  describe('delete item', () => {
+    it('deletes an item from the datastore', () => {
+      
+    });
+  });
+  
 });

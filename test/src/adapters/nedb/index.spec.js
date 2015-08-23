@@ -55,7 +55,7 @@ describe('nedb', () => {
         .catch((err) => done(err));
     });
   });
-  
+
   describe('delete', () => {
     it('deletes and item when passed a query', (done) => {
       nedb.delete({ _id: testId })

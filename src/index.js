@@ -1,4 +1,7 @@
+// Libs
 import { model, Joi } from './lib/model';
+// Adapters
+import { nedb } from './adapters/nedb/index';
 
 /*
  * Copyright (c) 2015 TechnologyAdvice
@@ -8,5 +11,5 @@ import { model, Joi } from './lib/model';
  * Entry point for the module, exports methods of the libs
  */
 export default {
-  model, Joi
+  model, Joi, nedb
 };

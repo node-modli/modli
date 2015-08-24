@@ -65,6 +65,8 @@ const modelAdapter = {
 
 // Create Model
 const testModel = model.create({
+  // Set the version (optional)
+  version: 1,
   // Set the adapter
   adapter: modelAdapter
   // Define the schema

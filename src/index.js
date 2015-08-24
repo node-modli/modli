@@ -1,5 +1,6 @@
 // Libs
 import { model, Joi } from './lib/model';
+const vers = require('vers')();
 // Adapters
 import { nedb } from './adapters/nedb/index';
 
@@ -11,5 +12,5 @@ import { nedb } from './adapters/nedb/index';
  * Entry point for the module, exports methods of the libs
  */
 export default {
-  model, Joi, nedb
+  model, Joi, vers, nedb
 };

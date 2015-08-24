@@ -2,6 +2,7 @@
 var modli = require('../../build/index');
 var app = require('express')();
 var bodyParser = require('body-parser');
+var path = require('path');
 
 // Use Joi from modli
 var Joi = modli.Joi;
@@ -14,7 +15,7 @@ app.use(bodyParser.json());
  */
 var user = modli.model.create({
   adapter: {
-    use: './in-mem'
+    use: path.resolve('./in-mem')
   },
   schema: {
     fname: Joi.string().min(3).max(30),

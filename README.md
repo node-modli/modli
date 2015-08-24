@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/TechnologyAdvice/modli.svg)](https://travis-ci.org/TechnologyAdvice/modli)
 [![Code Climate](https://codeclimate.com/github/TechnologyAdvice/modli/badges/gpa.svg)](https://codeclimate.com/github/TechnologyAdvice/modli)
 [![Test Coverage](https://codeclimate.com/github/TechnologyAdvice/modli/badges/coverage.svg)](https://codeclimate.com/github/TechnologyAdvice/modli/coverage)
+[![Dependency Status](https://www.versioneye.com/user/projects/55da64048d9c4b0018000442/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55da64048d9c4b0018000442)
 
 [![NPM](https://nodei.co/npm/modli.png)](https://www.npmjs.com/package/modli)
 
@@ -141,7 +142,7 @@ While these methods are mostly self-explanatory, some noteworthy specifics:
 The `config` method is called automatically by the model when the adapter is
 bound to it (see above model example).
 
-The `extend` method allows adapters to be dynamically built upon. An example of 
+The `extend` method allows adapters to be dynamically built upon. An example of
 this method would be:
 
 ```javascript
@@ -153,7 +154,7 @@ myAdapter.extend = (name, fn) => {
 
 ### Adapters and Validation
 
-When the adapter is extended upon the model to which it is applied it exposes 
+When the adapter is extended upon the model to which it is applied it exposes
 the `model`'s `validate` method. Adapters can utilize this via the following:
 
 ```javascript
@@ -161,7 +162,7 @@ the `model`'s `validate` method. Adapters can utilize this via the following:
 const validationErrors = myAdapter.validate(body);
 ```
 
-The `validate` method in the above returns errors to the `validationErrors` 
+The `validate` method in the above returns errors to the `validationErrors`
 constant. If no validation errors are present it simply returns `null`.
 
 ## Makefile and Scripts

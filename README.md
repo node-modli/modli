@@ -203,8 +203,8 @@ Both `make {COMMAND}` and `npm run {COMMAND}` work for any of the above commands
 
 ## License
 
-Glambda is licensed under the MIT license. Please see `LICENSE.txt` for full details.
+Modli is licensed under the MIT license. Please see `LICENSE.txt` for full details.
 
 ## Credits
 
-Glambda was designed and created at [TechnologyAdvice](http://www.technologyadvice.com).
+Modli was designed and created at [TechnologyAdvice](http://www.technologyadvice.com).

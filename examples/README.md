@@ -5,3 +5,4 @@ situations.
 
 * [Basic](/examples/basic): Creating core CRUD functionality
 * [Extend Adapter](/examples/extend-adapter): Extend adapter functionality
+* [Custom Adapter](/examples/custome-adapter): Create a custom adapter

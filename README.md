@@ -29,6 +29,14 @@ extensible for more complex operations.
 npm install modli --save
 ```
 
+## Examples
+
+As often times it is easier to understand something when seen in practice, there
+are several [examples](/examples) available.
+
+The [`/test/index.int.js`](/test/index.int.js) file also serves as an integration
+test suite which shows how functionality of Modli is designed.
+
 ## Docs
 
 To view documentation on the code run `make doc` and access the ESDoc
@@ -126,29 +134,35 @@ the model to make interacting with the datasource simple.
 ### Default methods
 
 All adapters have 5 main methods which are exposed on the model; `create`, `read`,
-`update`, `delete` and `config`.
+`update`, `delete`, `config` and `extend`.
 
 While these methods are mostly self-explanatory, some noteworthy specifics:
 
 The `config` method is called automatically by the model when the adapter is
 bound to it (see above model example).
 
-### Validation
-
-Validation is performed automatically on both `create` and `update` methods. This
-is done by first running the models validation, then (on `pass`) calling the
-adapters native method.
-
-To accomplish this the model will look to validate data at the first argument
-in `create` and the second argument in `update`:
+The `extend` method allows adapters to be dynamically built upon. An example of 
+this method would be:
 
 ```javascript
-// On create, first argument:
-myModel.create({ foo: 'bar' })
-
-// On update, second argument:
-myModel.update({ _id: 12345 }, { foo: 'bar' });
+// namespace: myAdapter
+myAdapter.extend = (name, fn) => {
+  myAdapter[name] = fn.bind(nedb);
+};
 ```
+
+### Adapters and Validation
+
+When the adapter is extended upon the model to which it is applied it exposes 
+the `model`'s `validate` method. Adapters can utilize this via the following:
+
+```javascript
+// namespace: myAdapter
+const validationErrors = myAdapter.validate(body);
+```
+
+The `validate` method in the above returns errors to the `validationErrors` 
+constant. If no validation errors are present it simply returns `null`.
 
 ## Makefile and Scripts
 

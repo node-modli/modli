@@ -63,12 +63,12 @@ const modelAdapter = {
   }
 };
 
-// Create Model
-const testModel = model.create({
-  // Set the version (optional)
+// Add a Model
+model.add({
+  // Set a name
+  name: 'user',
+  // Set the version
   version: 1,
-  // Set the adapter
-  adapter: modelAdapter
   // Define the schema
   schema: {
     id: Joi.number().integer(),
@@ -77,6 +77,9 @@ const testModel = model.create({
     email: Joi.string().email().min(3).max(30).required()
   }
 });
+
+// Create the model object
+const user = model.use('user', modelAdapter);
 ```
 
 The above example will return the model object with a number of methods for
@@ -148,6 +151,7 @@ The `extend` method allows adapters to be dynamically built upon. An example of
 this method would be:
 
 ```javascript
+import { myAdapter } from '/path/to/myAdapter';
 // namespace: myAdapter
 myAdapter.extend = (name, fn) => {
   myAdapter[name] = fn.bind(nedb);

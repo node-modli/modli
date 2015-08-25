@@ -36,22 +36,19 @@ model.add = (m) => {
 };
 
 /**
- * Creates a new model
+ * Initializes a model
  * @memberof model
  * @param {String} m The model name
- * @param {Object} a The adapter object
  */
-model.use = (m, a) => {
+model.init = (m) => {
   // Ensure model is defined
   if (!model.store[m]) {
     throw new Error('Model not defined');
   }
-  // Get adapter object
-  const adapter = model.adapter.init(a.name, a.config);
   // Find latest version of model schema (use as default)
   const defaultVersion = Object.keys(model.store[m]).pop();
   // Get model object
-  const modelObj = {
+  return {
     schemas: model.store[m],
     validate: function (data, version = defaultVersion) {
       // Return validation
@@ -63,11 +60,6 @@ model.use = (m, a) => {
       });
     }
   };
-  // Expose schema and validate method on adapter object
-  adapter.schemas = modelObj.schemas;
-  adapter.validate = modelObj.validate;
-  // Merge model with adapter properties
-  return _.extend(modelObj, adapter);
 };
 
 /**
@@ -89,36 +81,3 @@ model.formatValidationError = (err) => {
  * @memberof model
  */
 model.customValidationError = false;
-
-/**
- * @namespace model.adapter
- */
-model.adapter = {};
-
-/**
- * @property {Array} builtIns Available built-in adapters
- */
-model.adapter.builtIns = [
-  'nedb'
-];
-
-/**
- * Gets adapter and calls config
- * @memberof adapter
- * @param {String} adapter The adapter to require/import
- * @param {Object} [config] Optional configuration object for the adapter
- * @returns {Object} Adapter
- */
-model.adapter.init = (a, opts = {}) => {
-  const path = (model.adapter.builtIns.indexOf(a) >= 0) ? `./../adapters/${a}/index` : a;
-  const module = require(path);
-  const adapter = module[Object.keys(module)[0]];
-  // Check config object
-  /* istanbul ignore if */
-  if (Object.keys(opts).length) {
-    // Apply opts using the config method
-    adapter.config(opts);
-  }
-  return adapter;
-};
-

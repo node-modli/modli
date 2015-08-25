@@ -4,14 +4,6 @@ import '../../setup';
 import { model, Joi } from '../../../src/lib/model';
 
 describe('model', () => {
-  // Define adapter
-  const adapterObj = {
-    name: 'nedb',
-    config: {
-      inMemoryOnly: true
-    }
-  };
-
   // Define models
   const modelObjV1 = {
     name: 'foo',
@@ -60,18 +52,18 @@ describe('model', () => {
     });
   });
 
-  describe('use', () => {
+  describe('init', () => {
     // Invalid model check
     it('fails if invalid model defined', () => {
       try {
-        model.use(null);
+        model.init(null);
       } catch (e) {
         expect(e).to.be.an.instanceof(Error);
       }
     });
-    // Bind op
-    it('binds the model to adapter and returns object', () => {
-      testModel = model.use('foo', adapterObj);
+    // Initializes model
+    it('initializes the model by binding validation and versioning', () => {
+      testModel = model.init('foo');
       expect(testModel).to.be.an.object;
     });
   });

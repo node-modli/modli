@@ -9,30 +9,40 @@ import { model, Joi } from '../src/index';
  */
 
 describe('integration', () => {
+  
+  const intAdapter = {
+    name: 'nedb',
+    config: {
+      inMemoryOnly: true
+    }
+  }
+  
+  const intModel = {
+    name: 'user',
+    version: 1,
+    schema: {
+      fname: Joi.string().min(3).max(30),
+      lname: Joi.string().min(3).max(30),
+      email: Joi.string().email().min(3).max(30).required()
+    }
+  }
+  
   let testID;
   let testModel;
-  describe('create model', () => {
-    it('creates a model using the nedb built-in adapter', () => {
-      // Create test model
-      testModel = model.create({
-        // Set adapter
-        adapter: {
-          use: 'nedb',
-          config: {
-            inMemoryOnly: true
-          }
-        },
-        // Set schema
-        schema: {
-          fname: Joi.string().min(3).max(30),
-          lname: Joi.string().min(3).max(30),
-          email: Joi.string().email().min(3).max(30).required()
-        }
-      });
+  
+  describe('add a model', () => {
+    it('adds a model to the model object', () => {
+      model.add(intModel);
       // Ensure creation
-      expect(testModel).to.be.an.object;
+      expect(model.store.user).to.be.an.object;
     });
   });
+  
+  describe('use an instance', () => {
+    model.add(intModel);
+    testModel = model.use('user', intAdapter);
+    expect(testModel).to.be.an.object;
+  })
 
   describe('create item', () => {
     it('creates an item in the datastore', (done) => {

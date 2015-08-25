@@ -1,13 +1,11 @@
+/**
+ * Exports Joi so no additional import/require needed
+ */
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var _ = require('lodash');
-
-/**
- * Exports Joi so no additional import/require needed
- */
 var Joi = require('joi');
 
 exports.Joi = Joi;
@@ -43,22 +41,19 @@ model.add = function (m) {
 };
 
 /**
- * Creates a new model
+ * Initializes a model
  * @memberof model
  * @param {String} m The model name
- * @param {Object} a The adapter object
  */
-model.use = function (m, a) {
+model.init = function (m) {
   // Ensure model is defined
   if (!model.store[m]) {
     throw new Error('Model not defined');
   }
-  // Get adapter object
-  var adapter = model.adapter.init(a.name, a.config);
   // Find latest version of model schema (use as default)
   var defaultVersion = Object.keys(model.store[m]).pop();
   // Get model object
-  var modelObj = {
+  return {
     schemas: model.store[m],
     validate: function validate(data) {
       var version = arguments.length <= 1 || arguments[1] === undefined ? defaultVersion : arguments[1];
@@ -72,11 +67,6 @@ model.use = function (m, a) {
       });
     }
   };
-  // Expose schema and validate method on adapter object
-  adapter.schemas = modelObj.schemas;
-  adapter.validate = modelObj.validate;
-  // Merge model with adapter properties
-  return _.extend(modelObj, adapter);
 };
 
 /**
@@ -98,35 +88,3 @@ model.formatValidationError = function (err) {
  * @memberof model
  */
 model.customValidationError = false;
-
-/**
- * @namespace model.adapter
- */
-model.adapter = {};
-
-/**
- * @property {Array} builtIns Available built-in adapters
- */
-model.adapter.builtIns = ['nedb'];
-
-/**
- * Gets adapter and calls config
- * @memberof adapter
- * @param {String} adapter The adapter to require/import
- * @param {Object} [config] Optional configuration object for the adapter
- * @returns {Object} Adapter
- */
-model.adapter.init = function (a) {
-  var opts = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-
-  var path = model.adapter.builtIns.indexOf(a) >= 0 ? './../adapters/' + a + '/index' : a;
-  var module = require(path);
-  var adapter = module[Object.keys(module)[0]];
-  // Check config object
-  /* istanbul ignore if */
-  if (Object.keys(opts).length) {
-    // Apply opts using the config method
-    adapter.config(opts);
-  }
-  return adapter;
-};

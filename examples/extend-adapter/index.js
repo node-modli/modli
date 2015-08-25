@@ -33,10 +33,10 @@ nedb.extend('createWithRand', function (body) {
 });
 
 /**
- * Create a model
+ * Add a model
  */
 modli.model.add({
-  name: 'user',
+  name: 'testUser',
   version: 1,
   schema: {
     fname: Joi.string().min(3).max(30),
@@ -46,14 +46,21 @@ modli.model.add({
   }
 });
 
-var adapter = {
-  name: 'nedb',
+/**
+ * Add an adapter
+ */
+modli.adapter.add({
+  name: 'testNEDB',
+  source: 'nedb',
   config: {
     inMemoryOnly: true
   }
-};
+});
 
-var user = modli.model.use('user', adapter);
+/**
+ * Create an instance
+ */
+var user = modli.use('testUser', 'testNEDB');
 
 /**
  * Define requests

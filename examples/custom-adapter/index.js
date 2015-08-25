@@ -11,10 +11,10 @@ var Joi = modli.Joi;
 app.use(bodyParser.json());
 
 /**
- * Create a model
+ * Add a model
  */
 modli.model.add({
-  name: 'user',
+  name: 'testUser',
   version: 1,
   schema: {
     fname: Joi.string().min(3).max(30),
@@ -23,11 +23,19 @@ modli.model.add({
   }
 });
 
-var adapter = {
-  name: path.resolve('./in-mem'),
-};
+/**
+ * Add an adapter
+ */
+modli.adapter.add({
+  name: 'testInMem',
+  source: path.resolve('./in-mem'),
+  config: {}
+});
 
-var user = modli.model.use('user', adapter);
+/**
+ * Create an instance
+ */
+var user = modli.use('testUser', 'testInMem');
 
 /**
  * Define requests

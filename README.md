@@ -80,10 +80,10 @@ user.create({ /*...data...*/ }).then(/*...*/).catch(/*...*/);
 user.read({ /*...query...*/ }).then(/*...*/).catch(/*...*/);
 
 // Update
-user.create({ /*...query, data...*/ }).then(/*...*/).catch(/*...*/);
+user.update({ /*...query, data...*/ }).then(/*...*/).catch(/*...*/);
 
 // Delete
-user.create({ /*...query...*/ }).then(/*...*/).catch(/*...*/);
+user.delete({ /*...query...*/ }).then(/*...*/).catch(/*...*/);
 ```
 
 *Yes, it's all based on Promises. You're welcome.*
@@ -150,7 +150,7 @@ the model to make interacting with the datasource simple.
 
 ### Default methods
 
-All adapters have 5 main methods which are exposed on the model; `create`, `read`,
+All adapters have 6 main methods which are exposed on the model; `create`, `read`,
 `update`, `delete`, `config` and `extend`.
 
 While these methods are mostly self-explanatory, some noteworthy specifics:

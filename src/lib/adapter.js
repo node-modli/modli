@@ -17,8 +17,16 @@ adapter.builtIns = [
   'nedb'
 ];
 
+/**
+ * Adds an adapter to the store
+ * @param {Object} a The adapter to add
+ */
 adapter.add = (a) => {
-  
+  if (!a.name || !a.source) {
+    throw new Error('Adapter must contain a name and source');
+  }
+  // Add to memory
+  adapter.store[a.name] = a.source;
 }
 
 /**

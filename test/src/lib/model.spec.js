@@ -38,7 +38,7 @@ describe('model', () => {
       }
     });
 
-    it('adds a new model entry to the model object', () => {
+    it('adds a new model entry to the model object store', () => {
       // Add the first version
       model.add(modelObjV1);
       // Add the second version

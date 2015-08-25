@@ -48,10 +48,18 @@ model.use = (m, a) => {
   }
   // Get adapter object
   const adapter = model.adapter.init(a.name, a.config);
+  // Find latest version of model schema (use as default)
+  const defaultVersion = Object.keys(model.store[m]).pop();
   // Get model object
   const modelObj = {
     schemas: model.store[m],
     validate: function (version, data) {
+      if (typeof version === 'object') {
+        // Version not specified, set correct data var and use defaultVersion
+        data = version;
+        version = defaultVersion;
+      }
+      // Return validation
       return Joi.validate(data, Joi.object().keys(this.schemas[version]), (err) => {
         if (err) {
           return model.formatValidationError(err);

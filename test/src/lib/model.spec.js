@@ -46,25 +46,6 @@ describe('model', () => {
       expect(testModel).to.be.an.object;
     });
   });
-  /*
-  describe('create', () => {
-    it('creates a new model with built-in adapter', () => {
-      testModel = model.create(modelObj);
-      expect(testModel).to.be.an.object;
-    });
-
-    it('creates a new model with custom adapter', () => {
-      const testCustomAdapterModel = model.create({
-        adapter: {
-          use: '../../test/mocks/adapter'
-        },
-        schema: {
-          id: Joi.number().integer()
-        }
-      });
-      expect(testCustomAdapterModel).to.be.an.object;
-    });
-  });
 
   describe('validate', () => {
     // Define pass data
@@ -103,5 +84,4 @@ describe('model', () => {
       expect(testCustom).to.equal('"id" must be a number');
     });
   });
-  */
 });

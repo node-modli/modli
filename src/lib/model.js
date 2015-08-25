@@ -24,12 +24,12 @@ model.store = {};
 model.add = (m) => {
   // Ensure required properties
   if (!m.name || !m.version || !m.schema) {
-    return 'Model must contain a name, version and schema';
+    throw new Error('Model must contain a name, version and schema');
   }
   // Check if model exists
   if (!model.store[m.name]) {
     // Create new store entry
-    model.store[m.name] = {}
+    model.store[m.name] = {};
   }
   // Append to existing store entry with version and schema
   model.store[m.name][m.version] = m.schema;
@@ -44,7 +44,7 @@ model.add = (m) => {
 model.use = (m, a) => {
   // Ensure model is defined
   if (!model.store[m]) {
-    return 'Model not defined';
+    throw new Error('Model not defined');
   }
   // Get adapter object
   const adapter = model.adapter.init(a.name, a.config);
@@ -53,12 +53,7 @@ model.use = (m, a) => {
   // Get model object
   const modelObj = {
     schemas: model.store[m],
-    validate: function (version, data) {
-      if (typeof version === 'object') {
-        // Version not specified, set correct data var and use defaultVersion
-        data = version;
-        version = defaultVersion;
-      }
+    validate: function (data, version = defaultVersion) {
       // Return validation
       return Joi.validate(data, Joi.object().keys(this.schemas[version]), (err) => {
         if (err) {
@@ -74,9 +69,6 @@ model.use = (m, a) => {
   // Merge model with adapter properties
   return _.extend(modelObj, adapter);
 };
-
-/**
- * Creates 
 
 /**
  * Formats validation error
@@ -122,11 +114,10 @@ model.adapter.init = (a, opts = {}) => {
   const module = require(path);
   const adapter = module[Object.keys(module)[0]];
   // Check config object
+  /* istanbul ignore if */
   if (Object.keys(opts).length) {
     // Apply opts using the config method
     adapter.config(opts);
-  } else {
-    _.noop();
   }
   return adapter;
 };

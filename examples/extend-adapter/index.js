@@ -35,20 +35,25 @@ nedb.extend('createWithRand', function (body) {
 /**
  * Create a model
  */
-var user = modli.model.create({
-  adapter: {
-    use: 'nedb',
-    config: {
-      inMemoryOnly: true
-    }
-  },
+modli.model.add({
+  name: 'user',
+  version: 1,
   schema: {
     fname: Joi.string().min(3).max(30),
     lname: Joi.string().min(3).max(30),
     email: Joi.string().email().min(3).max(30).required(),
-    randNum: Joi.number().integer().min(1).max(5)
+    randNum: Joi.number()
   }
 });
+
+var adapter = {
+  name: 'nedb',
+  config: {
+    inMemoryOnly: true
+  }
+};
+
+var user = modli.model.use('user', adapter);
 
 /**
  * Define requests

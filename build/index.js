@@ -18,7 +18,8 @@ var _adaptersNedbIndex = require('./adapters/nedb/index');
 /**
  * Entry point for the module, exports methods of the libs
  */
-exports['default'] = {
-  model: _libModel.model, Joi: _libModel.Joi, nedb: _adaptersNedbIndex.nedb
+
+var vers = require('vers')();exports['default'] = {
+  model: _libModel.model, Joi: _libModel.Joi, vers: vers, nedb: _adaptersNedbIndex.nedb
 };
 module.exports = exports['default'];

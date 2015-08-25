@@ -78,7 +78,7 @@ model.add({
   }
 });
 
-// Create the model object
+// Use the model object by binding with the adapter
 const user = model.use('user', modelAdapter);
 ```
 

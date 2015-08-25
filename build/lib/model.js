@@ -19,18 +19,52 @@ var model = {};
 
 exports.model = model;
 /**
+ * Stores the models and their versions in memory
+ * @property {Object}
+ */
+model.store = {};
+
+/**
+ * Adds a model to the store
+ * @param {Object} m The model to add
+ */
+model.add = function (m) {
+  // Ensure required properties
+  if (!m.name || !m.version || !m.schema) {
+    throw new Error('Model must contain a name, version and schema');
+  }
+  // Check if model exists
+  if (!model.store[m.name]) {
+    // Create new store entry
+    model.store[m.name] = {};
+  }
+  // Append to existing store entry with version and schema
+  model.store[m.name][m.version] = m.schema;
+};
+
+/**
  * Creates a new model
  * @memberof model
- * @param {Object} m The model
+ * @param {String} m The model name
+ * @param {Object} a The adapter object
  */
-model.create = function (m) {
+model.use = function (m, a) {
+  // Ensure model is defined
+  if (!model.store[m]) {
+    throw new Error('Model not defined');
+  }
   // Get adapter object
-  var adapter = model.adapter.init(m.adapter.use, m.adapter.config);
+  var adapter = model.adapter.init(a.name, a.config);
+  // Find latest version of model schema (use as default)
+  var defaultVersion = Object.keys(model.store[m]).pop();
   // Get model object
   var modelObj = {
-    schema: Joi.object().keys(m.schema),
+    schemas: model.store[m],
     validate: function validate(data) {
-      return Joi.validate(data, this.schema, function (err) {
+      var version = arguments.length <= 1 || arguments[1] === undefined ? defaultVersion : arguments[1];
+
+      // Return validation
+      return Joi.validate(data, Joi.object().keys(this.schemas[version]), function (err) {
         if (err) {
           return model.formatValidationError(err);
         }
@@ -39,7 +73,7 @@ model.create = function (m) {
     }
   };
   // Expose schema and validate method on adapter object
-  adapter.schema = modelObj.schema;
+  adapter.schemas = modelObj.schemas;
   adapter.validate = modelObj.validate;
   // Merge model with adapter properties
   return _.extend(modelObj, adapter);
@@ -89,11 +123,10 @@ model.adapter.init = function (a) {
   var module = require(path);
   var adapter = module[Object.keys(module)[0]];
   // Check config object
+  /* istanbul ignore if */
   if (Object.keys(opts).length) {
     // Apply opts using the config method
     adapter.config(opts);
-  } else {
-    _.noop();
   }
   return adapter;
 };

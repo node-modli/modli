@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/TechnologyAdvice/modli.svg)](https://travis-ci.org/TechnologyAdvice/modli)
+[![Build Status](https://travis-ci.org/TechnologyAdvice/modli.svg?branch=master)](https://travis-ci.org/TechnologyAdvice/modli)
 [![Code Climate](https://codeclimate.com/github/TechnologyAdvice/modli/badges/gpa.svg)](https://codeclimate.com/github/TechnologyAdvice/modli)
 [![Test Coverage](https://codeclimate.com/github/TechnologyAdvice/modli/badges/coverage.svg)](https://codeclimate.com/github/TechnologyAdvice/modli/coverage)
 [![Dependency Status](https://www.versioneye.com/user/projects/55da64048d9c4b0018000442/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55da64048d9c4b0018000442)

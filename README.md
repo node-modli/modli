@@ -84,9 +84,7 @@ const user = use('testUser', 'testNEDB');
 ```
 
 The above example will return the model object with a number of methods for
-performing data operations.
-
-This will always include core CRUD methods:
+performing data operations. This will always include core CRUD methods:
 
 ```javascript
 // Create
@@ -101,6 +99,8 @@ user.create({ /*...query, data...*/ }).then(/*...*/).catch(/*...*/);
 // Delete
 user.create({ /*...query...*/ }).then(/*...*/).catch(/*...*/);
 ```
+
+*Yes, it's all based on Promises. You're welcome.*
 
 ### Validate Model Data
 

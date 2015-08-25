@@ -6,7 +6,7 @@ import { model, Joi } from '../../../src/lib/model';
 describe('model', () => {
   // Define adapter
   const adapterObj = {
-    use: 'nedb',
+    name: 'nedb',
     config: {
       inMemoryOnly: true
     }
@@ -29,14 +29,21 @@ describe('model', () => {
   
   describe('add', () => {
     it('adds a new model entry to the model object', () => {
+      // Add the model
       model.add(modelObj);
-      console.log('store',model.store)
       // Ensure entry
       expect(model.store).to.have.property(modelObj.name);
       // Ensure version
       expect(model.store[modelObj.name]).to.have.property(modelObj.version);
       // Ensure schema
       expect(model.store[modelObj.name][modelObj.version]).to.deep.equal(modelObj.schema);
+    });
+  });
+  
+  describe('use', () => {
+    it('binds the model to adapter and returns object', () => {
+      testModel = model.use('foo', adapterObj);
+      expect(testModel).to.be.an.object;
     });
   });
   /*

@@ -38,16 +38,21 @@ model.add = (m) => {
 /**
  * Creates a new model
  * @memberof model
- * @param {Object} m The model
+ * @param {String} m The model name
+ * @param {Object} a The adapter object
  */
-model.create = (m) => {
+model.use = (m, a) => {
+  // Ensure model is defined
+  if (!model.store[m]) {
+    return 'Model not defined';
+  }
   // Get adapter object
-  const adapter = model.adapter.init(m.adapter.use, m.adapter.config);
+  const adapter = model.adapter.init(a.name, a.config);
   // Get model object
   const modelObj = {
-    schema: Joi.object().keys(m.schema),
-    validate: function (data) {
-      return Joi.validate(data, this.schema, (err) => {
+    schemas: model.store[m],
+    validate: function (version, data) {
+      return Joi.validate(data, Joi.object().keys(this.schemas[version]), (err) => {
         if (err) {
           return model.formatValidationError(err);
         }
@@ -56,11 +61,14 @@ model.create = (m) => {
     }
   };
   // Expose schema and validate method on adapter object
-  adapter.schema = modelObj.schema;
+  adapter.schemas = modelObj.schemas;
   adapter.validate = modelObj.validate;
   // Merge model with adapter properties
   return _.extend(modelObj, adapter);
 };
+
+/**
+ * Creates 
 
 /**
  * Formats validation error

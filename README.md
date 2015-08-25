@@ -51,22 +51,23 @@ methods for easily creating and validating data models and attaching to the
 appropriate adapter.
 
 ```javascript
-import { model, Joi } from 'modli';
+import { model, adapter, use, Joi } from 'modli';
 
 // Create adapter object
-const modelAdapter = {
+adapter.add({
+  name: 'testNEDB',
   // Uses the built-in NeDB adapter
-  name: 'nedb',
+  source: 'nedb',
   // Initiates adapter with following config
   config: {
     inMemoryOnly: true
   }
-};
+});
 
 // Add a Model
 model.add({
   // Set a name
-  name: 'user',
+  name: 'testUser',
   // Set the version
   version: 1,
   // Define the schema
@@ -78,12 +79,28 @@ model.add({
   }
 });
 
-// Use the model object by binding with the adapter
-const user = model.use('user', modelAdapter);
+// Create user object by using the model and adapter
+const user = use('testUser', 'testNEDB');
 ```
 
 The above example will return the model object with a number of methods for
 performing data operations.
+
+This will always include core CRUD methods:
+
+```javascript
+// Create
+user.create({ /*...data...*/ }).then(/*...*/).catch(/*...*/);
+
+// Read
+user.read({ /*...query...*/ }).then(/*...*/).catch(/*...*/);
+
+// Update
+user.create({ /*...query, data...*/ }).then(/*...*/).catch(/*...*/);
+
+// Delete
+user.create({ /*...query...*/ }).then(/*...*/).catch(/*...*/);
+```
 
 ### Validate Model Data
 
@@ -100,7 +117,7 @@ const testData = {
 };
 
 // Run validation
-const validationErrors = testModel.validate(testData);
+const validationErrors = someModel.validate(testData);
 if (!validationErrors) {
   // Everything passed
   console.log('Passed!');

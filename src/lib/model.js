@@ -1,5 +1,3 @@
-const _ = require('lodash');
-
 /**
  * Exports Joi so no additional import/require needed
  */

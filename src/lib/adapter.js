@@ -22,29 +22,37 @@ adapter.builtIns = [
  * @param {Object} a The adapter to add
  */
 adapter.add = (a) => {
-  if (!a.name || !a.source) {
-    throw new Error('Adapter must contain a name and source');
+  // Ensure properties are defined
+  if (!a.name || !a.source || !a.config) {
+    throw new Error('Adapter must contain a name, source and config');
   }
   // Add to memory
-  adapter.store[a.name] = a.source;
-}
+  adapter.store[a.name] = {
+    source: a.source,
+    config: a.config
+  };
+};
 
 /**
  * Gets adapter and calls config
  * @memberof adapter
  * @param {String} adapter The adapter to require/import
- * @param {Object} [config] Optional configuration object for the adapter
  * @returns {Object} Adapter
  */
-adapter.init = (a, opts = {}) => {
-  const path = (adapter.builtIns.indexOf(a) >= 0) ? `./../adapters/${a}/index` : a;
-  const module = require(path);
-  const adapterObj = module[Object.keys(module)[0]];
+adapter.init = (a) => {
+  // Ensure model is defined
+  if (!adapter.store[a]) {
+    throw new Error('Adapter not defined');
+  }
+  const source = adapter.store[a].source;
+  const adapterPath = (adapter.builtIns.indexOf(source) >= 0) ? `./../adapters/${source}/index` : source;
+  const adapterModule = require(adapterPath);
+  const adapterObj = adapterModule[Object.keys(adapterModule)[0]];
   // Check config object
   /* istanbul ignore if */
-  if (Object.keys(opts).length) {
+  if (Object.keys(adapter.store[a].config).length) {
     // Apply opts using the config method
-    adapterObj.config(opts);
+    adapterObj.config(adapter.store[a].config);
   }
   return adapterObj;
 };

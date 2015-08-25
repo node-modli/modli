@@ -6,8 +6,12 @@ import { adapter } from '../../../src/lib/adapter';
 describe('adapter', () => {
   const testAdapter = {
     name: 'testNEDB',
-    source: 'nedb'
-  }
+    source: 'nedb',
+    config: {
+      inMemoryOnly: true
+    }
+  };
+
   describe('add', () => {
     // Fail on missing params
     it('fails if missing properties in the adapter object', () => {
@@ -22,6 +26,20 @@ describe('adapter', () => {
       adapter.add(testAdapter);
       expect(adapter.store).to.have.property(testAdapter.name);
       expect(adapter.store[testAdapter.name]).to.be.an.object;
-    })
+    });
+  });
+
+  describe('init', () => {
+    it('fails if invalid adapter passed', () => {
+      try {
+        adapter.init(null);
+      } catch (e) {
+        expect(e).to.be.an.instanceof(Error);
+      }
+    });
+    it('initializes the adapter by returning the object', () => {
+      const initAdapter = adapter.init('testNEDB');
+      expect(initAdapter).to.be.an.object;
+    });
   });
 });

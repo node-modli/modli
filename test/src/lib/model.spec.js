@@ -21,8 +21,8 @@ describe('model', () => {
       fname: Joi.string().min(3).max(30),
       lname: Joi.string().min(3).max(30)
     }
-  }
-  
+  };
+
   const modelObjV2 = {
     name: 'foo',
     version: 2,
@@ -36,7 +36,7 @@ describe('model', () => {
 
   // Hoist placeholder for sharing across tests
   let testModel = {};
-  
+
   describe('add', () => {
     it('fails if missing properties in the model obejct', () => {
       try {
@@ -44,11 +44,11 @@ describe('model', () => {
       } catch (e) {
         expect(e).to.be.an.instanceof(Error);
       }
-    })
-    
+    });
+
     it('adds a new model entry to the model object', () => {
       // Add the first version
-      model.add(modelObjV1)
+      model.add(modelObjV1);
       // Add the second version
       model.add(modelObjV2);
       // Ensure entry (against V2)
@@ -59,7 +59,7 @@ describe('model', () => {
       expect(model.store[modelObjV2.name][modelObjV2.version]).to.deep.equal(modelObjV2.schema);
     });
   });
-  
+
   describe('use', () => {
     // Invalid model check
     it('fails if invalid model defined', () => {
@@ -82,8 +82,8 @@ describe('model', () => {
       id: 12345,
       fname: 'John',
       lname: 'Doe'
-    }
-    
+    };
+
     const testPassDataV2 = {
       id: 12345,
       fname: 'John',
@@ -93,7 +93,7 @@ describe('model', () => {
 
     // Define fail data
     const testFailDataV1 = testPassDataV2;
-    
+
     const testFailDataV2 = {
       id: 'foo',
       fname: 123,

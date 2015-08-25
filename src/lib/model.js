@@ -12,6 +12,30 @@ export const Joi = require('joi');
 export const model = {};
 
 /**
+ * Stores the models and their versions in memory
+ * @property {Object}
+ */
+model.store = {};
+
+/**
+ * Adds a model to the store
+ * @param {Object} m The model to add
+ */
+model.add = (m) => {
+  // Ensure required properties
+  if (!m.name || !m.version || !m.schema) {
+    return 'Model must contain a name, version and schema';
+  }
+  // Check if model exists
+  if (!model.store[m.name]) {
+    // Create new store entry
+    model.store[m.name] = {}
+  }
+  // Append to existing store entry with version and schema
+  model.store[m.name][m.version] = m.schema;
+};
+
+/**
  * Creates a new model
  * @memberof model
  * @param {Object} m The model

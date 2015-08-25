@@ -14,8 +14,8 @@ describe('model', () => {
 
   // Define model
   const modelObj = {
-    table: 'foo',
-    adapter: adapterObj,
+    name: 'foo',
+    version: '1',
     schema: {
       id: Joi.number().integer(),
       fname: Joi.string().min(3).max(30),
@@ -26,7 +26,20 @@ describe('model', () => {
 
   // Hoist placeholder for sharing across tests
   let testModel = {};
-
+  
+  describe('add', () => {
+    it('adds a new model entry to the model object', () => {
+      model.add(modelObj);
+      console.log('store',model.store)
+      // Ensure entry
+      expect(model.store).to.have.property(modelObj.name);
+      // Ensure version
+      expect(model.store[modelObj.name]).to.have.property(modelObj.version);
+      // Ensure schema
+      expect(model.store[modelObj.name][modelObj.version]).to.deep.equal(modelObj.schema);
+    });
+  });
+  /*
   describe('create', () => {
     it('creates a new model with built-in adapter', () => {
       testModel = model.create(modelObj);
@@ -83,4 +96,5 @@ describe('model', () => {
       expect(testCustom).to.equal('"id" must be a number');
     });
   });
+  */
 });

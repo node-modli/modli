@@ -30,25 +30,11 @@ extensible for more complex operations.
 npm install modli --save
 ```
 
-## Examples
+## Getting Started
 
-As often times it is easier to understand something when seen in practice, there
-are several [examples](/examples) available.
-
-The [`/test/index.int.js`](/test/index.int.js) file also serves as an integration
-test suite which shows how functionality of Modli is designed.
-
-## Docs
-
-To view documentation on the code run `make doc` and access the ESDoc
-output by opening `/docs/index.html` in a web browser.
-
-## Models
-
-Models are simple objects which use [Joi](https://www.npmjs.com/package/joi) for
-property definition and validation. Modli abstracts on this slightly and provides
-methods for easily creating and validating data models and attaching to the
-appropriate adapter.
+Below is an example of a basic setup where a **model** and an **adapter** 
+are added. Once added they are available to be `use`'d to create an 
+instance of the object with the methods from the adapter, validation, etc:
 
 ```javascript
 import { model, adapter, use, Joi } from 'modli';
@@ -101,6 +87,14 @@ user.create({ /*...query...*/ }).then(/*...*/).catch(/*...*/);
 ```
 
 *Yes, it's all based on Promises. You're welcome.*
+
+## Examples
+
+As often times it is easier to understand something when seen in practice, there
+are several [examples](/examples) available.
+
+The [`/test/index.int.js`](/test/index.int.js) file also serves as an integration
+test suite which shows how functionality of Modli is designed.
 
 ### Validate Model Data
 
@@ -187,6 +181,11 @@ const validationErrors = myAdapter.validate(body);
 
 The `validate` method in the above returns errors to the `validationErrors`
 constant. If no validation errors are present it simply returns `null`.
+
+## Docs
+
+To view documentation on the code run `make doc` and access the ESDoc
+output by opening `/docs/index.html` in a web browser.
 
 ## Makefile and Scripts
 

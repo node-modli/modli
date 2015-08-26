@@ -20,11 +20,12 @@ nedb.config = (cfg) => {
  * Creates a new entry in the database
  * @memberof nedb
  * @param {Object} body Contents to create entry
+ * @param {String|Number} [version] The version of the model to use
  * @returns {Object} promise
  */
-nedb.create = (body) => {
+nedb.create = (body, version = false) => {
   // Test validation
-  const validationErrors = nedb.validate(body);
+  const validationErrors = nedb.validate(body, version);
   // Return promise
   return new Promise((resolve, reject) => {
     /* istanbul ignore if */
@@ -49,11 +50,12 @@ nedb.read = (query) => nedb.db.findAsync(query);
  * @memberof nedb
  * @param {String} query Query to locate entries to update
  * @param {Object} body Contents to update
+ * @param {String|Number} [version] The version of the model to use
  * @returns {Object} promise
  */
-nedb.update = (query, body) => {
+nedb.update = (query, body, version = false) => {
   // Test validation
-  const validationErrors = nedb.validate(body);
+  const validationErrors = nedb.validate(body, version);
   // Return promise
   return new Promise((resolve, reject) => {
     /* istanbul ignore if */

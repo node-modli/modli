@@ -9,7 +9,7 @@ DOCS    = ./docs
 PKG     = ./package.json
 
 # Tests
-TESTS   = ./test/src/
+TESTS   = ./test/src
 SPACE   :=
 SPACE   +=
 # Default to recursive, can override on run
@@ -58,8 +58,8 @@ test-cover:
 	$(BIN)/istanbul cover $(BIN)/_mocha -- $(T_ARGS)
 
 test-integration:
-	$(call colorecho, "Integration Testing ./test/index.js")
-	$(BIN)/mocha --compilers js:babel/register ./test/index.int.js
+	$(call colorecho, "Integration Testing ./test/index.spec.js")
+	$(BIN)/mocha --compilers js:babel/register ./test/index.spec.js
 
 build:
 	$(call colorecho, "Building $(SRC) to $(BUILD)")

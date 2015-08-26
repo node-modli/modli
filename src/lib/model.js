@@ -48,9 +48,10 @@ model.init = (m) => {
   // Get model object
   return {
     schemas: model.store[m],
-    validate: function (data, version = defaultVersion) {
+    validate: function (data, version) {
+      const v = version || defaultVersion;
       // Return validation
-      return Joi.validate(data, Joi.object().keys(this.schemas[version]), (err) => {
+      return Joi.validate(data, Joi.object().keys(this.schemas[v]), (err) => {
         if (err) {
           return model.formatValidationError(err);
         }

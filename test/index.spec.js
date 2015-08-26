@@ -49,7 +49,6 @@ describe('integration', () => {
   describe('use an instance', () => {
     it('returns an instance based on a model and adapter', () => {
       testModel = use('testUser', 'testNEDB');
-      console.log(testModel);
       expect(testModel).to.be.an.object;
     });
   });

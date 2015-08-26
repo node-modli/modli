@@ -1,6 +1,6 @@
 /**
  * Exports the core adapter object
- * @namespace model
+ * @namespace adapter
  */
 'use strict';
 

@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 /**
  * Exports the core adapter object
  * @namespace adapter
@@ -13,9 +15,7 @@ adapter.store = {};
 /**
  * @property {Array} builtIns Available built-in adapters
  */
-adapter.builtIns = [
-  'nedb'
-];
+adapter.builtIns = [];
 
 /**
  * Adds an adapter to the store
@@ -56,3 +56,21 @@ adapter.init = (a) => {
   }
   return adapterObj;
 };
+
+/**
+ * Adds all adapters to the builtIns array
+ * @memberof adapter
+ */
+adapter.getBuiltIns = () => {
+  const src = __dirname + '/../adapters';
+  fs.readdirSync(path.resolve(src)).filter((file) => {
+    if (fs.statSync(path.join(src, file)).isDirectory()) {
+      adapter.builtIns.push(file);
+    }
+  });
+};
+
+/**
+ * Run getBuiltIns to load adapters available
+ */
+adapter.getBuiltIns();

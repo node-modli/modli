@@ -18,11 +18,8 @@ const use = (modelName, adapterName) => {
   // Initialize model and adapter
   const m = model.init(modelName);
   const a = adapter.init(adapterName);
-  // Push schemas and validate on adapter
-  a.schemas = m.schemas;
-  a.validate = m.validate;
   // Return extended (in case model has arbitrary properties/methods)
-  return _.extend(m, a);
+  return _.extend(a, m);
 };
 
 /**

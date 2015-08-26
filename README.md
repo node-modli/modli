@@ -15,7 +15,7 @@ This is done by addressing two core areas:
 
 **Models**
 
-Create a simple, universally similar modelling structure for any and all data
+Create a simple, universally similar modeling structure for any and all data
 sources to which an application may be connected.
 
 **Adapters**
@@ -61,7 +61,7 @@ model.add({
     id: Joi.number().integer(),
     fname: Joi.string().min(3).max(30),
     lname: Joi.string().min(3).max(30),
-    email: Joi.string().email().min(3).max(30).required()
+    email: Joi.string().email().min(3).max(254).required()
   }
 });
 

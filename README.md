@@ -110,8 +110,8 @@ const testData = {
   email: 'jdoe@gmail.com'
 };
 
-// Run validation
-const validationErrors = someModel.validate(testData);
+// Run validation against testData with model version 1
+const validationErrors = someModel.validate(testData, 1);
 if (!validationErrors) {
   // Everything passed
   console.log('Passed!');

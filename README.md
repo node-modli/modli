@@ -145,6 +145,8 @@ with an invalid (`string`) id.
 
 ## Adapters
 
+*Please see the [Adapters Readme](/src/adapters) for additional information.*
+
 Adapters allow for creating standard CRUD methods which are then extended upon
 the model to make interacting with the datasource simple.
 

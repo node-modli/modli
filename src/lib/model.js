@@ -43,13 +43,12 @@ model.init = (m) => {
   if (!model.store[m]) {
     throw new Error('Model not defined');
   }
-  // Find latest version of model schema (use as default)
-  const defaultVersion = Object.keys(model.store[m]).pop();
   // Get model object
   return {
+    defaultVersion: Object.keys(model.store[m]).pop(),
     schemas: model.store[m],
     validate: function (data, version) {
-      const v = version || defaultVersion;
+      const v = version || this.defaultVersion;
       // Return validation
       return Joi.validate(data, Joi.object().keys(this.schemas[v]), (err) => {
         if (err) {

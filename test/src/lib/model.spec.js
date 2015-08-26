@@ -8,6 +8,7 @@ describe('model', () => {
   const modelObjV1 = {
     name: 'foo',
     version: 1,
+    customProp: 'bar',
     schema: {
       id: Joi.number().integer(),
       fname: Joi.string().min(3).max(30),
@@ -18,6 +19,7 @@ describe('model', () => {
   const modelObjV2 = {
     name: 'foo',
     version: 2,
+    customProp: 'baz',
     schema: {
       id: Joi.number().integer(),
       fname: Joi.string().min(3).max(30),

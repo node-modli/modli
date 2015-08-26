@@ -5,7 +5,6 @@ DEPS    = ./node_modules
 BIN     = $(DEPS)/.bin
 SRC     = ./src
 BUILD   = ./build
-DOCS    = ./docs
 PKG     = ./package.json
 
 # Tests
@@ -68,16 +67,12 @@ build:
 start:
 	$(call colorecho, "Starting...")
 	node test/index.js
-
-doc:
-	$(call colorecho, "Building Docs")
-	$(BIN)/esdoc -c esdoc.json
-
+	
 tag:
 	$(call colorecho, "Deploying to Git")
 	$(TAG_CMD)
 
-deploy: lint test build doc tag
+deploy: lint test build tag
 
 all: clean install lint test build doc
 

@@ -184,11 +184,6 @@ const validationErrors = myAdapter.validate(body);
 The `validate` method in the above returns errors to the `validationErrors`
 constant. If no validation errors are present it simply returns `null`.
 
-## Docs
-
-To view documentation on the code run `make doc` and access the ESDoc
-output by opening `/docs/index.html` in a web browser.
-
 ## Makefile and Scripts
 
 A `Makefile` is included for managing build and install tasks. The commands are
@@ -203,7 +198,6 @@ task method:
 * `test-integration` will run integration test
 * `test-cover` will run code coverage on all tests
 * `lint` will lint all files in `/src`
-* `doc` will run ESDoc on all files in `/src` and output to `/docs`
 
 **Test Inidividual File**
 

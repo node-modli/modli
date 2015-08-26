@@ -1,12 +1,14 @@
-/**
- * Exports the core adapter object
- * @namespace adapter
- */
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
+var fs = require('fs');
+var path = require('path');
+/**
+ * Exports the core adapter object
+ * @namespace adapter
+ */
 var adapter = {};
 
 exports.adapter = adapter;
@@ -19,7 +21,7 @@ adapter.store = {};
 /**
  * @property {Array} builtIns Available built-in adapters
  */
-adapter.builtIns = ['nedb'];
+adapter.builtIns = [];
 
 /**
  * Adds an adapter to the store
@@ -60,3 +62,22 @@ adapter.init = function (a) {
   }
   return adapterObj;
 };
+
+/**
+ * Adds all adapters to the builtIns array
+ * @memberof adapter
+ */
+/* istanbul ignore next */
+adapter.getBuiltIns = function () {
+  var src = __dirname + '/../adapters';
+  fs.readdirSync(path.resolve(src)).filter(function (file) {
+    if (fs.statSync(path.join(src, file)).isDirectory()) {
+      adapter.builtIns.push(file);
+    }
+  });
+};
+
+/**
+ * Run getBuiltIns to load adapters available
+ */
+adapter.getBuiltIns();

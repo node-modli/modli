@@ -21,8 +21,7 @@
     "test": "make test",
     "test-integration": "make test-integration",
     "test-cover": "make test-cover",
-    "lint": "make lint",
-    "doc": "make doc"
+    "lint": "make lint"
   },
   "license": "MIT",
   "devDependencies": {
@@ -32,7 +31,6 @@
     "babel-istanbul": "^0.3.17",
     "body-parser": "^1.13.3",
     "chai": "^3.0.0",
-    "esdoc": "^1.0.0",
     "eslint": "^1.2.1",
     "express": "^4.13.3",
     "istanbul-harmony": "^0.3.16",

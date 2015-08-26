@@ -26,11 +26,14 @@ nedb.config = function (cfg) {
  * Creates a new entry in the database
  * @memberof nedb
  * @param {Object} body Contents to create entry
+ * @param {String|Number} [version] The version of the model to use
  * @returns {Object} promise
  */
 nedb.create = function (body) {
+  var version = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
+
   // Test validation
-  var validationErrors = nedb.validate(body);
+  var validationErrors = nedb.validate(body, version);
   // Return promise
   return new Promise(function (resolve, reject) {
     /* istanbul ignore if */
@@ -57,11 +60,14 @@ nedb.read = function (query) {
  * @memberof nedb
  * @param {String} query Query to locate entries to update
  * @param {Object} body Contents to update
+ * @param {String|Number} [version] The version of the model to use
  * @returns {Object} promise
  */
 nedb.update = function (query, body) {
+  var version = arguments.length <= 2 || arguments[2] === undefined ? false : arguments[2];
+
   // Test validation
-  var validationErrors = nedb.validate(body);
+  var validationErrors = nedb.validate(body, version);
   // Return promise
   return new Promise(function (resolve, reject) {
     /* istanbul ignore if */

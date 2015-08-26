@@ -29,8 +29,15 @@ model.add = (m) => {
     // Create new store entry
     model.store[m.name] = {};
   }
+  // Build model object
+  let modelObj = {};
+  Object.keys(m).forEach((prop) => {
+    if (prop !== 'version' && prop !== 'name') {
+      modelObj[prop] = m[prop];
+    }
+  });
   // Append to existing store entry with version and schema
-  model.store[m.name][m.version] = m.schema;
+  model.store[m.name][m.version] = modelObj;
 };
 
 /**
@@ -50,7 +57,7 @@ model.init = (m) => {
     validate: function (data, version) {
       const v = version || this.defaultVersion;
       // Return validation
-      return Joi.validate(data, Joi.object().keys(this.schemas[v]), (err) => {
+      return Joi.validate(data, Joi.object().keys(this.schemas[v].schema), (err) => {
         if (err) {
           return model.formatValidationError(err);
         }

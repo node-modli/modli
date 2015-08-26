@@ -36,8 +36,15 @@ model.add = function (m) {
     // Create new store entry
     model.store[m.name] = {};
   }
+  // Build model object
+  var modelObj = {};
+  Object.keys(m).forEach(function (prop) {
+    if (prop !== 'version' && prop !== 'name') {
+      modelObj[prop] = m[prop];
+    }
+  });
   // Append to existing store entry with version and schema
-  model.store[m.name][m.version] = m.schema;
+  model.store[m.name][m.version] = modelObj;
 };
 
 /**
@@ -50,16 +57,14 @@ model.init = function (m) {
   if (!model.store[m]) {
     throw new Error('Model not defined');
   }
-  // Find latest version of model schema (use as default)
-  var defaultVersion = Object.keys(model.store[m]).pop();
   // Get model object
   return {
+    defaultVersion: Object.keys(model.store[m]).pop(),
     schemas: model.store[m],
-    validate: function validate(data) {
-      var version = arguments.length <= 1 || arguments[1] === undefined ? defaultVersion : arguments[1];
-
+    validate: function validate(data, version) {
+      var v = version || this.defaultVersion;
       // Return validation
-      return Joi.validate(data, Joi.object().keys(this.schemas[version]), function (err) {
+      return Joi.validate(data, Joi.object().keys(this.schemas[v].schema), function (err) {
         if (err) {
           return model.formatValidationError(err);
         }

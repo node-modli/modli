@@ -27,11 +27,8 @@ var _ = require('lodash');var use = function use(modelName, adapterName) {
   // Initialize model and adapter
   var m = _libModel.model.init(modelName);
   var a = _libAdapter.adapter.init(adapterName);
-  // Push schemas and validate on adapter
-  a.schemas = m.schemas;
-  a.validate = m.validate;
   // Return extended (in case model has arbitrary properties/methods)
-  return _.extend(m, a);
+  return _.extend(a, m);
 };
 
 /**

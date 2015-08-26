@@ -49,8 +49,6 @@ describe('model', () => {
       expect(model.store).to.have.property(modelObjV2.name);
       // Ensure version (against V2)
       expect(model.store[modelObjV2.name]).to.have.property(modelObjV2.version);
-      // Ensure schema (against V2)
-      expect(model.store[modelObjV2.name][modelObjV2.version]).to.deep.equal(modelObjV2.schema);
     });
   });
 

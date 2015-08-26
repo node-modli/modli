@@ -61,6 +61,7 @@ adapter.init = (a) => {
  * Adds all adapters to the builtIns array
  * @memberof adapter
  */
+/* istanbul ignore next */
 adapter.getBuiltIns = () => {
   const src = __dirname + '/../adapters';
   fs.readdirSync(path.resolve(src)).filter((file) => {

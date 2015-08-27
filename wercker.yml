@@ -16,6 +16,14 @@ build:
         name: run tests
         code: |
           make test
+    - script:
+        name: run coverage
+        code: |
+          make test-cover
+    - script:
+        name: build
+        code: |
+          make build
           
   after-steps:
     # Run and report coverage

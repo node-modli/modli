@@ -9,11 +9,18 @@ build:
           echo "node version $(node -v) running"
           echo "npm version $(npm -v) running"
     - script:
+        name: lint code
+        code: |
+          make lint
+    - script:
         name: run tests
         code: |
           make test
           
   after-steps:
     # Run and report coverage
-    - npm install -g codeclimate-test-reporter
-    - codeclimate-test-reporter < coverage/lcov.info
+    - script:
+        name: run code coverage report
+        code: |
+          npm install -g codeclimate-test-reporter
+          codeclimate-test-reporter < coverage/lcov.info

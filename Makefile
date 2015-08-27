@@ -61,7 +61,7 @@ test-adapters:
 
 test-cover:
 	$(call colorecho, "Running coverage report")
-	$(BIN)/istanbul cover $(BIN)/_mocha -- $(T_ARGS) $(TESTLIBS)
+	$(BIN)/istanbul cover $(BIN)/_mocha -- $(T_ARGS) ./test/src --recursive
 
 test-integration:
 	$(call colorecho, "Integration Testing ./test/index.spec.js")

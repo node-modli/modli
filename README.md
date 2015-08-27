@@ -195,13 +195,32 @@ task method:
 * `clean` will remove the `/node_modules` directories
 * `build` will transpile ES2015 code in `/src` to `/build`
 * `test` will run all spec files in `/test/src`
+* `test-libs` will test modli's libs
+* `test-adapters` will test all adapters
 * `test-integration` will run integration test
 * `test-cover` will run code coverage on all tests
 * `lint` will lint all files in `/src`
 
+## Testing
+
+Running `make test` will run the full test suite. Since adapters require a data 
+source if one is not configured the tests will fail. To counter this tests are 
+able to be broken up.
+
+**Core Modli Tests**
+
+When working on core Modli functionality (i.e. the `/src/libs`) running the 
+`make test-libs` command will unit test the code.
+
+**Adapter Tests**
+
+When building (mostly in CI) if all adapters have access to test data sources the 
+`make test-adapters` command will run all tests on `/src/adapters`.
+
 **Test Inidividual File**
 
-An individual spec can be run by specifying the `FILE`:
+An individual spec can be run by specifying the `FILE`. This is convenient when 
+working on an individual adapter.
 
 ```
 make test FILE=some.spec.js

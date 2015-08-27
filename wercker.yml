@@ -3,7 +3,7 @@ box: node:0.12
 # Data sources/services
 services:
   - deangiberson/aws-dynamodb-local
-  - camelmasa/mysql@1.0.2
+  - camelmasa/mysql
 
 build:
   steps:

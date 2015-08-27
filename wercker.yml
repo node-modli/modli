@@ -3,12 +3,15 @@ box: node:0.12
 build:
   steps:
     - npm-install
-    - npm run test
     - script:
         name: echo nodejs information
         code: |
           echo "node version $(node -v) running"
           echo "npm version $(npm -v) running"
+    - script:
+        name: run tests
+        code: |
+          make test
           
   after-steps:
     # Run and report coverage

@@ -28,7 +28,7 @@ build:
   after-steps:
     # Run and report coverage
     - script:
-        name: run code coverage report
+        name: send code coverage report
         code: |
           npm install -g codeclimate-test-reporter
           codeclimate-test-reporter < coverage/lcov.info

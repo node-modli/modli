@@ -1,0 +1,16 @@
+box: node:0.12
+
+build:
+  steps:
+    - npm-install
+    - make test
+    - script:
+        name: echo nodejs information
+        code: |
+          echo "node version $(node -v) running"
+          echo "npm version $(npm -v) running"
+          
+  after-steps:
+    # Run and report coverage
+    - npm install -g codeclimate-test-reporter
+    - codeclimate-test-reporter < coverage/lcov.info

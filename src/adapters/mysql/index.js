@@ -1,4 +1,5 @@
 // const Promise = require('bluebird');
+const mysqlModule = require('mysql');
 
 /**
  * @namespace mysql
@@ -11,7 +12,16 @@ export const mysql = {};
  * @param {Object} cfg The config object
  */
 mysql.config = (cfg) => {
-  return cfg;
+  mysql.conn = mysqlModule.createConnection({
+    host: cfg.host,
+    user: cfg.user,
+    password: cfg.password,
+    database: cfg.database
+  }).connect((err) => {
+    if (err) {
+      throw new Error('MySQL Connection Error', err);
+    }
+  });
 };
 
 /**

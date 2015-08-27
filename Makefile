@@ -8,13 +8,14 @@ BUILD   = ./build
 PKG     = ./package.json
 
 # Tests
-TESTS   = ./test/src
-SPACE   :=
-SPACE   +=
+TESTLIBS  = ./test/src/lib
+TESTADPT  = ./test/src/adapters
+SPACE     :=
+SPACE     +=
 # Default to recursive, can override on run
-FILE    = $(SPACE)--recursive
+FILE      = $(SPACE)--recursive
 # ARGS
-T_ARGS  = --compilers js:babel/register $(TESTS)$(FILE)
+T_ARGS    = --compilers js:babel/register
 
 # Deploy
 TAG     = 0
@@ -48,13 +49,19 @@ lint:
 	$(call colorecho, "Linting ./test")
 	$(BIN)/eslint ./test
 
-test:
-	$(call colorecho, "Testing $(TESTS)$(FILE)")
-	$(BIN)/mocha $(T_ARGS)
+test: test-libs test-adapters
+	
+test-libs:
+	$(call colorecho, "Testing $(TESTLIBS) --recursive")
+	$(BIN)/mocha $(T_ARGS) $(TESTLIBS) --recursive
+	
+test-adapters:
+	$(call colorecho, "Testing $(TESTLIBS) --recursive")
+	$(BIN)/mocha $(T_ARGS) $(TESTADPT) --recursive
 
 test-cover:
 	$(call colorecho, "Running coverage report")
-	$(BIN)/istanbul cover $(BIN)/_mocha -- $(T_ARGS)
+	$(BIN)/istanbul cover $(BIN)/_mocha -- $(T_ARGS) ./test/src --recursive
 
 test-integration:
 	$(call colorecho, "Integration Testing ./test/index.spec.js")
@@ -74,8 +81,8 @@ tag:
 
 deploy: lint test build tag
 
-all: clean install lint test build doc
+all: clean install lint test build
 
 
 # Phonies
-.PHONY: lint test doc build start report deploy
+.PHONY: lint test test-libs test-adapters doc build start report deploy

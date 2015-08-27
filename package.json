@@ -19,6 +19,8 @@
     "clean": "make clean",
     "build": "make build",
     "test": "make test",
+    "test-libs": "make test-libs",
+    "test-adapters": "make test-adapters",
     "test-integration": "make test-integration",
     "test-cover": "make test-cover",
     "lint": "make lint"
@@ -35,7 +37,6 @@
     "express": "^4.13.3",
     "istanbul-harmony": "^0.3.16",
     "mocha": "^2.2.5",
-    "nodemon": "^1.4.0",
     "pre-commit": "^1.1.1",
     "should": "^7.0.2"
   },
@@ -46,7 +47,8 @@
     "nedb": "^1.1.3"
   },
   "pre-commit": [
-    "test",
+    "test-libs",
+    "test-integration",
     "lint"
   ]
 }

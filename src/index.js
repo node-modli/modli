@@ -6,8 +6,12 @@
 import { model, Joi } from './lib/model';
 import { adapter } from './lib/adapter';
 const _ = require('lodash');
+
 // Adapters
-import { nedb } from './adapters/nedb/index';
+let adapters = {};
+adapter.builtIns.forEach((builtIn) => {
+  adapters[builtIn] = require(`./adapters/${builtIn}/index`)[builtIn];
+});
 
 /**
  * Binds model and adapter to make usable entity
@@ -23,8 +27,13 @@ const use = (modelName, adapterName) => {
 };
 
 /**
- * Entry point for the module, exports methods of the libs
+ * Main modli object
  */
-export default {
-  use, model, adapter, Joi, nedb
+const modli = {
+  use, model, adapter, Joi
 };
+
+/**
+ * Extend modli to include adapters
+ */
+export default _.extend(modli, adapters);

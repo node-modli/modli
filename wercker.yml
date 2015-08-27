@@ -3,7 +3,7 @@ box: node:0.12
 build:
   steps:
     - npm-install
-    - make test
+    - npm run test
     - script:
         name: echo nodejs information
         code: |

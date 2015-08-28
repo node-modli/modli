@@ -2,8 +2,7 @@ box: node:0.12
 
 # Data sources/services
 services:
-  - deangiberson/aws-dynamodb-local
-  - mysql/mysql-server
+  - modli/dynamodb
 
 build:
   steps:

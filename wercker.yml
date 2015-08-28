@@ -3,6 +3,7 @@ box: node:0.12
 # Data sources/services
 services:
   - modli/dynamodb
+  - modli/mysql
 
 build:
   steps:

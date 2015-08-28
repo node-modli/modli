@@ -17,6 +17,7 @@ RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysq
 ENV user modli
 ENV password modli
 ENV url file:/var/db/database.sql
+ENV right WRITE
 
 # Install starting script
 ADD ./start-database.sh /usr/local/bin/start-database.sh

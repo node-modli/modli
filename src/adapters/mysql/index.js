@@ -10,14 +10,13 @@ export const mysql = {};
  * Configs the MySQL Connection
  * @memberof mysql
  * @param {Object} cfg The config object
+ *   @property {String} cfg.host
+ *   @property {String} cfg.user
+ *   @property {String} cfg.password
+ *   @property {String} cfg.database
  */
 mysql.config = (cfg) => {
-  mysql.conn = mysqlModule.createConnection({
-    host: cfg.host,
-    user: cfg.user,
-    password: cfg.password,
-    database: cfg.database
-  }).connect((err) => {
+  mysql.conn = mysqlModule.createConnection(cfg).connect((err) => {
     if (err) {
       throw new Error('MySQL Connection Error', err);
     }

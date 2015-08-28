@@ -5,3 +5,6 @@ report
 coverage
 docs
 .c9/
+_builds/
+_projects/
+_steps/

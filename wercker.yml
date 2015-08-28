@@ -3,7 +3,7 @@ box: node:0.12
 # Data sources/services
 services:
   - deangiberson/aws-dynamodb-local
-  - smazurov/mysql5.6
+  - mysql/mysql-server
 
 build:
   steps:

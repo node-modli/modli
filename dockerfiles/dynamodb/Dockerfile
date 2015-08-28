@@ -1,5 +1,5 @@
 FROM makuk66/docker-oracle-java7
-MAINTAINER Dean Giberson <dean@deangiberson.com>
+MAINTAINER TechnologyAdvice
 
 # Create working space
 RUN mkdir /var/dynamodb_wd

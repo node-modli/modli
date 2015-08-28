@@ -35,6 +35,10 @@ echo "adding write access"
 echo "GRANT ALL PRIVILEGES ON *.* TO '$user'@'%' WITH GRANT OPTION; FLUSH PRIVILEGES" | mysql --default-character-set=utf8
 fi
 
+# Create a test table named foo
+echo "creating test table"
+echo "CREATE TABLE foo (id int, fname varchar(255), lname varchar(255), email varchar(255)" | mysql --default-character-set=utf8
+
 # And we restart the server to go operational
 mysqladmin shutdown
 echo "Starting MySQL Server"

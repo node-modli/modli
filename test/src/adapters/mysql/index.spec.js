@@ -6,6 +6,9 @@ import { mysql } from '../../../../src/adapters/mysql/index';
 // Mock validation method, this is automatically done by the model
 mysql.validate = () => null;
 
+// Specific model properties
+mysql.tableName = 'foo';
+
 describe('mysql', () => {
   describe('config', () => {
     it('throws error on inproper config', () => {
@@ -28,7 +31,7 @@ describe('mysql', () => {
 
   describe('createTable', () => {
     it('creates a new table based on object passed', () => {
-      mysql.createTable('foo', {
+      mysql.createTable({
         'id': [ 'INT', 'NOT NULL', 'AUTO_INCREMENT', 'PRIMARY KEY'],
         'fname': [ 'VARCHAR(255)' ],
         'lname': [ 'VARCHAR(255)' ],

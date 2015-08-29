@@ -35,12 +35,12 @@ mysql.config = (cfg) => {
  * @param {Object} props The properties of the table
  * @returns {Object} promise
  */
-mysql.createTable = (name, props) => {
+mysql.createTable = (props) => {
   return new Promise((resolve, reject) => {
     // Build query
     const len = Object.keys(props).length;
     let i = 1;
-    let query = `CREATE TABLE IF NOT EXISTS ${name} (`;
+    let query = `CREATE TABLE IF NOT EXISTS ${mysql.tableName} (`;
     for (let prop in props) {
       if ({}.hasOwnProperty.call(props, prop)) {
         let comma = (i !== len) ? ', ' : '';

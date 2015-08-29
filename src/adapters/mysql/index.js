@@ -109,7 +109,7 @@ mysql.create = (body, version = false) => {
 mysql.read = (query) => {
   let where;
   if (query) {
-    where = '';
+    where = ` WHERE ${query}`;
   } else {
     where = '';
   }

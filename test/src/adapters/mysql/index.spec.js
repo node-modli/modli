@@ -86,5 +86,15 @@ describe('mysql', () => {
           done(err);
         });
     });
+    it('reads specific records when query supplied', (done) => {
+      mysql.read('fname="John"')
+        .then((result) => {
+          expect(result).to.be.an.array;
+          done();
+        })
+        .catch((err) => {
+          done(err);
+        });
+    });
   });
 });

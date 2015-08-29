@@ -89,4 +89,30 @@ describe('mysql', () => {
         .catch((err) =>  done(err));
     });
   });
+
+  describe('update', () => {
+    it('updates record(s) based on query and body', (done) => {
+      mysql.update('fname="John"', {
+        fname: 'bob',
+        email: 'bsmith@gmail.com'
+      })
+        .then((result) => {
+          expect(results).to.be.an.object;
+          done();
+        })
+        .catch((err) => done(err));
+    });
+  });
+
+  describe('delete', () => {
+    it('deletes record(s) based on query', (done) => {
+      mysql.delete('fname="John"')
+        .then((result) => {
+          console.log(result);
+          // expect(result)
+          done();
+        })
+        .catch((err) => done(err));
+    });
+  });
 });

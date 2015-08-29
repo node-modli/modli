@@ -125,7 +125,24 @@ mysql.read = (query) => {
  * @returns {Object} promise
  */
 mysql.update = (query, body, version = false) => {
-  return { query, version };
+  return new Promise((resolve, reject) => {
+    const validationErrors = mysql.validate(body, version);
+    if (validationErrors) {
+      reject(validationErrors);
+    } else {
+      let i = 1;
+      let changes = '';
+      let len = Object.keys(body).length;
+      for (let prop in body) {
+        if ({}.hasOwnProperty.call(body, prop)) {
+          let comma = (i !== len) ? ', ' : '';
+          changes += `${prop}="${body[prop]}"${comma}`;
+          i++;
+        }
+      }
+      resolve(mysql.query(`UPDATE ${mysql.tableName} SET ${changes} WHERE ${query}`));
+    }
+  });
 };
 
 /**

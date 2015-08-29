@@ -1,4 +1,4 @@
-// const Promise = require('bluebird');
+const Promise = require('bluebird');
 const mysqlModule = require('mysql');
 
 /**
@@ -25,6 +25,38 @@ mysql.config = (cfg) => {
     if (err) {
       throw new Error('MySQL Connection Error', err);
     }
+  });
+};
+
+/**
+ * Creates a table
+ * @memberof mysql
+ * @param {String} name The name of the table to create
+ * @param {Object} props The properties of the table
+ * @returns {Object} promise
+ */
+mysql.createTable = (name, props) => {
+  return new Promise((resolve, reject) => {
+    // Build query
+    const len = Object.keys(props).length;
+    let i = 1;
+    let query = `CREATE TABLE IF NOT EXISTS ${name} (`;
+    for (let prop in props) {
+      if ({}.hasOwnProperty.call(props, prop)) {
+        let comma = (i !== len) ? ', ' : '';
+        query += `${prop} ${props[prop].join(' ')}${comma}`;
+        i++;
+      }
+    }
+    query += ');';
+    // Run query
+    mysql.conn.query(query, (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(true);
+      }
+    });
   });
 };
 

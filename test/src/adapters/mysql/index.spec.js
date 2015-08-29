@@ -16,13 +16,28 @@ describe('mysql', () => {
       }
     });
     it('connects when proper config provided', () => {
-      const conn = mysql.config({
+      mysql.config({
         host: process.env.MODLI_MYSQL_HOST,
         user: process.env.MODLI_MYSQL_USERNAME,
         password: process.env.MODLI_MYSQL_PASSWORD,
         database: process.env.MODLI_MYSQL_DATABASE
       });
       expect(mysql.conn).to.be.an.object;
+    });
+  });
+
+  describe('createTable', () => {
+    it('creates a new table based on object passed', () => {
+      mysql.createTable('foo', {
+        'id': [ 'INT', 'NOT NULL', 'AUTO_INCREMENT', 'PRIMARY KEY'],
+        'fname': [ 'VARCHAR(255)' ],
+        'lname': [ 'VARCHAR(255)' ],
+        'email': [ 'VARCHAR(255)' ]
+      }).then((pass) => {
+        expect(pass).to.be.true;
+      }).catch((e) => {
+        throw e;
+      });
     });
   });
 });

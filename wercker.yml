@@ -9,6 +9,10 @@ build:
   steps:
     - npm-install
     - script:
+        name echo env
+        code: |
+          env
+    - script:
         name: dynamodb config
         code: |
           export MODLI_DYNAMODB_HOST=http://${AWS_DYNAMODB_LOCAL_PORT_8000_TCP_ADDR}:${AWS_DYNAMODB_LOCAL_PORT_8000_TCP_PORT}

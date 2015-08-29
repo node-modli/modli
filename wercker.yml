@@ -14,11 +14,11 @@ build:
     - script:
         name: mysql config
         code: |
-          export MODLI_MYSQL_HOST=MYSQL_PORT_3306_TCP_ADDR
-          export MODLI_MYSQL_DATABASE=MYSQL_ENV_MYSQL_DATABASE
-          export MODLI_MYSQL_PORT=MYSQL_PORT_3306_TCP_PORT
-          export MODLI_MYSQL_PASSWORD=MYSQL_ENV_MYSQL_PASSWORD
-          export MODLI_MYSQL_USERNAME=MYSQL_ENV_MYSQL_USER
+          export MODLI_MYSQL_HOST=${MYSQL_PORT_3306_TCP_ADDR}
+          export MODLI_MYSQL_DATABASE=${MYSQL_ENV_MYSQL_DATABASE}
+          export MODLI_MYSQL_PORT=${MYSQL_PORT_3306_TCP_PORT}
+          export MODLI_MYSQL_PASSWORD=${MYSQL_ENV_MYSQL_PASSWORD}
+          export MODLI_MYSQL_USERNAME=${MYSQL_ENV_MYSQL_USER}
     - script:
         name: echo env
         code: |

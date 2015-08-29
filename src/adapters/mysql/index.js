@@ -7,6 +7,10 @@ const mysqlModule = require('mysql');
 export const mysql = {};
 
 /**
+ * @propery {Object} conn The MySQL connection
+mysql.conn = {};
+
+/**
  * Configs the MySQL Connection
  * @memberof mysql
  * @param {Object} cfg The config object
@@ -16,7 +20,8 @@ export const mysql = {};
  *   @property {String} cfg.database
  */
 mysql.config = (cfg) => {
-  mysql.conn = mysqlModule.createConnection(cfg).connect((err) => {
+  mysql.conn = mysqlModule.createConnection(cfg);
+  mysql.conn.connect((err) => {
     if (err) {
       throw new Error('MySQL Connection Error', err);
     }

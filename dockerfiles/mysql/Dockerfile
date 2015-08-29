@@ -1,35 +1,18 @@
-FROM phusion/baseimage:0.9.9
+FROM ubuntu
 
-ENV HOME /root
+RUN dpkg-divert --local --rename --add /sbin/initctl
+RUN ln -s /bin/true /sbin/initctl
 
-RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
-
-CMD ["/sbin/my_init"]
-
-# Some Environment Variables
-ENV    DEBIAN_FRONTEND noninteractive
-
-RUN sed -i "s/^exit 101$/exit 0/" /usr/sbin/policy-rc.d
-
-# MySQL Installation
+RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
 RUN apt-get update
-RUN echo "mysql-server mysql-server/root_password password modli" | debconf-set-selections
-RUN echo "mysql-server mysql-server/root_password_again password modli" | debconf-set-selections
-RUN apt-get install -y mysql-server
+RUN apt-get upgrade -y
 
-ADD build/my.cnf    /etc/mysql/my.cnf
+RUN apt-get -y install mysql-client mysql-server
 
-RUN mkdir           /etc/service/mysql
-ADD build/mysql.sh  /etc/service/mysql/run
-RUN chmod +x        /etc/service/mysql/run
+RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/my.cnf
 
-RUN mkdir -p        /var/lib/mysql/
-RUN chmod -R 755    /var/lib/mysql/
-
-ADD etc/my_init.d/99_mysql_setup.sh /etc/my_init.d/99_mysql_setup.sh
-RUN chmod +x /etc/my_init.d/99_mysql_setup.sh
+ADD ./startup.sh /opt/startup.sh
 
 EXPOSE 3306
-# END MySQL Installation
 
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+CMD ["/bin/bash", "/opt/startup.sh"]

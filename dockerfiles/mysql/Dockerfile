@@ -1,28 +1,35 @@
-FROM ubuntu:latest
+FROM phusion/baseimage:0.9.9
 
-MAINTAINER TechnologyAdvice
+ENV HOME /root
 
-# Install latest updates
+RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
+
+CMD ["/sbin/my_init"]
+
+# Some Environment Variables
+ENV    DEBIAN_FRONTEND noninteractive
+
+RUN sed -i "s/^exit 101$/exit 0/" /usr/sbin/policy-rc.d
+
+# MySQL Installation
 RUN apt-get update
-RUN apt-get upgrade -y
+RUN echo "mysql-server mysql-server/root_password password modli" | debconf-set-selections
+RUN echo "mysql-server mysql-server/root_password_again password modli" | debconf-set-selections
+RUN apt-get install -y mysql-server
 
-# Install mysql client and server
-RUN apt-get -y install mysql-client mysql-server curl
+ADD build/my.cnf    /etc/mysql/my.cnf
 
-# Enable remote access (default is localhost only, we change this
-# otherwise our database would not be reachable from outside the container)
-RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/my.cnf
+RUN mkdir           /etc/service/mysql
+ADD build/mysql.sh  /etc/service/mysql/run
+RUN chmod +x        /etc/service/mysql/run
 
-# Set Standard settings
-ENV user modli
-ENV password modli
-ENV url file:/var/db/database.sql
-ENV right WRITE
+RUN mkdir -p        /var/lib/mysql/
+RUN chmod -R 755    /var/lib/mysql/
 
-# Install starting script
-ADD ./start-database.sh /usr/local/bin/start-database.sh
-RUN chmod +x /usr/local/bin/start-database.sh
+ADD etc/my_init.d/99_mysql_setup.sh /etc/my_init.d/99_mysql_setup.sh
+RUN chmod +x /etc/my_init.d/99_mysql_setup.sh
 
 EXPOSE 3306
+# END MySQL Installation
 
-CMD ["/usr/local/bin/start-database.sh"]
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

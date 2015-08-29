@@ -9,7 +9,7 @@ build:
   steps:
     - npm-install
     - script:
-        name echo env
+        name: echo env
         code: |
           env
     - script:

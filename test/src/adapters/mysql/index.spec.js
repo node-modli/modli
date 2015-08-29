@@ -43,7 +43,7 @@ describe('mysql', () => {
   });
 
   describe('createTable', () => {
-    it('creates a new table based on object passed', (done) => {
+    it('creates a new table based on object passed (if not exists)', (done) => {
       mysql.createTable({
         'id': [ 'INT', 'NOT NULL', 'AUTO_INCREMENT', 'PRIMARY KEY'],
         'fname': [ 'VARCHAR(255)' ],
@@ -72,6 +72,19 @@ describe('mysql', () => {
       .catch((err) => {
         done(err);
       });
+    });
+  });
+  
+  describe('read', () => {
+    it('reads all when no query specified', (done) => {
+      mysql.read()
+        .then((result) => {
+          expect(result).to.be.an.array;
+          done();
+        })
+        .catch((err) => {
+          done(err);
+        });
     });
   });
 });

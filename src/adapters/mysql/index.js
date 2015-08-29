@@ -107,7 +107,13 @@ mysql.create = (body, version = false) => {
  * @returns {Object} promise
  */
 mysql.read = (query) => {
-  return query;
+  let where;
+  if (query) {
+    where = '';
+  } else {
+    where = '';
+  }
+  return mysql.query(`SELECT * FROM ${mysql.tableName}${where}`);
 };
 
 /**

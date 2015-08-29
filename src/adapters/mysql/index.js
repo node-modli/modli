@@ -8,7 +8,25 @@ export const mysql = {};
 
 /**
  * @propery {Object} conn The MySQL connection
+ */
 mysql.conn = {};
+
+/**
+ * Pass-through to direct query (promisified)
+ * @memberof mysql
+ * @param {String} query The query to run
+ */
+mysql.query = (query) => {
+  return new Promise((resolve, reject) => {
+    mysql.conn.query(query, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+};
 
 /**
  * Configs the MySQL Connection
@@ -36,39 +54,50 @@ mysql.config = (cfg) => {
  * @returns {Object} promise
  */
 mysql.createTable = (props) => {
-  return new Promise((resolve, reject) => {
-    // Build query
-    const len = Object.keys(props).length;
-    let i = 1;
-    let query = `CREATE TABLE IF NOT EXISTS ${mysql.tableName} (`;
-    for (let prop in props) {
-      if ({}.hasOwnProperty.call(props, prop)) {
-        let comma = (i !== len) ? ', ' : '';
-        query += `${prop} ${props[prop].join(' ')}${comma}`;
-        i++;
-      }
+  // Build query
+  const len = Object.keys(props).length;
+  let i = 1;
+  let query = `CREATE TABLE IF NOT EXISTS ${mysql.tableName} (`;
+  for (let prop in props) {
+    if ({}.hasOwnProperty.call(props, prop)) {
+      let comma = (i !== len) ? ', ' : '';
+      query += `${prop} ${props[prop].join(' ')}${comma}`;
+      i++;
     }
-    query += ');';
-    // Run query
-    mysql.conn.query(query, (err) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(true);
-      }
-    });
-  });
+  }
+  query += ');';
+  // Run query
+  return mysql.query(query);
 };
 
 /**
  * Creates a new record
  * @memberof mysql
- * @param {String} body The record to insert
+ * @param {Object} body The record to insert
  * @param {Sting|Number} [version] The version of the model
  * @returns {Object} promise
  */
 mysql.create = (body, version = false) => {
-  return { body, version };
+  return new Promise((resolve, reject) => {
+    // Validate
+    const validationErrors = mysql.validate(body, version);
+    if (validationErrors) {
+      reject(validationErrors);
+    } else {
+      // Build query
+      let cols = [];
+      let vals = [];
+      for (let prop in body) {
+        if ({}.hasOwnProperty.call(body, prop)) {
+          cols.push(prop);
+          vals.push('"' + body[prop] + '"');
+        }
+      }
+      const query = `INSERT INTO ${mysql.tableName} (${cols.join(',')}) VALUES (${vals.join(',')});`;
+      // Run query
+      resolve(mysql.query(query));
+    }
+  });
 };
 
 /**
@@ -77,7 +106,7 @@ mysql.create = (body, version = false) => {
  * @param {Object} query The query to execute
  * @returns {Object} promise
  */
-mysql.create = (query) => {
+mysql.read = (query) => {
   return query;
 };
 
@@ -89,7 +118,7 @@ mysql.create = (query) => {
  * @params {String|Number} version The version of the model
  * @returns {Object} promise
  */
-mysql.create = (query, body, version = false) => {
+mysql.update = (query, body, version = false) => {
   return { query, version };
 };
 
@@ -99,7 +128,7 @@ mysql.create = (query, body, version = false) => {
  * @param {Object} query
  * @returns {Object} promise
  */
-mysql.create = (query) => {
+mysql.delete = (query) => {
   return query;
 };
 

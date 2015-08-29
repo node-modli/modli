@@ -29,17 +29,48 @@ describe('mysql', () => {
     });
   });
 
+  describe('query', () => {
+    it('executes a mysql query against the database', (done) => {
+      mysql.query('SELECT 1 + 1 AS solution')
+        .then((result) => {
+          expect(result[0].solution).to.equal(2);
+          done();
+        })
+        .catch((err) => {
+          done(err);
+        });
+    });
+  });
+
   describe('createTable', () => {
-    it('creates a new table based on object passed', () => {
+    it('creates a new table based on object passed', (done) => {
       mysql.createTable({
         'id': [ 'INT', 'NOT NULL', 'AUTO_INCREMENT', 'PRIMARY KEY'],
         'fname': [ 'VARCHAR(255)' ],
         'lname': [ 'VARCHAR(255)' ],
         'email': [ 'VARCHAR(255)' ]
-      }).then((pass) => {
-        expect(pass).to.be.true;
-      }).catch((e) => {
-        throw e;
+      }).then((result) => {
+        expect(result).to.be.an.object;
+        done();
+      }).catch((err) => {
+        done(err);
+      });
+    });
+  });
+
+  describe('create', () => {
+    it('creates a new record based on object passed', (done) => {
+      mysql.create({
+        fname: 'John',
+        lname: 'Smith',
+        email: 'jsmith@gmail.com'
+      })
+      .then((result) => {
+        expect(result.insertId).to.be.a.number;
+        done();
+      })
+      .catch((err) => {
+        done(err);
       });
     });
   });

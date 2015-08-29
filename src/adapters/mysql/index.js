@@ -120,7 +120,7 @@ mysql.read = (query) => {
  * Updates an existing record
  * @memberof mysql
  * @param {Object} query The query to identify update record(s)
- * @params {Object} bodt The record contents to update
+ * @params {Object} body The record contents to update
  * @params {String|Number} version The version of the model
  * @returns {Object} promise
  */
@@ -151,9 +151,7 @@ mysql.update = (query, body, version = false) => {
  * @param {Object} query
  * @returns {Object} promise
  */
-mysql.delete = (query) => {
-  return query;
-};
+mysql.delete = (query) => mysql.query(`DELETE FROM ${mysql.tableName} WHERE ${query}`);
 
 /**
  * Extends the mysql object

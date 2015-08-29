@@ -93,11 +93,12 @@ describe('mysql', () => {
   describe('update', () => {
     it('updates record(s) based on query and body', (done) => {
       mysql.update('fname="John"', {
-        fname: 'bob',
+        fname: 'Bob',
         email: 'bsmith@gmail.com'
       })
         .then((result) => {
-          expect(results).to.be.an.object;
+          expect(result).to.be.an.object;
+          expect(result.affectedRows).to.be.above(0);
           done();
         })
         .catch((err) => done(err));
@@ -106,10 +107,10 @@ describe('mysql', () => {
 
   describe('delete', () => {
     it('deletes record(s) based on query', (done) => {
-      mysql.delete('fname="John"')
+      mysql.delete('fname="Bob"')
         .then((result) => {
-          console.log(result);
-          // expect(result)
+          expect(result).to.be.an.object;
+          expect(result.affectedRows).to.be.above(0);
           done();
         })
         .catch((err) => done(err));

@@ -36,9 +36,7 @@ describe('mysql', () => {
           expect(result[0].solution).to.equal(2);
           done();
         })
-        .catch((err) => {
-          done(err);
-        });
+        .catch((err) =>  done(err));
     });
   });
 
@@ -49,12 +47,12 @@ describe('mysql', () => {
         'fname': [ 'VARCHAR(255)' ],
         'lname': [ 'VARCHAR(255)' ],
         'email': [ 'VARCHAR(255)' ]
-      }).then((result) => {
+      })
+      .then((result) => {
         expect(result).to.be.an.object;
         done();
-      }).catch((err) => {
-        done(err);
-      });
+      })
+      .catch((err) =>  done(err));
     });
   });
 
@@ -69,12 +67,10 @@ describe('mysql', () => {
         expect(result.insertId).to.be.a.number;
         done();
       })
-      .catch((err) => {
-        done(err);
-      });
+      .catch((err) =>  done(err));
     });
   });
-  
+
   describe('read', () => {
     it('reads all when no query specified', (done) => {
       mysql.read()
@@ -82,9 +78,7 @@ describe('mysql', () => {
           expect(result).to.be.an.array;
           done();
         })
-        .catch((err) => {
-          done(err);
-        });
+        .catch((err) =>  done(err));
     });
     it('reads specific records when query supplied', (done) => {
       mysql.read('fname="John"')
@@ -92,9 +86,7 @@ describe('mysql', () => {
           expect(result).to.be.an.array;
           done();
         })
-        .catch((err) => {
-          done(err);
-        });
+        .catch((err) =>  done(err));
     });
   });
 });

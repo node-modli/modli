@@ -83,7 +83,7 @@ tag:
 	$(call colorecho, "Deploying to Git")
 	$(TAG_CMD)
 
-deploy: lint test build tag
+deploy: lint test-libs test-integration build tag
 
 all: clean install lint test build
 

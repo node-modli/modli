@@ -4,7 +4,14 @@ import '../../../setup';
 import { mysql } from '../../../../src/adapters/mysql/index';
 
 // Mock validation method, this is automatically done by the model
-mysql.validate = () => null;
+mysql.validate = (body) => {
+  // Test validation failure by passing `failValidate: true`
+  if (body.failValidate) {
+    return { error: true };
+  }
+  // Mock passing validation, return null
+  return null;
+};
 
 // Specific model properties
 mysql.tableName = 'foo';
@@ -57,6 +64,15 @@ describe('mysql', () => {
   });
 
   describe('create', () => {
+    it('fails when validation does not pass', (done) => {
+      mysql.create({
+        failValidate: true
+      })
+      .catch((err) => {
+        expect(err).to.have.property('error');
+        done();
+      });
+    });
     it('creates a new record based on object passed', (done) => {
       mysql.create({
         fname: 'John',
@@ -91,6 +107,15 @@ describe('mysql', () => {
   });
 
   describe('update', () => {
+    it('fails when validation does not pass', (done) => {
+      mysql.create({
+        failValidate: true
+      })
+      .catch((err) => {
+        expect(err).to.have.property('error');
+        done();
+      });
+    });
     it('updates record(s) based on query and body', (done) => {
       mysql.update('fname="John"', {
         fname: 'Bob',

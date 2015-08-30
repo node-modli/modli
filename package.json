@@ -10,7 +10,11 @@
   "keywords": [
     "model",
     "data",
-    "database"
+    "database",
+    "dynamo",
+    "dynamodb",
+    "mysql",
+    "nedb"
   ],
   "author": "TechnologyAdvice <devteam@technologyadvice.com>",
   "scripts": {

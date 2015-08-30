@@ -59,11 +59,9 @@ mysql.createTable = (props) => {
   let i = 1;
   let query = `CREATE TABLE IF NOT EXISTS ${mysql.tableName} (`;
   for (let prop in props) {
-    if ({}.hasOwnProperty.call(props, prop)) {
-      let comma = (i !== len) ? ', ' : '';
-      query += `${prop} ${props[prop].join(' ')}${comma}`;
-      i++;
-    }
+    let comma = (i !== len) ? ', ' : '';
+    query += `${prop} ${props[prop].join(' ')}${comma}`;
+    i++;
   }
   query += ');';
   // Run query
@@ -88,10 +86,8 @@ mysql.create = (body, version = false) => {
       let cols = [];
       let vals = [];
       for (let prop in body) {
-        if ({}.hasOwnProperty.call(body, prop)) {
-          cols.push(prop);
-          vals.push('"' + body[prop] + '"');
-        }
+        cols.push(prop);
+        vals.push('"' + body[prop] + '"');
       }
       const query = `INSERT INTO ${mysql.tableName} (${cols.join(',')}) VALUES (${vals.join(',')});`;
       // Run query

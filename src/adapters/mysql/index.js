@@ -160,5 +160,5 @@ mysql.delete = (query) => mysql.query(`DELETE FROM ${mysql.tableName} WHERE ${qu
  * @param {Function} fn The function to extend on the object
  */
 mysql.extend = (name, fn) => {
-  mysql[name] = fn.bind(nedb);
+  mysql[name] = fn.bind(mysql);
 };

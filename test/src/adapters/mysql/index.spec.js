@@ -116,4 +116,15 @@ describe('mysql', () => {
         .catch((err) => done(err));
     });
   });
+
+  describe('extend', () => {
+    it('extends the adapter with a custom method', () => {
+      // Extend
+      mysql.extend('sayFoo', () => {
+        return 'foo';
+      });
+      // Execute
+      expect(mysql.sayFoo()).to.equal('foo');
+    });
+  });
 });

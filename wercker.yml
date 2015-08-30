@@ -3,19 +3,27 @@ box: node:0.12
 # Data sources/services
 services:
   - modli/dynamodb
+  - modli/mysql
 
 build:
   steps:
-    - npm-install
     - script:
         name: dynamodb config
         code: |
-          export MODLI_DYNAMODB_HOST=http://${AWS_DYNAMODB_LOCAL_PORT_8000_TCP_ADDR}:${AWS_DYNAMODB_LOCAL_PORT_8000_TCP_PORT}
+          export MODLI_DYNAMODB_HOST=http://${DYNAMODB_PORT_8000_TCP_ADDR}:${DYNAMODB_PORT_8000_TCP_PORT}
     - script:
-        name: echo nodejs information
+        name: mysql config
         code: |
-          echo "node version $(node -v) running"
-          echo "npm version $(npm -v) running"
+          export MODLI_MYSQL_HOST=${MYSQL_PORT_3306_TCP_ADDR}
+          export MODLI_MYSQL_DATABASE=${MYSQL_ENV_MYSQL_DATABASE}
+          export MODLI_MYSQL_PORT=${MYSQL_PORT_3306_TCP_PORT}
+          export MODLI_MYSQL_PASSWORD=${MYSQL_ENV_MYSQL_PASSWORD}
+          export MODLI_MYSQL_USERNAME=${MYSQL_ENV_MYSQL_USER}
+    - script:
+        name: echo env
+        code: |
+          env
+    - npm-install
     - script:
         name: lint code
         code: |

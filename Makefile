@@ -50,6 +50,10 @@ lint:
 	$(BIN)/eslint ./test
 
 test: test-libs test-adapters
+
+test-file:
+	$(call colorecho, "Testing $(FILE)")
+	$(BIN)/mocha $(T_ARGS) ./test/$(FILE)
 	
 test-libs:
 	$(call colorecho, "Testing $(TESTLIBS) --recursive")

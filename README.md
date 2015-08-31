@@ -130,42 +130,16 @@ myTest.extend('myCustomMethod', (someVal) => {
 The above would allow you to then call `myTest.myCustomMethod('foo')` and expect
 the response to be `foo`.
 
-## Examples
-
-As often times it is easier to understand something when seen in practice, there
-are several [examples](/examples) available.
-
-The [`/test/index.spec.js`](/test/index.spec.js) file also serves as an integration
-test suite which shows how functionality of Modli is designed.
-
 ### Validate Model Data
 
-Validating a model (using the above example) is then simply a matter of the
-model's `validate` method which returns any (or `null`)  validation errors:
-
-```javascript
-// Some data
-const testData = {
-  id: 12345,
-  fname: 'John',
-  lname: 'Doe',
-  email: 'jdoe@gmail.com'
-};
-
-// Run validation against testData with model version 1
-const validationErrors = someModel.validate(testData, 1);
-if (!validationErrors) {
-  // Everything passed
-  console.log('Passed!');
-} else {
-  // Failed, logs 'Failed' along with the validation errors
-  console.log('Failed', validationErrors);
-}
-```
+Validation of model data is done by the adapter when data is being insertered,
+i.e. create and update procedures. The adapter inherits the model's `validate`
+method which utilizes the [Joi](https://github.com/hapijs/joi) library to ensure
+properties are correct.
 
 ### Validation Error Formatting
 
-By default, the `validation` methods `fail` response will return the Joi error
+By default, the `validation` method's `fail` response will return the Joi error
 object. This can be overridden using the following:
 
 ```javascript
@@ -183,7 +157,7 @@ model.customValidationError = (err) => {
 ```
 
 The above would return `"id" must be a number` if the above model was tested
-with an invalid (`string`) id.
+with an invalid `string` id when the expected input was an `integer`.
 
 ### Adapters and Validation
 
@@ -197,6 +171,14 @@ const validationErrors = myAdapter.validate(body);
 
 The `validate` method in the above returns errors to the `validationErrors`
 constant. If no validation errors are present it simply returns `null`.
+
+## Examples
+
+As often times it is easier to understand something when seen in practice, there
+are several [examples](/examples) available.
+
+The [`/test/index.spec.js`](/test/index.spec.js) file also serves as an integration
+test suite which shows how functionality of Modli is designed.
 
 ## Makefile and Scripts
 

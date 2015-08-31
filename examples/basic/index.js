@@ -2,6 +2,7 @@
 var modli = require('../../build/index');
 var app = require('express')();
 var bodyParser = require('body-parser');
+var nedb = require('modli-nedb').nedb;
 
 // Use Joi from modli
 var Joi = modli.Joi;
@@ -27,7 +28,7 @@ modli.model.add({
  */
 modli.adapter.add({
   name: 'testNEDB',
-  source: 'nedb',
+  source: nedb,
   config: {
     inMemoryOnly: true
   }

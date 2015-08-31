@@ -8,7 +8,7 @@ var Promise = require('bluebird');
 var Joi = modli.Joi;
 
 // Use nedb adapter
-var nedb = modli.nedb;
+var nedb = require('modli-nedb').nedb;
 
 // Set bodyParser to JSON
 app.use(bodyParser.json());
@@ -51,7 +51,7 @@ modli.model.add({
  */
 modli.adapter.add({
   name: 'testNEDB',
-  source: 'nedb',
+  source: nedb,
   config: {
     inMemoryOnly: true
   }

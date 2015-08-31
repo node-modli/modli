@@ -8,8 +8,7 @@ BUILD   = ./build
 PKG     = ./package.json
 
 # Tests
-TESTLIBS  = ./test/src/lib
-TESTADPT  = ./test/src/adapters
+TESTS  = ./test
 SPACE     :=
 SPACE     +=
 # Default to recursive, can override on run
@@ -46,30 +45,16 @@ install: $(PKG)
 lint:
 	$(call colorecho, "Linting $(SRC)")
 	$(BIN)/eslint $(SRC)
-	$(call colorecho, "Linting ./test")
-	$(BIN)/eslint ./test
+	$(call colorecho, "Linting $(TESTS)")
+	$(BIN)/eslint $(TESTS)
 
-test: test-libs test-adapters
-
-test-file:
-	$(call colorecho, "Testing $(FILE)")
-	$(BIN)/mocha $(T_ARGS) ./test/$(FILE)
+test:
+	$(call colorecho, "Testing $(TESTS)$(FILE)")
+	$(BIN)/mocha $(T_ARGS) $(TESTS)$(FILE)
 	
-test-libs:
-	$(call colorecho, "Testing $(TESTLIBS) --recursive")
-	$(BIN)/mocha $(T_ARGS) $(TESTLIBS) --recursive
-	
-test-adapters:
-	$(call colorecho, "Testing $(TESTLIBS) --recursive")
-	$(BIN)/mocha $(T_ARGS) $(TESTADPT) --recursive
-
 test-cover:
 	$(call colorecho, "Running coverage report")
-	$(BIN)/istanbul cover $(BIN)/_mocha -- $(T_ARGS) ./test/src --recursive
-
-test-integration:
-	$(call colorecho, "Integration Testing ./test/index.spec.js")
-	$(BIN)/mocha --compilers js:babel/register ./test/index.spec.js
+	$(BIN)/istanbul cover $(BIN)/_mocha -- $(T_ARGS) $(TESTS)$(FILE)
 
 build:
 	$(call colorecho, "Building $(SRC) to $(BUILD)")
@@ -78,7 +63,7 @@ build:
 start:
 	$(call colorecho, "Starting...")
 	node test/index.js
-	
+
 tag:
 	$(call colorecho, "Deploying to Git")
 	$(TAG_CMD)
@@ -89,4 +74,4 @@ all: clean install lint test build
 
 
 # Phonies
-.PHONY: lint test test-libs test-adapters doc build start report deploy
+.PHONY: lint test test-cover doc build deploy

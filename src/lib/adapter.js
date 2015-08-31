@@ -1,5 +1,3 @@
-const fs = require('fs');
-const path = require('path');
 /**
  * Exports the core adapter object
  * @namespace adapter
@@ -11,11 +9,6 @@ export const adapter = {};
  * @property {Object}
  */
 adapter.store = {};
-
-/**
- * @property {Array} builtIns Available built-in adapters
- */
-adapter.builtIns = [];
 
 /**
  * Adds an adapter to the store
@@ -40,14 +33,17 @@ adapter.add = (a) => {
  * @returns {Object} Adapter
  */
 adapter.init = (a) => {
+  let adapterObj;
   // Ensure model is defined
   if (!adapter.store[a]) {
     throw new Error('Adapter not defined');
   }
   const source = adapter.store[a].source;
-  const adapterPath = (adapter.builtIns.indexOf(source) >= 0) ? `./../adapters/${source}/index` : source;
-  const adapterModule = require(adapterPath);
-  const adapterObj = adapterModule[Object.keys(adapterModule)[0]];
+  if (typeof source === 'object') {
+    adapterObj = source;
+  } else {
+    adapterObj = require(source);
+  }
   // Check config object
   /* istanbul ignore if */
   if (Object.keys(adapter.store[a].config).length) {
@@ -56,22 +52,3 @@ adapter.init = (a) => {
   }
   return adapterObj;
 };
-
-/**
- * Adds all adapters to the builtIns array
- * @memberof adapter
- */
-/* istanbul ignore next */
-adapter.getBuiltIns = () => {
-  const src = __dirname + '/../adapters';
-  fs.readdirSync(path.resolve(src)).filter((file) => {
-    if (fs.statSync(path.join(src, file)).isDirectory()) {
-      adapter.builtIns.push(file);
-    }
-  });
-};
-
-/**
- * Run getBuiltIns to load adapters available
- */
-adapter.getBuiltIns();

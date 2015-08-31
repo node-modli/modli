@@ -1,8 +1,5 @@
-dockerfiles
-test
-src
 examples
-.babelrc
+test
 .codeclimate.yml
 .editorconfig
 .eslintrc

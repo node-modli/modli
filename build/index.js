@@ -15,12 +15,6 @@ var _libAdapter = require('./lib/adapter');
 
 var _ = require('lodash');
 
-// Adapters
-var adapters = {};
-_libAdapter.adapter.builtIns.forEach(function (builtIn) {
-  adapters[builtIn] = require('./adapters/' + builtIn + '/index')[builtIn];
-});
-
 /**
  * Binds model and adapter to make usable entity
  * @param {String} modelName The name of the model
@@ -37,12 +31,7 @@ var use = function use(modelName, adapterName) {
 /**
  * Main modli object
  */
-var modli = {
-  use: use, model: _libModel.model, adapter: _libAdapter.adapter, Joi: _libModel.Joi
-};
-
-/**
- * Extend modli to include adapters
- */
-exports['default'] = _.extend(modli, adapters);
-module.exports = exports['default'];
+exports.use = use;
+exports.model = _libModel.model;
+exports.adapter = _libAdapter.adapter;
+exports.Joi = _libModel.Joi;

@@ -7,12 +7,6 @@ import { model, Joi } from './lib/model';
 import { adapter } from './lib/adapter';
 const _ = require('lodash');
 
-// Adapters
-let adapters = {};
-adapter.builtIns.forEach((builtIn) => {
-  adapters[builtIn] = require(`./adapters/${builtIn}/index`)[builtIn];
-});
-
 /**
  * Binds model and adapter to make usable entity
  * @param {String} modelName The name of the model
@@ -29,11 +23,6 @@ const use = (modelName, adapterName) => {
 /**
  * Main modli object
  */
-const modli = {
+export {
   use, model, adapter, Joi
 };
-
-/**
- * Extend modli to include adapters
- */
-export default _.extend(modli, adapters);

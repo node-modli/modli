@@ -51,7 +51,7 @@ lint:
 test:
 	$(call colorecho, "Testing $(TESTS)$(FILE)")
 	$(BIN)/mocha $(T_ARGS) $(TESTS)$(FILE)
-	
+
 test-cover:
 	$(call colorecho, "Running coverage report")
 	$(BIN)/istanbul cover $(BIN)/_mocha -- $(T_ARGS) $(TESTS)$(FILE)
@@ -68,7 +68,7 @@ tag:
 	$(call colorecho, "Deploying to Git")
 	$(TAG_CMD)
 
-deploy: lint test-libs test-integration build tag
+deploy: lint test build tag
 
 all: clean install lint test build
 

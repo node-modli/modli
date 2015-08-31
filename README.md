@@ -1,28 +1,14 @@
-[![wercker status](https://app.wercker.com/status/e65545f185b1def5e6cca11cc4161812/s/master "wercker status")](https://app.wercker.com/project/bykey/e65545f185b1def5e6cca11cc4161812)
-[![Code Climate](https://codeclimate.com/github/TechnologyAdvice/modli/badges/gpa.svg)](https://codeclimate.com/github/TechnologyAdvice/modli)
-[![Test Coverage](https://codeclimate.com/github/TechnologyAdvice/modli/badges/coverage.svg)](https://codeclimate.com/github/TechnologyAdvice/modli/coverage)
-[![Dependency Status](https://www.versioneye.com/user/projects/55da64048d9c4b0018000442/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55da64048d9c4b0018000442)
-
-[![NPM](https://nodei.co/npm/modli.png)](https://www.npmjs.com/package/modli)
+[![wercker status](https://app.wercker.com/status/f3739d627fd42f6eb10bf5e1a1c09a84/s/master "wercker status")](https://app.wercker.com/project/bykey/f3739d627fd42f6eb10bf5e1a1c09a84)
+[![Code Climate](https://codeclimate.com/github/node-modli/modli/badges/gpa.svg)](https://codeclimate.com/github/node-modli/modli)
+[![Test Coverage](https://codeclimate.com/github/node-modli/modli/badges/coverage.svg)](https://codeclimate.com/github/node-modli/modli/coverage)
 
 # Modli
 
-A module for building models and adapters for multiple data sources. The core
-goal of this project is to create a minimal barrier to entrance for creating
-model-validated CRUD operations on data sources.
-
-This is done by addressing two core areas:
-
-**Models**
-
-Create a simple, universally similar modeling structure for any and all data
-sources to which an application may be connected.
-
-**Adapters**
-
-Create basic CRUD operations that function similarly between all adapters
-which can be connected to a model to perform the CRUD operations and are easily
-extensible for more complex operations.
+Modli is an NPM module designed to help create unified data modelling, validation
+and CRUD operations across numerous data sources. It accomplishes this by exposing
+a `model` object and an `adapter` object which are extended upon eachother with
+the desired adapter for a data source to create a more standard, extensible
+object.
 
 ## Installation
 
@@ -32,18 +18,22 @@ npm install modli --save
 
 ## Getting Started
 
-Below is an example of a basic setup where a **model** and an **adapter** 
-are added. Once added they are available to be `use`'d to create an 
-instance of the object with the methods from the adapter, validation, etc:
+Below is an example of a basic setup where a **model** and an **adapter**
+are added. Once added they are available to be `use`'d to create an
+instance of the object with the methods from the adapter, validation, etc.
+
+In this example, the [modli-nedb](https://www.npmjs.com/package/modli-nedb) is
+utilized (`npm install modli-nedb --save`).
 
 ```javascript
 import { model, adapter, use, Joi } from 'modli';
+import { nedb } from 'modli-nedb';
 
 // Create adapter object
 adapter.add({
   name: 'testNEDB',
   // Uses the built-in NeDB adapter
-  source: 'nedb',
+  source: nedb,
   // Initiates adapter with following config
   config: {
     inMemoryOnly: true
@@ -88,12 +78,64 @@ user.delete({ /*...query...*/ }).then(/*...*/).catch(/*...*/);
 
 *Yes, it's all based on Promises. You're welcome.*
 
+## Custom Adapters
+
+While the team behind Modli provides a number of adapters, Modli core is also
+designed to accept a path to a custom adapter:
+
+```javascript
+adapter.use({
+  name: 'myCustomAdapter',
+  source: 'path/to/myCustomAdapter'
+  config: {
+    /*...custom config properties...*/
+  }
+});
+```
+
+To see a functional example of a custom adapter see [/examples/custom-adapter](/examples/custom-adapter)
+
+## Extending Adapters
+
+Adapters can be esily extended upon. For example, a custom method could be added to
+the NeDB adapter used in the [Getting Started section](#getting-started):
+
+```javascript
+import { nedb } from 'modli-nedb';
+
+nedb.extend('myCustomMethod', (someVal) => {
+  // Just return the value passed
+  return someVal;
+});
+```
+
+All adapters contain the `extend` method which becomes part of the created object
+when a model and adapter are `use`'d, so the adapter can be extended before
+initialization with a model, or inline:
+
+```javascript
+// Initial setup
+adapter.add({ name: 'myAdapter', /*...*/ });
+model.add({ name: 'myModel', /*...*/ });
+// Usable object
+const myTest = use('myModel', 'myAdapter');
+
+// Extend...
+myTest.extend('myCustomMethod', (someVal) => {
+  // Just return the value passed
+  return someVal;
+});
+```
+
+The above would allow you to then call `myTest.myCustomMethod('foo')` and expect
+the response to be `foo`.
+
 ## Examples
 
 As often times it is easier to understand something when seen in practice, there
 are several [examples](/examples) available.
 
-The [`/test/index.int.js`](/test/index.int.js) file also serves as an integration
+The [`/test/index.spec.js`](/test/index.spec.js) file also serves as an integration
 test suite which shows how functionality of Modli is designed.
 
 ### Validate Model Data
@@ -143,34 +185,6 @@ model.customValidationError = (err) => {
 The above would return `"id" must be a number` if the above model was tested
 with an invalid (`string`) id.
 
-## Adapters
-
-*Please see the [Adapters Readme](/src/adapters) for additional information.*
-
-Adapters allow for creating standard CRUD methods which are then extended upon
-the model to make interacting with the datasource simple.
-
-### Default methods
-
-All adapters have 6 main methods which are exposed on the model; `create`, `read`,
-`update`, `delete`, `config` and `extend`.
-
-While these methods are mostly self-explanatory, some noteworthy specifics:
-
-The `config` method is called automatically by the model when the adapter is
-bound to it (see above model example).
-
-The `extend` method allows adapters to be dynamically built upon. An example of
-this method would be:
-
-```javascript
-import { myAdapter } from '/path/to/myAdapter';
-// namespace: myAdapter
-myAdapter.extend = (name, fn) => {
-  myAdapter[name] = fn.bind(nedb);
-};
-```
-
 ### Adapters and Validation
 
 When the adapter is extended upon the model to which it is applied it exposes
@@ -195,38 +209,23 @@ task method:
 * `clean` will remove the `/node_modules` directories
 * `build` will transpile ES2015 code in `/src` to `/build`
 * `test` will run all spec files in `/test/src`
-* `test-libs` will test modli's libs
-* `test-adapters` will test all adapters
-* `test-integration` will run integration test
 * `test-cover` will run code coverage on all tests
 * `lint` will lint all files in `/src`
 
 ## Testing
 
-Running `make test` will run the full test suite. Since adapters require a data 
-source if one is not configured the tests will fail. To counter this tests are 
-able to be broken up.
-
-**Core Modli Tests**
-
-When working on core Modli functionality (i.e. the `/src/libs`) running the 
-`make test-libs` command will unit test the code.
-
-**Adapter Tests**
-
-When building (mostly in CI) if all adapters have access to test data sources the 
-`make test-adapters` command will run all tests on `/src/adapters`.
+Running `make test` will run the full test suite.
 
 **Test Inidividual File**
 
-An individual spec can be run by specifying the `FILE`. This is convenient when 
+An individual spec can be run by specifying the `FILE`. This is convenient when
 working on an individual adapter.
 
 ```
 make test FILE=some.spec.js
 ```
 
-The `FILE` is relative to the `test/src/` directory.
+The `FILE` is relative to the `test/` directory.
 
 **Deploys**
 

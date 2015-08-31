@@ -61,7 +61,6 @@ describe('integration', () => {
         lname: 'Doe',
         email: 'jdoe@gmail.com'
       };
-      console.log(testModel.create);
       // Create
       testModel.create(testPassData)
         .then((data) => {

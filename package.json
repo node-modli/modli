@@ -1,6 +1,6 @@
 {
   "name": "modli",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A module for building models and adapters for multiple data sources",
   "main": "build/index.js",
   "repository": {

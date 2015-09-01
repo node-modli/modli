@@ -165,8 +165,7 @@ When the adapter is extended upon the model to which it is applied it exposes
 the `model`'s `validate` method. Adapters can utilize this via the following:
 
 ```javascript
-// namespace: myAdapter
-const validationErrors = myAdapter.validate(body);
+const validationErrors = this.validate(body);
 ```
 
 The `validate` method in the above returns errors to the `validationErrors`

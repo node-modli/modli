@@ -24,7 +24,7 @@ var inmem = {
   // Creates a record based on the body passed
   create: function (body) {
     // Test validation
-    const validationErrors = inmem.validate(body);
+    const validationErrors = this.validate(body);
     // Return promise
     return new Promise(function (resolve, reject) {
       /* istanbul ignore if */

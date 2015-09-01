@@ -68,31 +68,31 @@ describe('model', () => {
     });
   });
 
+  // Define pass data
+  const testPassDataV1 = {
+    id: 12345,
+    fname: 'John',
+    lname: 'Doe'
+  };
+
+  const testPassDataV2 = {
+    id: 12345,
+    fname: 'John',
+    lname: 'Doe',
+    email: 'jdoe@gmail.com'
+  };
+
+  // Define fail data
+  const testFailDataV1 = testPassDataV2;
+
+  const testFailDataV2 = {
+    id: 'foo',
+    fname: 123,
+    lname: [ 'bar' ],
+    email: 'jdoe[at]gmail.com'
+  };
+
   describe('validate', () => {
-    // Define pass data
-    const testPassDataV1 = {
-      id: 12345,
-      fname: 'John',
-      lname: 'Doe'
-    };
-
-    const testPassDataV2 = {
-      id: 12345,
-      fname: 'John',
-      lname: 'Doe',
-      email: 'jdoe@gmail.com'
-    };
-
-    // Define fail data
-    const testFailDataV1 = testPassDataV2;
-
-    const testFailDataV2 = {
-      id: 'foo',
-      fname: 123,
-      lname: [ 'bar' ],
-      email: 'jdoe[at]gmail.com'
-    };
-
     // Pass validation condition
     it('passes validation when object matches rules', () => {
       const passTest = testModel.validate(testPassDataV2);
@@ -121,6 +121,20 @@ describe('model', () => {
     it('fails validation on older version of schema', () => {
       const failTest = testModel.validate(testFailDataV1, 1);
       expect(failTest).to.not.be.null;
+    });
+  });
+
+  describe('sanitize', () => {
+    it('removes items from the data which are not present in the schema', () => {
+      const sanitized = testModel.sanitize({
+        fname: 'John',
+        lname: 'Smith',
+        email: 'jdoe@gmail.com' // <- not in v.1 of the model
+      }, 1);
+      expect(sanitized).to.deep.equal({
+        fname: 'John',
+        lname: 'Smith'
+      });
     });
   });
 });

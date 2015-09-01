@@ -63,6 +63,20 @@ model.init = (m) => {
         }
         return null;
       });
+    },
+    sanitize: function (data, version) {
+      const v = version || this.defaultVersion;
+      const itt = (schemaNode, dataNode) => {
+        for (let prop in dataNode) {
+          if (schemaNode[prop] && typeof dataNode[prop] === 'object') {
+            itt(schemaNode[prop], dataNode[prop]);
+          } else if (!schemaNode[prop]) {
+            delete dataNode[prop];
+          }
+        }
+        return dataNode;
+      };
+      return itt(this.schemas[v].schema, data);
     }
   };
 };

@@ -25,7 +25,7 @@ var use = function use(modelName, adapterName) {
   var m = _libModel.model.init(modelName);
   var a = _libAdapter.adapter.init(adapterName);
   // Return extended (in case model has arbitrary properties/methods)
-  return _.extend({}, _.extend(a, m));
+  return Object.create(_.extend({}, a, m));
 };
 
 /**

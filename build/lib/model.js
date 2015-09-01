@@ -70,6 +70,20 @@ model.init = function (m) {
         }
         return null;
       });
+    },
+    sanitize: function sanitize(data, version) {
+      var v = version || this.defaultVersion;
+      var itt = function itt(schemaNode, dataNode) {
+        for (var prop in dataNode) {
+          if (schemaNode[prop] && typeof dataNode[prop] === 'object') {
+            itt(schemaNode[prop], dataNode[prop]);
+          } else if (!schemaNode[prop]) {
+            delete dataNode[prop];
+          }
+        }
+        return dataNode;
+      };
+      return itt(this.schemas[v].schema, data);
     }
   };
 };

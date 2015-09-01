@@ -1,9 +1,0 @@
-examples
-test
-.codeclimate.yml
-.editorconfig
-.eslintrc
-.gitignore
-.jshintrc
-esdoc.json
-wercker.yml

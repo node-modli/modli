@@ -1,228 +1,215 @@
-[![wercker status](https://app.wercker.com/status/f3739d627fd42f6eb10bf5e1a1c09a84/s/master "wercker status")](https://app.wercker.com/project/bykey/f3739d627fd42f6eb10bf5e1a1c09a84)
-[![Code Climate](https://codeclimate.com/github/node-modli/modli/badges/gpa.svg)](https://codeclimate.com/github/node-modli/modli)
-[![Test Coverage](https://codeclimate.com/github/node-modli/modli/badges/coverage.svg)](https://codeclimate.com/github/node-modli/modli/coverage)
+Fancy jekyll powered single page site
+======================
 
-# Modli
+Here're some examples:
 
-Modli is an NPM module designed to help create unified data modelling, validation
-and CRUD operations across numerous data sources. It accomplishes this by exposing
-a `model` object and an `adapter` object which are extended upon eachother with
-the desired adapter for a data source to create a more standard, extensible
-object.
+- **This repository** is also a live demo, see it at [t413.com/SinglePaged](http://t413.com/SinglePaged)
+- **Education:**
+  - [University of Macau HCI team](http://gonzaleswu.github.io/TeamAwesome/) ([source](https://github.com/GonzalesWu/TeamAwesome))
+  - [Dutch Introduction to Electronics class](http://tverbesselt.github.io/) ([source](https://github.com/tverbesselt/tverbesselt.github.io)) ([translation](https://translate.google.com/translate?sl=auto&tl=en&js=y&prev=_t&hl=en&ie=UTF-8&u=http%3A%2F%2Ftverbesselt.github.io%2F&edit-text=&act=url))
+  - [Bioinformatics at Harvard Medical School](http://bioinformatics.hms.harvard.edu/) --  ([source](https://github.com/hbc-hms/hbc-hms.github.io))
+  - [Mathematical Insitute @ Tel-Aviv](http://sprig.github.io/mint/) -- ([source](https://github.com/sprig/mint-sp))
+  - [Innovation Lab + Smart Data Hack](http://smartdatahack.org/) 5-day student challenge at University of Edinburgh, Turkey ([source](https://github.com/ilwhack/ilwhack.github.io))
+  - [Global Health Project](http://gcarrozza.github.io/global-health-proj/) for Public Health class at UIC (student project) ([source](https://github.com/gcarrozza/global-health-proj/))
+  - [MA441 @ QueensBorough Community College NY](http://kwangkim.github.io/MA441/) ([source](https://github.com/kwangkim/MA441/))
+  - [@opsbug Tech Inoculator](http://increasingprobability.com/) ([source](https://github.com/increasingprobability/increasingprobability.github.io))
+  - [Mobi student organization](https://idappthat.github.io/)-- Mobile UX @ University of Texas at Arlington ([source](https://github.com/idappthat/idappthat.github.io))
+- **Open Source Projects:**
+  - [EssayMaker](http://getessaymaker.com) science fair project made to help write essays.
+  - [Mockito](https://mockito.github.io/) mocking framework for unit tests in Java ([source](https://github.com/mockito/mockito.github.io))
+  - [REMnux](http://remnux.github.io/) A Linux Toolkit for Reverse-Engineering and Analyzing Malware ([source](https://github.com/REMnux/remnux.github.io))
+  - [Langmuir](https://langmuirsim.github.io/) Charge transfer simulations in organic electronics. ([source](https://github.com/LangmuirSim/langmuirsim.github.io))
+  - [OSX Privacy](http://osxprivacy.com/)-- exposing OS X Yostemite privacy issues ([source](https://github.com/maxx/osxprivacy))
+  - [SMS-Tools](http://t413.com/SMS-Tools/) is another project of mine that uses this template ([source](https://github.com/t413/SMS-Tools/tree/gh-pages))
+  - [HTML Tidy Advocacy Community Group](http://www.htacg.org/) ([source](https://github.com/htacg/htacg.github.io))
+  - [AfriLeaks](http://codeforafrica.github.io/AfriLeaks-Landing-Page/) (since changed, still cool!) - secure whistleblowers confidential submition project page ([source when single-paged](https://github.com/CodeForAfrica/AfriLeaks-Landing-Page/tree/698e3b0b1a67cc5f072ccd3a8f24b6d5e3ad406a))
+  - [FitNesse](http://fitnesse-eclipse.github.io/) Eclipse Plugin ([source](https://github.com/fitnesse-eclipse/fitnesse-eclipse.github.io))
+  - [Akanda](http://akanda.io/) Network Virtualization ([source](https://github.com/akanda/akanda.io))
+  - [Lazy Dubuntu](http://lazydubuntu.com/) ([source](https://github.com/darol100/lazydubuntu.com))
+  - [GROgreenhouses](http://grogreenhouses.com/), finances greenhouses for farmers in Sierra Leone ([source](https://github.com/grogreenhouses/grogreenhouses.github.io))
+  - [vampd](http://vampd.io) Vagrant Drupal Box ([source](https://github.com/vampd/vampd/tree/gh-pages))
+  - [Automatune](http://mlsites.github.io/Automatune-Site/) - discover and share melodies ([source](https://github.com/mlsites/Automatune-Site/))
+  - [The Rosette Platform](https://rosette-proj.github.io/)- git-based, internationalization framework (Ruby) ([source](https://github.com/rosette-proj/rosette-proj.github.io))
+  - [PHP Cat](http://phpcat.github.io/phpcat/) PHP Developer Group in Catalan (grup de desenvolupadors PHP de llengua catalana) ([source](https://github.com/phpcat/phpcat/))
+  - [Alt.Net Australia User Group](http://www.ozalt.net/) ([source](https://github.com/ozaltnet/ozaltnet.github.io))
+- **Events / Confrences**
+  - [Code Across 2015 @Seoul](http://codeforseoul.org/codeacross/) 전 세계 시빅해커들과 함께 하는 ([source](https://github.com/codeforseoul/codeacross))
+  - [ACEMP - OPTIM - Electromotion](http://odtu.github.io/acemp/) Joint International Conference in Side, Turkey ([source](https://github.com/odtu/acemp/))
+  - [Innovation Lab + Smart Data Hack](http://smartdatahack.org/) 5-day student challenge at University of Edinburgh, Turkey ([source](https://github.com/ilwhack/ilwhack.github.io))
+  - [FSU Festival of New Music](https://fsufnm.github.io/) (17th Biennial) ([source](https://github.com/fsufnm/fsufnm.github.io))
+- **Personal:**
+  - [Karen and Scott wedding](http://karenandscott.com/) ([source](https://github.com/karenandscott/karenandscott.github.io))
+  - [ryan & rachel wedding](https://r-and-r.github.io/) ([source](https://github.com/r-and-r/r-and-r.github.io))
+  - [Harmanpreet weds Gurwinder](http://harmanwedsgurwinder.in/) ([source](https://github.com/harmanhanzra/harmanhanzra.github.io))
+  - [Chris & Katie wedding](http://katieball.me/wedding-style/) ([source](https://github.com/roachhd/wedding-style))
+- **Products:**
+  - [Pawan Kumar film](http://c10h14n2movie.com/) info page ([source](https://github.com/c10h14n2movie/c10h14n2movie.github.io))
+  - [Physical.media](http://joshmeek.com/PhysicalMedia-ComingSoon/) teaser page (album release tracker) ([source](https://github.com/JoshM33k/PhysicalMedia-ComingSoon))
+  - [DEVISSCHER web design](http://devisscher.github.io/templates/) ([source](https://github.com/devisscher/templates/))
+  - [Helpers in Korea](https://itgame.github.io/) ([source](https://github.com/itgame/itgame.github.io))
+  - Zeno- internet for gamers original teaser page: ([source](https://github.com/zenoio/zenoio.github.io))
+- **Resumes:**
+  - [Sumedha Pramod](http://www.pramod.ninja/) resume ([source](https://github.com/pramodsum/pramodsum.github.io))
+  - [Jiawei Gao](http://jiaweigao.github.io/) resume ([source](https://github.com/jiaweigao/jiaweigao.github.io))
+  - [magiciansanfrancisco.com](http://magiciansanfrancisco.com) professional page ([source](https://github.com/strongrobert/MagicianSanFrancisco))
+  - [Lia Bogoev](https://bogoli.github.io/) UX designer from utah ([source](https://github.com/bogoli/bogoli.github.io))
+  - [Péter Sólymos](http://peter.solymos.org/) resume ([source](https://github.com/psolymos/psolymos.github.io))
+  - [Bill Ryan](http://www.yuanbin.me/)'s homepage is a snazzy personal example! ([source](https://github.com/billryan/homepage))
+  - [Nick Janetakis](http://nickjanetakis.com/#development) resume ([source](https://github.com/nickjj/nickjj.github.io))
+  - [Emil Ahlbäck](https://mull.github.io/) resume ([source](https://github.com/mull/mull.github.io))
+  - [ChipsnCode / Prajwal Bhattaram](http://chipsncode.com/) resume ([source](https://github.com/Marzogh/Marzogh.github.io))
+  - [Sean Goodwin](http://www.seangoodwin.net/) resume ([source](https://github.com/seanegoodwin/seanegoodwin.github.io))
+  - [Laurence Roland James](http://www.laurencerolandjames.com/) personal page, ([source](https://github.com/LaurenceRolandJames/LaurenceRolandJames.github.io))
+  - [Christophe Gabard](http://christophe.gabard.net/) resume ([source](https://github.com/cgabard/cgabard.github.io))
+  - [Leppotone Electrical Recordings](http://www.nathanmclaughlin.com/leppotone/) temporary homepage ([source](https://github.com/nathanmclaughlin/leppotone))
+  - [Michael A. Schmidt](http://micha-a-schmidt.github.io/physics/) particle physics lecturer at the University of Sydney ([source](https://github.com/micha-a-schmidt/physics/))
+  - [Tim Beissinger](https://timbeissinger.github.io/) postdoc in Plant Sciences at UC Davis ([source](https://github.com/timbeissinger/timbeissinger.github.io))
+  - [Jin Li](https://just4jin.github.io/) MS student in Systems and Information Engineering @ UVA ([source](https://github.com/just4jin/just4jin.github.io))
+  - [Emil Ahlbäck](https://mull.github.io/) ([source](https://github.com/mull/mull.github.io))
+  - [Péter Sólymos](http://peter.solymos.org/) 'statistical computing meets biodiversity conservation' ([source](https://github.com/psolymos/psolymos.github.io))
+  - [My First Password](http://doublejosh.github.io/myfirstpassword/) (guide for choosing passwords) ([source](https://github.com/doublejosh/myfirstpassword/))
+- *Let me know of more!*
 
-## Installation
 
-```
-npm install modli --save
-```
+## Why?
 
-## Getting Started
+Got some *killer app*, some *neat project*, a cool portfolio? Make an easy single-page site to show it all off. SinglePaged uses jekyll niceties to make a ***polished, modular, and beautiful* single page site**.
 
-Below is an example of a basic setup where a **model** and an **adapter**
-are added. Once added they are available to be `use`'d to create an
-instance of the object with the methods from the adapter, validation, etc.
+- Each vertical section is a markdown file in **_posts/** directory.
+  * They're sorted by 'date'. (we don't use date anywhere, it only sorts)
+- Each vertical section sets it's own **color**, **header icon** (or image), **title**, and easy-to-write markdown body.
+- Only **two things** to edit:
+  1. Edit `_config.yml` to set the site title, description, etc
+  2. Add _posts/*.md to make each vertical section. Copy some examples and add the sections from your README.md for a fast start!
+- Easy adding of **SEO terms**, **favicon** & such, and **google analytics token**.
 
-In this example, the [modli-nedb](https://www.npmjs.com/package/modli-nedb) is
-utilized (`npm install modli-nedb --save`).
+Sound good? Let's go!
 
-```javascript
-import { model, adapter, use, Joi } from 'modli';
-import { nedb } from 'modli-nedb';
+There are three way to get started: (links jump to that section)
 
-// Create adapter object
-adapter.add({
-  name: 'testNEDB',
-  // Uses the built-in NeDB adapter
-  source: nedb,
-  // Initiates adapter with following config
-  config: {
-    inMemoryOnly: true
-  }
-});
+1. Make a [**user homepage**](#setup-as-user-homepage) (or organization)
+2. Make a [**standalone project**](#setup-as-standalone-project-page) page
+3. Make a [site under an **existing project**](#setup-inside-existing-project)
 
-// Add a Model
-model.add({
-  // Set a name
-  name: 'testUser',
-  // Set the version
-  version: 1,
-  // Define the schema
-  schema: {
-    id: Joi.number().integer(),
-    fname: Joi.string().min(3).max(30),
-    lname: Joi.string().min(3).max(30),
-    email: Joi.string().email().min(3).max(254).required()
-  }
-});
 
-// Create user object by using the model and adapter
-const user = use('testUser', 'testNEDB');
-```
 
-The above example will return the model object with a number of methods for
-performing data operations. This will always include core CRUD methods:
+-------------------------
 
-```javascript
-// Create
-user.create({ /*...data...*/ }).then(/*...*/).catch(/*...*/);
+## Setup as user homepage
 
-// Read
-user.read({ /*...query...*/ }).then(/*...*/).catch(/*...*/);
+- Go click **fork** on the [github project page](https://github.com/t413/SinglePaged)
+- Rename your new repository to `**username**.github.io`. (click settings in the right column)
+- Clone your repository, **cd into the project**
+- Run `git checkout publish && git branch -m master && git push -u origin master && git branch -D gh-pages` to get the *publish* branch as master for a clean, empty starting point.
+- On your github project page go to *settings* again and change your **default branch** to ***master***
+- Run `git push origin --delete gh-pages` to delete your remote's development branch
 
-// Update
-user.update({ /*...query, data...*/ }).then(/*...*/).catch(/*...*/);
+Now hop over to [Usage](#usage) to get it running with your own stuff!
 
-// Delete
-user.delete({ /*...query...*/ }).then(/*...*/).catch(/*...*/);
-```
+**When you publish changes use `git push -u origin master`**
 
-*Yes, it's all based on Promises. You're welcome.*
+-------------------------
 
-## Custom Adapters
 
-While the team behind Modli provides a number of adapters, Modli core is also
-designed to accept a path to a custom adapter:
+## Setup as standalone project page
 
-```javascript
-adapter.use({
-  name: 'myCustomAdapter',
-  source: 'path/to/myCustomAdapter'
-  config: {
-    /*...custom config properties...*/
-  }
-});
-```
+- Go click **fork** on the [github project page](https://github.com/t413/SinglePaged)
+- Rename your new repository to `whatever you want`. (click settings in the right column)
+  * It will go live at yourusername.github.io/**WhateverYouWant**
+- Clone your repository, cd into the project
+- Run `git checkout publish && git branch -D gh-pages && git branch -m gh-pages && git push -uf origin gh-pages` to swap the *publish* and *gh-pages* branch.
 
-To see a functional example of a custom adapter see [/examples/custom-adapter](/examples/custom-adapter)
+Now hop over to [Usage](#usage) to get it running with your own stuff!
 
-## Extending Adapters
+**When you publish changes use `git push -u origin gh-pages`**
 
-Adapters can be esily extended upon. For example, a custom method could be added to
-the NeDB adapter used in the [Getting Started section](#getting-started):
+-------------------------
 
-```javascript
-import { nedb } from 'modli-nedb';
 
-nedb.extend('myCustomMethod', (someVal) => {
-  // Just return the value passed
-  return someVal;
-});
-```
+## Setup inside existing project
 
-All adapters contain the `extend` method which becomes part of the created object
-when a model and adapter are `use`'d, so the adapter can be extended before
-initialization with a model, or inline:
+This is the most complicated use-case .. but it's the coolest.
+Say you've got your kickass project `github.com/t413/kicker` and want to have
+some web presence to post about on [hacker news](http://news.ycombinator.com).
+This will create an orphan branch called `gh_pages` in your repository
+where you can publish changes, posts, images, and such. It won't alter your code at all.
 
-```javascript
-// Initial setup
-adapter.add({ name: 'myAdapter', /*...*/ });
-model.add({ name: 'myModel', /*...*/ });
-// Usable object
-const myTest = use('myModel', 'myAdapter');
+- `cd` into your project on the command line
+- use `git remote add -t publish singlepage git@github.com:t413/SinglePaged.git` to get access to this repository.
+- use `git fetch singlepage publish:gh-pages` to fetch the remote branch
+- use `git branch --set-upstream gh-pages singlepage/publish && git checkout gh-pages;`
+  This creates and checks out an orphan branch called gh-pages that tracks the original and lets you make changes.
+- When you run `git push gh-pages:origin/gh-pages` it'll be live at *yourusername.github.io/repositoryName*
 
-// Extend...
-myTest.extend('myCustomMethod', (someVal) => {
-  // Just return the value passed
-  return someVal;
-});
-```
+Now hop over to [Usage](#usage) to get it running with your own stuff!
 
-The above would allow you to then call `myTest.myCustomMethod('foo')` and expect
-the response to be `foo`.
+**When you publish changes use `git push -u origin gh-pages`**
 
-### Validate Model Data
 
-Validation of model data is done by the adapter when data is being insertered,
-i.e. create and update procedures. The adapter inherits the model's `validate`
-method which utilizes the [Joi](https://github.com/hapijs/joi) library to ensure
-properties are correct.
 
-### Validation Error Formatting
+## Usage
 
-By default, the `validation` method's `fail` response will return the Joi error
-object. This can be overridden using the following:
+Alright, you've got a clean copy and are ready to push some schmancy pages for the world to ogle at.
 
-```javascript
-model.customValidationError = (err) => {
-  // ... custom formatting here ...
-};
-```
+- Edit `_config.yml` to change your title, keywords, and description.
+- Create a new file in `_posts/` called `2014-01-01-intro.md`
+  Edit it, and add:
 
-For example, if you wanted to just show the "human" error response text:
+~~~
+  ---
+  title: "home"
+  bg: white     #defined in _config.yml, can use html color like '#010101'
+  color: black  #text color
+  style: center
+  ---
 
-```javascript
-model.customValidationError = (err) => {
-  return err.details[0].message;
-}
-```
+  # Example headline!
+  and so on..
+~~~
 
-The above would return `"id" must be a number` if the above model was tested
-with an invalid `string` id when the expected input was an `integer`.
+- Create a second post called `2014-01-02-art.md` with an divider image this time:
 
-### Adapters and Validation
+~~~
+  ---
+  title: "Art"
+  bg: turquoise  #defined in _config.yml, can use html color like '#0fbfcf'
+  color: white   #text color
+  fa-icon: paint-brush
+  ---
 
-When the adapter is extended upon the model to which it is applied it exposes
-the `model`'s `validate` method. Adapters can utilize this via the following:
+  #### A new section- oh the humanity!
+~~~
 
-```javascript
-// namespace: myAdapter
-const validationErrors = myAdapter.validate(body);
-```
+**Note:** That part `fa-icon: paint-brush` will use a font-awesome icon of [paint-brush](http://fortawesome.github.io/Font-Awesome/icon/paint-brush/). You can use any icon from this [font-awesome icon directory](http://fortawesome.github.io/Font-Awesome/icons/).
 
-The `validate` method in the above returns errors to the `validationErrors`
-constant. If no validation errors are present it simply returns `null`.
+- install Jekyll with `sudo gem install github-pages`
+- run `jekyll serve -w`
+  - visit [localhost:4000](http://localhost:4000) to see a live locally served preview.
+- Push changes and see them live!
 
-## Examples
 
-As often times it is easier to understand something when seen in practice, there
-are several [examples](/examples) available.
 
-The [`/test/index.spec.js`](/test/index.spec.js) file also serves as an integration
-test suite which shows how functionality of Modli is designed.
 
-## Makefile and Scripts
+## Changing your colors
 
-A `Makefile` is included for managing build and install tasks. The commands are
-then referenced in the `package.json` `scripts` if that is the preferred
-task method:
+- In each post file you can define `bg: mycolor` and `color: myothercolor` to change the background and text colors for that section.
+- **mycolor** can be a quoted html color like `'#0fbfcf'` or a key to a special color defined in **_config.yml** under 'colors'.
+  - **Note:** Changes to _config.yml require a manual restart to your local server with `^C` and `jekyll serve -w`.
 
-* `all` (default) will run all build tasks
-* `start` will run the main script
-* `clean` will remove the `/node_modules` directories
-* `build` will transpile ES2015 code in `/src` to `/build`
-* `test` will run all spec files in `/test/src`
-* `test-cover` will run code coverage on all tests
-* `lint` will lint all files in `/src`
+Nifty, right!
 
-## Testing
 
-Running `make test` will run the full test suite.
 
-**Test Inidividual File**
+## Updating
 
-An individual spec can be run by specifying the `FILE`. This is convenient when
-working on an individual adapter.
+So you've got a copy running and there's some new update? Let's update!
 
-```
-make test FILE=some.spec.js
-```
-
-The `FILE` is relative to the `test/` directory.
-
-**Deploys**
-
-For deploying releases, the `deploy TAG={VERSION}` can be used where `VERSION` can be:
-
-```
-<newversion> | major | minor | patch | premajor
-```
-
-Both `make {COMMAND}` and `npm run {COMMAND}` work for any of the above commands.
-
-## License
-
-Modli is licensed under the MIT license. Please see `LICENSE.txt` for full details.
-
-## Credits
-
-Modli was designed and created at [TechnologyAdvice](http://www.technologyadvice.com).
+1. Checkout your github-pages branch
+  - `git checkout gh-pages` for a standalone or existing page
+  - `git checkout master` for a *username.github.io* page
+2. run `git remote | grep -q "singlepage" || git remote add -t publish singlepage https://github.com/t413/SinglePaged.git` to be sure you have access to this repository (you can run this command at any time).
+2. `git fetch singlepage` to fetch-in-place new changes.
+3. Update to the new base (using merge)
+    1. `git merge singlepage/publish`
+4. You can alternatively update using rebase. This *rewrites history* (**bad**), but it is cleaner.
+    1. `git rebase singlepage/publish`

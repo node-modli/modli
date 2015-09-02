@@ -26,8 +26,10 @@ In this example, the [modli-nedb](https://www.npmjs.com/package/modli-nedb) is
 utilized (`npm install modli-nedb --save`).
 
 ```javascript
+// Import all the Modli methods
 import { model, adapter, use, Joi } from 'modli';
-import { nedb } from 'modli-nedb';
+// Import the adapter to use
+import nedb from 'modli-nedb';
 
 // Create adapter object
 adapter.add({
@@ -101,7 +103,7 @@ Adapters can be esily extended upon. For example, a custom method could be added
 the NeDB adapter used in the [Getting Started section](#getting-started):
 
 ```javascript
-import { nedb } from 'modli-nedb';
+import nedb from 'modli-nedb';
 
 nedb.extend('myCustomMethod', (someVal) => {
   // Just return the value passed
@@ -165,11 +167,26 @@ When the adapter is extended upon the model to which it is applied it exposes
 the `model`'s `validate` method. Adapters can utilize this via the following:
 
 ```javascript
-const validationErrors = this.validate(body);
+const validationErrors = this.validate(body, version);
 ```
 
 The `validate` method in the above returns errors to the `validationErrors`
 constant. If no validation errors are present it simply returns `null`.
+
+The `version` paramater is optional and will default to the latest (last added)
+model if not specificed.
+
+### Adapters and Sanitization
+
+Similar to the inherited `validate` method, `sanitize` allows for aligning output,
+or response, data with the model version. Usage is simply:
+
+```javascript
+this.sanitize(response, version);
+```
+
+Also similar to `validate`, the `version` argument is optional and will default
+to the latest version of the model.
 
 ## Examples
 
@@ -203,10 +220,10 @@ An individual spec can be run by specifying the `FILE`. This is convenient when
 working on an individual adapter.
 
 ```
-make test FILE=some.spec.js
+make test FILE=/some.spec.js
 ```
 
-The `FILE` is relative to the `test/` directory.
+The `FILE` is relative to the `/test` directory.
 
 **Deploys**
 

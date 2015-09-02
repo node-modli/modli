@@ -13,8 +13,13 @@ describe('adapter', () => {
     }
   };
 
+  const customAdapter = {
+    name: 'customAdapter',
+    source: '../../test/mocks/adapter',
+    config: {}
+  };
+
   describe('add', () => {
-    // Fail on missing params
     it('fails if missing properties in the adapter object', () => {
       try {
         adapter.add({});
@@ -22,11 +27,14 @@ describe('adapter', () => {
         expect(e).to.be.an.instanceof(Error);
       }
     });
-    // Add to store
     it('adds a new adapter entry to the adapter object store', () => {
       adapter.add(testAdapter);
       expect(adapter.store).to.have.property(testAdapter.name);
       expect(adapter.store[testAdapter.name]).to.be.an.object;
+    });
+    it('adds a custom adapter from path reference', () => {
+      adapter.add(customAdapter);
+      expect(adapter.store[customAdapter.name]).to.be.an.object;
     });
   });
 
@@ -40,6 +48,10 @@ describe('adapter', () => {
     });
     it('initializes the adapter by returning the object', () => {
       const initAdapter = adapter.init('testNEDB');
+      expect(initAdapter).to.be.an.object;
+    });
+    it('initializes custom adapter by returning the object', () => {
+      const initAdapter = adapter.init('customAdapter');
       expect(initAdapter).to.be.an.object;
     });
   });

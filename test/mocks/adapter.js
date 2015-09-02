@@ -1,9 +1,8 @@
-export const mockAdapter = {
-  configProps: {},
-  config: function (opts) {
-    mockAdapter.configProps = opts;
-  },
-  mockMethod: () => {
+export default class {
+  constuctor (config) {
+    return config;
+  }
+  testMethod () {
     return true;
   }
-};
+}

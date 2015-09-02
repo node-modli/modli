@@ -12,7 +12,10 @@ describe('model', () => {
     schema: {
       id: Joi.number().integer(),
       fname: Joi.string().min(3).max(30),
-      lname: Joi.string().min(3).max(30)
+      lname: Joi.string().min(3).max(30),
+      roles: {
+        admin: Joi.boolean()
+      }
     }
   };
 
@@ -24,6 +27,9 @@ describe('model', () => {
       id: Joi.number().integer(),
       fname: Joi.string().min(3).max(30),
       lname: Joi.string().min(3).max(30),
+      roles: {
+        admin: Joi.boolean()
+      },
       email: Joi.string().email().min(3).max(30).required()
     }
   };
@@ -129,11 +135,17 @@ describe('model', () => {
       const sanitized = testModel.sanitize({
         fname: 'John',
         lname: 'Smith',
+        roles: {
+          admin: true
+        },
         email: 'jdoe@gmail.com' // <- not in v.1 of the model
       }, 1);
       expect(sanitized).to.deep.equal({
         fname: 'John',
-        lname: 'Smith'
+        lname: 'Smith',
+        roles: {
+          admin: true
+        }
       });
     });
   });

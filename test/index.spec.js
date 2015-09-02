@@ -2,7 +2,7 @@
 /* global expect, request, describe, it, before, after */
 import './setup';
 import { model, adapter, use, Joi } from '../src/index';
-import { nedb } from 'modli-nedb';
+import nedb from 'modli-nedb';
 
 /**
  * Integration testing

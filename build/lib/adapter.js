@@ -23,7 +23,11 @@ adapter.store = {};
 adapter.add = function (a) {
   // Ensure properties are defined
   if (!a.name || !a.source || !a.config) {
-    throw new Error('Adapter must contain a name, source and config');
+    throw new Error('Adapter must contain a name, source and config' + JSON.stringify({
+      name: a.name,
+      source: a.source,
+      config: a.config
+    }));
   }
   // Add to memory
   adapter.store[a.name] = {
@@ -45,16 +49,11 @@ adapter.init = function (a) {
     throw new Error('Adapter not defined');
   }
   var source = adapter.store[a].source;
-  if (typeof source === 'object') {
+  if (typeof source === 'function') {
     adapterObj = source;
   } else {
     adapterObj = require(source);
   }
-  // Check config object
-  /* istanbul ignore if */
-  if (Object.keys(adapter.store[a].config).length) {
-    // Apply opts using the config method
-    adapterObj.config(adapter.store[a].config);
-  }
-  return adapterObj;
+  // Instantiate adapter
+  return new adapterObj(adapter.store[a].config);
 };

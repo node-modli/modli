@@ -17,7 +17,7 @@ const use = (modelName, adapterName) => {
   const m = model.init(modelName);
   const a = adapter.init(adapterName);
   // Return extended (in case model has arbitrary properties/methods)
-  return Object.create(_.extend({}, a, m));
+  return _.extend(a, m);
 };
 
 /**

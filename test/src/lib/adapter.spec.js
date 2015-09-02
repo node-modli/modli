@@ -2,7 +2,7 @@
 /* global expect, request, describe, it, before, after */
 import '../../setup';
 import { adapter } from '../../../src/lib/adapter';
-import { nedb } from 'modli-nedb';
+import nedb from 'modli-nedb';
 
 describe('adapter', () => {
   const testAdapter = {

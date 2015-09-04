@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/index.js</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../prettify.css">
+    <link rel="stylesheet" href="../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">src/index.js</span></h1>
+    <h2>
+        Statements: <span class="metric">100% <small>(12 / 12)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">100% <small>(0 / 0)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">100% <small>(1 / 1)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">100% <small>(12 / 12)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../index.html">All files</a> &#187; <a href="index.html">src/</a> &#187; index.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+ * Copyright (c) 2015 TechnologyAdvice
+ */
+&nbsp;
+// Libs
+'use strict';
+&nbsp;
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+&nbsp;
+var _libModel = require('./lib/model');
+&nbsp;
+var _libAdapter = require('./lib/adapter');
+&nbsp;
+var _ = require('lodash');
+&nbsp;
+/**
+ * Binds model and adapter to make usable entity
+ * @param {String} modelName The name of the model
+ * @param {String} adapterName The name of the adapter
+ */
+var use = function use(modelName, adapterName) {
+  // Initialize model and adapter
+  var m = _libModel.model.init(modelName);
+  var a = _libAdapter.adapter.init(adapterName);
+  // Return extended (in case model has arbitrary properties/methods)
+  return _.extend(a, m);
+};
+&nbsp;
+/**
+ * Main modli object
+ */
+exports.use = use;
+exports.model = _libModel.model;
+exports.adapter = _libAdapter.adapter;
+exports.Joi = _libModel.Joi;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL2ZsdWlkYnl0ZS93b3Jrc3BhY2UvdGEvbW9kbGkvY29yZS9zcmMvaW5kZXguanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7d0JBSzJCLGFBQWE7OzBCQUNoQixlQUFlOztBQUN2QyxJQUFNLENBQUMsR0FBRyxPQUFPLENBQUMsUUFBUSxDQUFDLENBQUM7Ozs7Ozs7QUFPNUIsSUFBTSxHQUFHLEdBQUcsU0FBTixHQUFHLENBQUksU0FBUyxFQUFFLFdBQVcsRUFBSzs7QUFFdEMsTUFBTSxDQUFDLEdBQUcsZ0JBQU0sSUFBSSxDQUFDLFNBQVMsQ0FBQyxDQUFDO0FBQ2hDLE1BQU0sQ0FBQyxHQUFHLG9CQUFRLElBQUksQ0FBQyxXQUFXLENBQUMsQ0FBQzs7QUFFcEMsU0FBTyxDQUFDLENBQUMsTUFBTSxDQUFDLENBQUMsRUFBRSxDQUFDLENBQUMsQ0FBQztDQUN2QixDQUFDOzs7OztRQU1BLEdBQUcsR0FBSCxHQUFHO1FBQUUsS0FBSztRQUFFLE9BQU87UUFBRSxHQUFHIiwiZmlsZSI6Ii9ob21lL2ZsdWlkYnl0ZS93b3Jrc3BhY2UvdGEvbW9kbGkvY29yZS9zcmMvaW5kZXguanMiLCJzb3VyY2VzQ29udGVudCI6WyIvKlxuICogQ29weXJpZ2h0IChjKSAyMDE1IFRlY2hub2xvZ3lBZHZpY2VcbiAqL1xuXG4vLyBMaWJzXG5pbXBvcnQgeyBtb2RlbCwgSm9pIH0gZnJvbSAnLi9saWIvbW9kZWwnO1xuaW1wb3J0IHsgYWRhcHRlciB9IGZyb20gJy4vbGliL2FkYXB0ZXInO1xuY29uc3QgXyA9IHJlcXVpcmUoJ2xvZGFzaCcpO1xuXG4vKipcbiAqIEJpbmRzIG1vZGVsIGFuZCBhZGFwdGVyIHRvIG1ha2UgdXNhYmxlIGVudGl0eVxuICogQHBhcmFtIHtTdHJpbmd9IG1vZGVsTmFtZSBUaGUgbmFtZSBvZiB0aGUgbW9kZWxcbiAqIEBwYXJhbSB7U3RyaW5nfSBhZGFwdGVyTmFtZSBUaGUgbmFtZSBvZiB0aGUgYWRhcHRlclxuICovXG5jb25zdCB1c2UgPSAobW9kZWxOYW1lLCBhZGFwdGVyTmFtZSkgPT4ge1xuICAvLyBJbml0aWFsaXplIG1vZGVsIGFuZCBhZGFwdGVyXG4gIGNvbnN0IG0gPSBtb2RlbC5pbml0KG1vZGVsTmFtZSk7XG4gIGNvbnN0IGEgPSBhZGFwdGVyLmluaXQoYWRhcHRlck5hbWUpO1xuICAvLyBSZXR1cm4gZXh0ZW5kZWQgKGluIGNhc2UgbW9kZWwgaGFzIGFyYml0cmFyeSBwcm9wZXJ0aWVzL21ldGhvZHMpXG4gIHJldHVybiBfLmV4dGVuZChhLCBtKTtcbn07XG5cbi8qKlxuICogTWFpbiBtb2RsaSBvYmplY3RcbiAqL1xuZXhwb3J0IHtcbiAgdXNlLCBtb2RlbCwgYWRhcHRlciwgSm9pXG59O1xuIl19</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Sep 03 2015 09:58:52 GMT-0400 (EDT)</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

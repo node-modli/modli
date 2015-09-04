@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/lib/adapter.js</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../prettify.css">
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">src/lib/adapter.js</span></h1>
+    <h2>
+        Statements: <span class="metric">100% <small>(17 / 17)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">100% <small>(9 / 9)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">100% <small>(2 / 2)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">100% <small>(17 / 17)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">src/lib/</a> &#187; adapter.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+ * Exports the core adapter object
+ * @namespace adapter
+ */
+'use strict';
+&nbsp;
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+var adapter = {};
+&nbsp;
+exports.adapter = adapter;
+/**
+ * Stores the adapters in memory
+ * @property {Object}
+ */
+adapter.store = {};
+&nbsp;
+/**
+ * Adds an adapter to the store
+ * @param {Object} a The adapter to add
+ */
+adapter.add = function (a) {
+  // Ensure properties are defined
+  if (!a.name || !a.source || !a.config) {
+    throw new Error('Adapter must contain a name, source and config' + JSON.stringify({
+      name: a.name,
+      source: a.source,
+      config: a.config
+    }));
+  }
+  // Add to memory
+  adapter.store[a.name] = {
+    source: a.source,
+    config: a.config
+  };
+};
+&nbsp;
+/**
+ * Gets adapter and calls config
+ * @memberof adapter
+ * @param {String} adapter The adapter to require/import
+ * @returns {Object} Adapter
+ */
+adapter.init = function (a) {
+  var adapterObj = undefined;
+  // Ensure model is defined
+  if (!adapter.store[a]) {
+    throw new Error('Adapter not defined');
+  }
+  var source = adapter.store[a].source;
+  if (typeof source === 'function') {
+    adapterObj = source;
+  } else {
+    adapterObj = require(source);
+  }
+  // Instantiate adapter
+  return new adapterObj(adapter.store[a].config);
+};
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL2ZsdWlkYnl0ZS93b3Jrc3BhY2UvdGEvbW9kbGkvY29yZS9zcmMvbGliL2FkYXB0ZXIuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7O0FBSU8sSUFBTSxPQUFPLEdBQUcsRUFBRSxDQUFDOzs7Ozs7O0FBTTFCLE9BQU8sQ0FBQyxLQUFLLEdBQUcsRUFBRSxDQUFDOzs7Ozs7QUFNbkIsT0FBTyxDQUFDLEdBQUcsR0FBRyxVQUFDLENBQUMsRUFBSzs7QUFFbkIsTUFBSSxDQUFDLENBQUMsQ0FBQyxJQUFJLElBQUksQ0FBQyxDQUFDLENBQUMsTUFBTSxJQUFJLENBQUMsQ0FBQyxDQUFDLE1BQU0sRUFBRTtBQUNyQyxVQUFNLElBQUksS0FBSyxDQUFDLGdEQUFnRCxHQUFHLElBQUksQ0FBQyxTQUFTLENBQUM7QUFDaEYsVUFBSSxFQUFFLENBQUMsQ0FBQyxJQUFJO0FBQ1osWUFBTSxFQUFFLENBQUMsQ0FBQyxNQUFNO0FBQ2hCLFlBQU0sRUFBRSxDQUFDLENBQUMsTUFBTTtLQUNqQixDQUFDLENBQUMsQ0FBQztHQUNMOztBQUVELFNBQU8sQ0FBQyxLQUFLLENBQUMsQ0FBQyxDQUFDLElBQUksQ0FBQyxHQUFHO0FBQ3RCLFVBQU0sRUFBRSxDQUFDLENBQUMsTUFBTTtBQUNoQixVQUFNLEVBQUUsQ0FBQyxDQUFDLE1BQU07R0FDakIsQ0FBQztDQUNILENBQUM7Ozs7Ozs7O0FBUUYsT0FBTyxDQUFDLElBQUksR0FBRyxVQUFDLENBQUMsRUFBSztBQUNwQixNQUFJLFVBQVUsWUFBQSxDQUFDOztBQUVmLE1BQUksQ0FBQyxPQUFPLENBQUMsS0FBSyxDQUFDLENBQUMsQ0FBQyxFQUFFO0FBQ3JCLFVBQU0sSUFBSSxLQUFLLENBQUMscUJBQXFCLENBQUMsQ0FBQztHQUN4QztBQUNELE1BQU0sTUFBTSxHQUFHLE9BQU8sQ0FBQyxLQUFLLENBQUMsQ0FBQyxDQUFDLENBQUMsTUFBTSxDQUFDO0FBQ3ZDLE1BQUksT0FBTyxNQUFNLEtBQUssVUFBVSxFQUFFO0FBQ2hDLGNBQVUsR0FBRyxNQUFNLENBQUM7R0FDckIsTUFBTTtBQUNMLGNBQVUsR0FBRyxPQUFPLENBQUMsTUFBTSxDQUFDLENBQUM7R0FDOUI7O0FBRUQsU0FBTyxJQUFJLFVBQVUsQ0FBQyxPQUFPLENBQUMsS0FBSyxDQUFDLENBQUMsQ0FBQyxDQUFDLE1BQU0sQ0FBQyxDQUFDO0NBQ2hELENBQUMiLCJmaWxlIjoiL2hvbWUvZmx1aWRieXRlL3dvcmtzcGFjZS90YS9tb2RsaS9jb3JlL3NyYy9saWIvYWRhcHRlci5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogRXhwb3J0cyB0aGUgY29yZSBhZGFwdGVyIG9iamVjdFxuICogQG5hbWVzcGFjZSBhZGFwdGVyXG4gKi9cbmV4cG9ydCBjb25zdCBhZGFwdGVyID0ge307XG5cbi8qKlxuICogU3RvcmVzIHRoZSBhZGFwdGVycyBpbiBtZW1vcnlcbiAqIEBwcm9wZXJ0eSB7T2JqZWN0fVxuICovXG5hZGFwdGVyLnN0b3JlID0ge307XG5cbi8qKlxuICogQWRkcyBhbiBhZGFwdGVyIHRvIHRoZSBzdG9yZVxuICogQHBhcmFtIHtPYmplY3R9IGEgVGhlIGFkYXB0ZXIgdG8gYWRkXG4gKi9cbmFkYXB0ZXIuYWRkID0gKGEpID0+IHtcbiAgLy8gRW5zdXJlIHByb3BlcnRpZXMgYXJlIGRlZmluZWRcbiAgaWYgKCFhLm5hbWUgfHwgIWEuc291cmNlIHx8ICFhLmNvbmZpZykge1xuICAgIHRocm93IG5ldyBFcnJvcignQWRhcHRlciBtdXN0IGNvbnRhaW4gYSBuYW1lLCBzb3VyY2UgYW5kIGNvbmZpZycgKyBKU09OLnN0cmluZ2lmeSh7XG4gICAgICBuYW1lOiBhLm5hbWUsXG4gICAgICBzb3VyY2U6IGEuc291cmNlLFxuICAgICAgY29uZmlnOiBhLmNvbmZpZ1xuICAgIH0pKTtcbiAgfVxuICAvLyBBZGQgdG8gbWVtb3J5XG4gIGFkYXB0ZXIuc3RvcmVbYS5uYW1lXSA9IHtcbiAgICBzb3VyY2U6IGEuc291cmNlLFxuICAgIGNvbmZpZzogYS5jb25maWdcbiAgfTtcbn07XG5cbi8qKlxuICogR2V0cyBhZGFwdGVyIGFuZCBjYWxscyBjb25maWdcbiAqIEBtZW1iZXJvZiBhZGFwdGVyXG4gKiBAcGFyYW0ge1N0cmluZ30gYWRhcHRlciBUaGUgYWRhcHRlciB0byByZXF1aXJlL2ltcG9ydFxuICogQHJldHVybnMge09iamVjdH0gQWRhcHRlclxuICovXG5hZGFwdGVyLmluaXQgPSAoYSkgPT4ge1xuICBsZXQgYWRhcHRlck9iajtcbiAgLy8gRW5zdXJlIG1vZGVsIGlzIGRlZmluZWRcbiAgaWYgKCFhZGFwdGVyLnN0b3JlW2FdKSB7XG4gICAgdGhyb3cgbmV3IEVycm9yKCdBZGFwdGVyIG5vdCBkZWZpbmVkJyk7XG4gIH1cbiAgY29uc3Qgc291cmNlID0gYWRhcHRlci5zdG9yZVthXS5zb3VyY2U7XG4gIGlmICh0eXBlb2Ygc291cmNlID09PSAnZnVuY3Rpb24nKSB7XG4gICAgYWRhcHRlck9iaiA9IHNvdXJjZTtcbiAgfSBlbHNlIHtcbiAgICBhZGFwdGVyT2JqID0gcmVxdWlyZShzb3VyY2UpO1xuICB9XG4gIC8vIEluc3RhbnRpYXRlIGFkYXB0ZXJcbiAgcmV0dXJuIG5ldyBhZGFwdGVyT2JqKGFkYXB0ZXIuc3RvcmVbYV0uY29uZmlnKTtcbn07XG4iXX0=</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Sep 03 2015 09:58:52 GMT-0400 (EDT)</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

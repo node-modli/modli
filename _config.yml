@@ -15,24 +15,25 @@ highlighter: pygments
 
 
 ### content configuration ###
-title:       "SinglePaged - Simple Jekyll template"
-keywords:    "SinglePaged, jekyll, template, github, blog, single page"
-description: "A single-page template for Jekyll based blogs (like what you'd use on github pages!)"
+title:       "Modli : NodeJS Data Modeling, Versioning and CRUD"
+keywords:    "modli, crud, data, modeling, mongo, mysql, postgres, dynamo, dynamodb"
+description: "Data modeling, versioning and CRUD made easy"
 source_link: "https://github.com/t413/SinglePaged"
 favicon:     "img/favicon.ico"
 touch_icon:  "img/apple-touch-icon.png"
-google_analytics_key: UA-49607422-1 ## put YOUR key here to enable tracking! (blank to disable)
+#google_analytics_key: UA-49607422-1 ## put YOUR key here to enable tracking! (blank to disable)
 
 
 ### template colors, used site-wide via css ###
 colors:
   black:     '#111111'
+  grey:      '#595959'
   white:     '#f8f8f8'
-  blue:      '#49a7e9'
-  green:     '#9bcf2f'
-  purple:    '#c869bf'
+  blue:      '#1C4867'
+  green:     '#3D6D22'
+  purple:    '#5C1971'
   orange:    '#fab125'
-  turquoise: '#0fbfcf'
+  turquoise: '#196871'
 
 kramdown:
   auto_ids:  false

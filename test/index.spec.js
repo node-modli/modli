@@ -28,6 +28,13 @@ describe('integration', () => {
     }
   };
 
+  // Test data
+  const testPassData = {
+    fname: 'John',
+    lname: 'Doe',
+    email: 'jdoe@gmail.com'
+  };
+
   let testID;
   let testModel;
 
@@ -35,38 +42,41 @@ describe('integration', () => {
     it('adds a model to the model object', () => {
       model.add(intModel);
       // Ensure creation
-      expect(model.store.testUser).to.be.an.object;
+      const actualSchema = Object.keys(model.store.testUser[intModel.version].schema);
+      const expectedSchema = Object.keys(intModel.schema);
+      expect(actualSchema).to.deep.equal(expectedSchema);
     });
   });
 
   describe('add an adapter', () => {
     it('adds an adapter to the adapter object', () => {
       adapter.add(intAdapter);
+      const actualConfig = adapter.store.testNEDB.config;
+      const expectedConfig = intAdapter.config;
       // Ensure creation
-      expect(adapter.store.testNEDB).to.be.an.object;
+      expect(actualConfig).to.deep.equal(expectedConfig);
     });
   });
 
   describe('use an instance', () => {
     it('returns an instance based on a model and adapter', () => {
       testModel = use('testUser', 'testNEDB');
-      expect(testModel).to.be.an.object;
+      expect(parseInt(testModel.defaultVersion, 10)).to.equal(parseInt(intModel.version, 10));
+      expect(testModel.schemas).to.be.an.object;
+      expect(testModel.validate).to.be.a.function;
+      expect(testModel.sanitize).to.be.a.function;
     });
   });
 
   describe('create item', () => {
     it('creates an item in the datastore', (done) => {
-      // Test data
-      const testPassData = {
-        fname: 'John',
-        lname: 'Doe',
-        email: 'jdoe@gmail.com'
-      };
       // Create
       testModel.create(testPassData)
         .then((data) => {
           testID = data._id;
-          expect(data).to.be.an.object;
+          // Remove generated _id
+          delete data._id;
+          expect(data).to.deep.equal(testPassData);
           done();
         })
         .catch(done);
@@ -79,7 +89,7 @@ describe('integration', () => {
       // Create
       testModel.create(testFailData)
         .catch((err) => {
-          expect(err).to.be.an.object;
+          expect(err.message).to.equal('child "fname" fails because ["fname" must be a string]');
           done();
         });
     });
@@ -89,7 +99,7 @@ describe('integration', () => {
     it('reads an item in the datastore', (done) => {
       testModel.read({ _id: testID })
         .then((data) => {
-          expect(data).to.be.an.array;
+          expect(data[0]).to.deep.equal(testPassData);
           done();
         })
         .catch(done);
@@ -99,12 +109,12 @@ describe('integration', () => {
   describe('update item', () => {
     it('updates an item in the datastore', (done) => {
       // Test data
-      const testPassData = {
+      const testPassDataUpdate = {
         fname: 'Bob',
         email: 'bsmith@gmail.com'
       };
       // Update
-      testModel.update({ _id: testID }, testPassData)
+      testModel.update({ _id: testID }, testPassDataUpdate)
         .then((res) => {
           expect(res).to.equal(1);
           done();
@@ -119,7 +129,7 @@ describe('integration', () => {
       // Update
       testModel.update({ _id: testID }, testFailData)
         .catch((err) => {
-          expect(err).to.be.an.object;
+          expect(err.message).to.equal('child "fname" fails because ["fname" must be a string]');
           done();
         });
     });

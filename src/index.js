@@ -5,7 +5,7 @@
 // Libs
 import { model, Joi } from './lib/model';
 import { adapter } from './lib/adapter';
-const _ = require('lodash');
+import _ from 'lodash';
 
 /**
  * Binds model and adapter to make usable entity

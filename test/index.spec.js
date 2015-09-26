@@ -68,6 +68,18 @@ describe('integration', () => {
     });
   });
 
+  describe('add a plugin', () => {
+    it('adds a plugin to the instance', () => {
+      const testPlugin = function () {
+        // Return the v1 schema
+        return this.schemas[1];
+      };
+      // Add the plugin
+      testModel.plugin(testPlugin);
+      expect(testModel.testPlugin()).to.have.property('schema');
+    });
+  });
+
   describe('create item', () => {
     it('creates an item in the datastore', (done) => {
       // Create

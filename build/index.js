@@ -9,11 +9,23 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
 var _libModel = require('./lib/model');
 
 var _libAdapter = require('./lib/adapter');
 
-var _ = require('lodash');
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+/**
+ * Adds plugins for extending core functionality
+ * @param {Function} plugin The plugin function
+ */
+var pluginFn = function pluginFn(plugin) {
+  this[plugin.name] = plugin;
+};
 
 /**
  * Binds model and adapter to make usable entity
@@ -25,7 +37,7 @@ var use = function use(modelName, adapterName) {
   var m = _libModel.model.init(modelName);
   var a = _libAdapter.adapter.init(adapterName);
   // Return extended (in case model has arbitrary properties/methods)
-  return _.extend(a, m);
+  return _lodash2['default'].extend(a, m, { plugin: pluginFn });
 };
 
 /**

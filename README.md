@@ -80,6 +80,24 @@ user.delete({ /*...query...*/ }).then(/*...*/).catch(/*...*/);
 
 *Yes, it's all based on Promises. You're welcome.*
 
+## Plugins
+
+Modli supports easy addition of custom functionality through plugins. Using the 
+above example, a plugin can be added to extend the Modli instance:
+
+```javascript
+// Create a plugin function
+const getSchemas = function () {
+  return this.schemas;
+}
+
+// Use the `plugin` method to add the plugin
+user.plugin(getSchemas);
+
+// Call the plugin
+const schemas = user.getSchemas(); // <- would return all schemas in user
+```
+
 ## Custom Adapters
 
 While the team behind Modli provides a number of adapters, Modli core is also

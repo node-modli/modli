@@ -75,7 +75,7 @@ model.init = function (m) {
       var v = version || this.defaultVersion;
       var itt = function itt(schemaNode, dataNode) {
         for (var prop in dataNode) {
-          if (schemaNode[prop] && typeof dataNode[prop] === 'object') {
+          if (schemaNode[prop] && ({}).toString.call(dataNode[prop]).match(/\s([a-zA-Z]+)/)[1].toLowerCase() === 'object') {
             itt(schemaNode[prop], dataNode[prop]);
           } else if (!schemaNode[prop]) {
             delete dataNode[prop];

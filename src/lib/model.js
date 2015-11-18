@@ -68,7 +68,7 @@ model.init = (m) => {
       const v = version || this.defaultVersion;
       const itt = (schemaNode, dataNode) => {
         for (let prop in dataNode) {
-          if (schemaNode[prop] && typeof dataNode[prop] === 'object') {
+          if (schemaNode[prop] && ({}).toString.call(dataNode[prop]).match(/\s([a-zA-Z]+)/)[1].toLowerCase() === 'object') {
             itt(schemaNode[prop], dataNode[prop]);
           } else if (!schemaNode[prop]) {
             delete dataNode[prop];

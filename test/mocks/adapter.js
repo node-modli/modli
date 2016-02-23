@@ -1,8 +1,8 @@
 export default class {
-  constuctor (config) {
-    return config;
+  constuctor(config) {
+    return config
   }
-  testMethod () {
-    return true;
+  testMethod() {
+    return true
   }
 }

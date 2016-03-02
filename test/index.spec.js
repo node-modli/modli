@@ -20,6 +20,7 @@ describe('integration', () => {
 
   const intModel = {
     name: 'testUser',
+    tableName: 'myTestUser',
     version: 1,
     schema: {
       fname: { type: 'string' },
@@ -61,6 +62,8 @@ describe('integration', () => {
   describe('use an instance', () => {
     it('returns an instance based on a model and adapter', () => {
       testModel = use('testUser', 'testNEDB')
+      expect(testModel.name).to.equal(intModel.name)
+      expect(testModel.tableName).to.equal(intModel.tableName)
       expect(parseInt(testModel.defaultVersion, 10)).to.equal(parseInt(intModel.version, 10))
       expect(testModel.schemas).to.be.an.object
       expect(testModel.validate).to.be.a.function

@@ -7,6 +7,7 @@ describe('model', () => {
   // Define models
   const modelObjV1 = {
     name: 'foo',
+    tableName: 'myFoo',
     version: 1,
     customProp: 'bar',
     schema: {
@@ -21,6 +22,7 @@ describe('model', () => {
 
   const modelObjV2 = {
     name: 'foo',
+    tableName: 'myFoo',
     version: 2,
     customProp: 'baz',
     schema: {

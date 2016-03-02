@@ -1,21 +1,19 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 /**
  * Exports Joi so no additional import/require needed
  */
-'use strict';
+var obey = exports.obey = require('obey');
 
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-var Joi = require('joi');
-
-exports.Joi = Joi;
 /**
  * Exports the core model object
  * @namespace model
  */
-var model = {};
+var model = exports.model = {};
 
-exports.model = model;
 /**
  * Stores the models and their versions in memory
  * @property {Object}
@@ -28,8 +26,8 @@ model.store = {};
  */
 model.add = function (m) {
   // Ensure required properties
-  if (!m.name || !m.version || !m.schema) {
-    throw new Error('Model must contain a name, version and schema');
+  if (!m.name || !m.tableName || !m.version || !m.schema) {
+    throw new Error('Model must contain a name, tableName, version and schema');
   }
   // Check if model exists
   if (!model.store[m.name]) {
@@ -40,7 +38,12 @@ model.add = function (m) {
   var modelObj = {};
   Object.keys(m).forEach(function (prop) {
     if (prop !== 'version' && prop !== 'name') {
-      modelObj[prop] = m[prop];
+      if (prop === 'schema' && typeof m.schema.validate !== 'function') {
+        // Build model
+        modelObj.schema = obey.model(m.schema);
+      } else {
+        modelObj[prop] = m[prop];
+      }
     }
   });
   // Append to existing store entry with version and schema
@@ -58,32 +61,32 @@ model.init = function (m) {
     throw new Error('Model not defined');
   }
   // Get model object
+  var defaultVersion = Object.keys(model.store[m]).pop();
   return {
-    defaultVersion: Object.keys(model.store[m]).pop(),
+    name: m,
+    tableName: model.store[m][defaultVersion].tableName,
+    defaultVersion: defaultVersion,
     schemas: model.store[m],
     validate: function validate(data, version) {
       var v = version || this.defaultVersion;
       // Return validation
-      return Joi.validate(data, Joi.object().keys(this.schemas[v].schema), function (err) {
-        if (err) {
-          return model.formatValidationError(err);
-        }
-        return null;
+      return this.schemas[v].schema.validate(data).catch(function (err) {
+        return model.formatValidationError(err.collection);
       });
     },
     sanitize: function sanitize(data, version) {
       var v = version || this.defaultVersion;
       var itt = function itt(schemaNode, dataNode) {
         for (var prop in dataNode) {
-          if (schemaNode[prop] && ({}).toString.call(dataNode[prop]).match(/\s([a-zA-Z]+)/)[1].toLowerCase() === 'object') {
-            itt(schemaNode[prop], dataNode[prop]);
+          if (schemaNode[prop] && {}.toString.call(dataNode[prop]).match(/\s([a-zA-Z]+)/)[1].toLowerCase() === 'object') {
+            itt(schemaNode[prop].keys, dataNode[prop]);
           } else if (!schemaNode[prop]) {
             delete dataNode[prop];
           }
         }
         return dataNode;
       };
-      return itt(this.schemas[v].schema, data);
+      return itt(this.schemas[v].schema.def.keys, data);
     }
   };
 };
@@ -97,9 +100,9 @@ model.init = function (m) {
 model.formatValidationError = function (err) {
   if (model.customValidationError) {
     // A custom formatter is defined
-    return model.customValidationError(err);
+    throw model.customValidationError(err);
   }
-  return err;
+  throw err;
 };
 
 /**

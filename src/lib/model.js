@@ -63,24 +63,21 @@ model.init = (m) => {
       const v = version || this.defaultVersion
       // Return validation
       return this.schemas[v].schema.validate(data)
-        .then(() => null)
-        .catch(err => {
-          return model.formatValidationError(err.collection)
-        })
+        .catch(err => model.formatValidationError(err.collection))
     },
     sanitize: function(data, version) {
       const v = version || this.defaultVersion
       const itt = (schemaNode, dataNode) => {
         for (let prop in dataNode) {
           if (schemaNode[prop] && {}.toString.call(dataNode[prop]).match(/\s([a-zA-Z]+)/)[1].toLowerCase() === 'object') {
-            itt(schemaNode[prop], dataNode[prop])
+            itt(schemaNode[prop].keys, dataNode[prop])
           } else if (!schemaNode[prop]) {
             delete dataNode[prop]
           }
         }
         return dataNode
       }
-      return itt(this.schemas[v].schema, data)
+      return itt(this.schemas[v].schema.def.keys, data)
     }
   }
 }
@@ -94,9 +91,9 @@ model.init = (m) => {
 model.formatValidationError = (err) => {
   if (model.customValidationError) {
     // A custom formatter is defined
-    return model.customValidationError(err)
+    throw model.customValidationError(err)
   }
-  return err
+  throw err
 }
 
 /**

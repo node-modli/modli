@@ -50,9 +50,5 @@ describe('adapter', () => {
       const initAdapter = adapter.init('testNEDB')
       expect(initAdapter).to.be.an.object
     })
-    it('initializes custom adapter by returning the object', () => {
-      const initAdapter = adapter.init('customAdapter')
-      expect(initAdapter).to.be.an.object
-    })
   })
 })

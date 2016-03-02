@@ -42,7 +42,7 @@ describe('integration', () => {
     it('adds a model to the model object', () => {
       model.add(intModel)
       // Ensure creation
-      const actualSchema = Object.keys(model.store.testUser[intModel.version].schema.schema)
+      const actualSchema = Object.keys(model.store.testUser[intModel.version].schema.def.keys)
       const expectedSchema = Object.keys(intModel.schema)
       expect(actualSchema).to.deep.equal(expectedSchema)
     })
@@ -85,63 +85,57 @@ describe('integration', () => {
       // Create
       return testModel.create(testPassData)
         .then((data) => {
-          console.log('DATA', data)
           testID = data._id
           // Remove generated _id
           delete data._id
           expect(data).to.deep.equal(testPassData)
         })
     })
-    it('fails when item has invalid property', (done) => {
+    it('fails when item has invalid property', () => {
       // Test data
       const testFailData = {
         fname: 123
       }
       // Create
-      testModel.create(testFailData)
+      return testModel.create(testFailData)
         .catch((err) => {
-          expect(err.message).to.equal('child "fname" fails because ["fname" must be a string]')
-          done()
+          expect(err[0].key).to.equal('fname')
         })
     })
   })
 
   describe('read item', () => {
-    it('reads an item in the datastore', (done) => {
-      testModel.read({ _id: testID })
-        .then((data) => {
+    it('reads an item in the datastore', () => {
+      return testModel.read({ _id: testID })
+        .then(data => {
           expect(data[0]).to.deep.equal(testPassData)
-          done()
         })
-        .catch(done)
     })
   })
 
   describe('update item', () => {
-    it('updates an item in the datastore', (done) => {
+    it('updates an item in the datastore', () => {
       // Test data
       const testPassDataUpdate = {
         fname: 'Bob',
+        lname: 'Smith',
         email: 'bsmith@gmail.com'
       }
       // Update
-      testModel.update({ _id: testID }, testPassDataUpdate)
+      return testModel.update({ _id: testID }, testPassDataUpdate)
         .then((res) => {
           expect(res).to.equal(1)
-          done()
         })
-        .catch(done)
     })
-    it('fails when item has invalid property', (done) => {
+    it('fails when item has invalid property', () => {
       // Test data
       const testFailData = {
         fname: 123
       }
       // Update
-      testModel.update({ _id: testID }, testFailData)
+      return testModel.update({ _id: testID }, testFailData)
         .catch((err) => {
-          expect(err.message).to.equal('child "fname" fails because ["fname" must be a string]')
-          done()
+          expect(err[0].key).to.equal('fname')
         })
     })
   })

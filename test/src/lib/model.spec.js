@@ -78,14 +78,20 @@ describe('model', () => {
   const testPassDataV1 = {
     id: 12345,
     fname: 'John',
-    lname: 'Doe'
+    lname: 'Doe',
+    roles: {
+      admin: false
+    }
   }
 
   const testPassDataV2 = {
     id: 12345,
     fname: 'John',
     lname: 'Doe',
-    email: 'jdoe@gmail.com'
+    email: 'jdoe@gmail.com',
+    roles: {
+      admin: true
+    }
   }
 
   // Define fail data
@@ -101,32 +107,42 @@ describe('model', () => {
   describe('validate', () => {
     // Pass validation condition
     it('passes validation when object matches rules', () => {
-      const passTest = testModel.validate(testPassDataV2)
-      expect(passTest).to.be.null
+      return testModel.validate(testPassDataV2)
+        .then(data => {
+          expect(data).to.be.an.object
+        })
     })
     // Fail validation condition
     it('fails validation when object does not match rules', () => {
-      const failTest = testModel.validate(testFailDataV2)
-      expect(failTest).to.not.be.null
+      return testModel.validate(testFailDataV2)
+        .catch(err => {
+          expect(err[0].key).to.equal('id')
+        })
     })
     // Use custom formatter
     it('uses a custom validation error format when specified', () => {
       // Define custom formatter
       model.customValidationError = (err) => {
-        return err.details[0].message
+        return err[0].message
       }
-      const testCustom = testModel.validate(testFailDataV2)
-      expect(testCustom).to.equal('"id" must be a number')
+      return testModel.validate(testFailDataV2)
+        .catch(err => {
+          expect(err).to.equal('Value must be a number')
+        })
     })
     // Pass on older version
     it('passes validation on older version of schema', () => {
-      const passTest = testModel.validate(testPassDataV1, 1)
-      expect(passTest).to.be.null
+      return testModel.validate(testPassDataV1, 1)
+        .then(data => {
+          expect(data).to.be.an.object
+        })
     })
     // Fail on older version
     it('fails validation on older version of schema', () => {
-      const failTest = testModel.validate(testFailDataV1, 1)
-      expect(failTest).to.not.be.null
+      return testModel.validate(testFailDataV1, 1)
+        .catch(err => {
+          expect(err).to.equal('\'email\' is not an allowed property')
+        })
     })
   })
 

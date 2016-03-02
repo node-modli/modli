@@ -115,6 +115,9 @@ describe('model', () => {
     // Fail validation condition
     it('fails validation when object does not match rules', () => {
       return testModel.validate(testFailDataV2)
+        .then(data => {
+          throw new Error(`Should not have data, ${data}`)
+        })
         .catch(err => {
           expect(err[0].key).to.equal('id')
         })
@@ -126,6 +129,9 @@ describe('model', () => {
         return err[0].message
       }
       return testModel.validate(testFailDataV2)
+        .then(data => {
+          throw new Error(`Should not have data, ${data}`)
+        })
         .catch(err => {
           expect(err).to.equal('Value must be a number')
         })

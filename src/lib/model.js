@@ -21,8 +21,8 @@ model.store = {}
  */
 model.add = (m) => {
   // Ensure required properties
-  if (!m.name || !m.version || !m.schema) {
-    throw new Error('Model must contain a name, version and schema')
+  if (!m.name || !m.tableName || !m.version || !m.schema) {
+    throw new Error('Model must contain a name, tableName, version and schema')
   }
   // Check if model exists
   if (!model.store[m.name]) {
@@ -56,8 +56,11 @@ model.init = (m) => {
     throw new Error('Model not defined')
   }
   // Get model object
+  const defaultVersion = Object.keys(model.store[m]).pop()
   return {
-    defaultVersion: Object.keys(model.store[m]).pop(),
+    name: m,
+    tableName: model.store[m][defaultVersion].tableName,
+    defaultVersion,
     schemas: model.store[m],
     validate: function(data, version) {
       const v = version || this.defaultVersion

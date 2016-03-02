@@ -1,15 +1,14 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 /**
  * Exports the core adapter object
  * @namespace adapter
  */
-'use strict';
+var adapter = exports.adapter = {};
 
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-var adapter = {};
-
-exports.adapter = adapter;
 /**
  * Stores the adapters in memory
  * @property {Object}

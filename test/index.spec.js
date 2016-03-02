@@ -20,6 +20,7 @@ describe('integration', () => {
 
   const intModel = {
     name: 'testUser',
+    tableName: 'myTestUser',
     version: 1,
     schema: {
       fname: { type: 'string' },

@@ -24,6 +24,8 @@ const use = (modelName, adapterName) => {
   // Initialize model and adapter
   const m = model.init(modelName)
   const a = adapter.init(adapterName)
+  // Add adapter name to returned model
+  m.adapter = adapterName
   // Return extended (in case model has arbitrary properties/methods)
   return _.extend(a, m, { plugin: pluginFn })
 }

@@ -10,19 +10,15 @@ build:
     - script:
         name: lint code
         code: |
-          make lint
+          npm run lint
     - script:
         name: run tests
         code: |
-          make test
-    - script:
-        name: run coverage
-        code: |
-          make test-cover
+          npm test
     - script:
         name: build
         code: |
-          make build
+          npm run build
           
   after-steps:
     # Run and report coverage

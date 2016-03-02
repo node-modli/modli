@@ -33,7 +33,7 @@ model.add = (m) => {
   let modelObj = {}
   Object.keys(m).forEach((prop) => {
     if (prop !== 'version' && prop !== 'name') {
-      if (prop === 'schema') {
+      if (prop === 'schema' && !m.schema.validate) {
         // Build model
         modelObj.schema = obey.model(m.schema)
       } else {

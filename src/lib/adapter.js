@@ -2,13 +2,13 @@
  * Exports the core adapter object
  * @namespace adapter
  */
-export const adapter = {};
+export const adapter = {}
 
 /**
  * Stores the adapters in memory
  * @property {Object}
  */
-adapter.store = {};
+adapter.store = {}
 
 /**
  * Adds an adapter to the store
@@ -21,14 +21,14 @@ adapter.add = (a) => {
       name: a.name,
       source: a.source,
       config: a.config
-    }));
+    }))
   }
   // Add to memory
   adapter.store[a.name] = {
     source: a.source,
     config: a.config
-  };
-};
+  }
+}
 
 /**
  * Gets adapter and calls config
@@ -37,17 +37,17 @@ adapter.add = (a) => {
  * @returns {Object} Adapter
  */
 adapter.init = (a) => {
-  let adapterObj;
+  let adapterObj
   // Ensure model is defined
   if (!adapter.store[a]) {
-    throw new Error('Adapter not defined');
+    throw new Error('Adapter not defined')
   }
-  const source = adapter.store[a].source;
+  const source = adapter.store[a].source
   if (typeof source === 'function') {
-    adapterObj = source;
+    adapterObj = source
   } else {
-    adapterObj = require(source);
+    adapterObj = require(source)
   }
   // Instantiate adapter
-  return new adapterObj(adapter.store[a].config);
-};
+  return new adapterObj(adapter.store[a].config)
+}

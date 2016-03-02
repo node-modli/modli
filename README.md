@@ -27,7 +27,7 @@ utilized (`npm install modli-nedb --save`).
 
 ```javascript
 // Import all the Modli methods
-import { model, adapter, use, Joi } from 'modli';
+import { model, adapter, use } from 'modli';
 // Import the adapter to use
 import nedb from 'modli-nedb';
 
@@ -50,10 +50,10 @@ model.add({
   version: 1,
   // Define the schema
   schema: {
-    id: Joi.number().integer(),
-    fname: Joi.string().min(3).max(30),
-    lname: Joi.string().min(3).max(30),
-    email: Joi.string().email().min(3).max(254).required()
+    id: { type: 'number', required: true },
+    fname: { type: 'string' },
+    lname: { type: 'string' },
+    email: { type: 'email', required: true }
   }
 });
 
@@ -154,12 +154,12 @@ the response to be `foo`.
 
 Validation of model data is done by the adapter when data is being insertered,
 i.e. create and update procedures. The adapter inherits the model's `validate`
-method which utilizes the [Joi](https://github.com/hapijs/joi) library to ensure
+method which utilizes the [Obey](https://github.com/TechnologyAdvice/obey) library to ensure
 properties are correct.
 
 ### Validation Error Formatting
 
-By default, the `validation` method's `fail` response will return the Joi error
+By default, the `validation` method's `fail` response will return the Obey error
 object. This can be overridden using the following:
 
 ```javascript
@@ -172,7 +172,7 @@ For example, if you wanted to just show the "human" error response text:
 
 ```javascript
 model.customValidationError = (err) => {
-  return err.details[0].message;
+  return err[0].message;
 }
 ```
 

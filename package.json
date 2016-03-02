@@ -14,40 +14,44 @@
   ],
   "author": "TechnologyAdvice <devteam@technologyadvice.com>",
   "scripts": {
-    "all": "make",
-    "start": "make start",
-    "clean": "make clean",
-    "build": "make build",
-    "test": "make test",
-    "test-libs": "make test-libs",
-    "test-adapters": "make test-adapters",
-    "test-integration": "make test-integration",
-    "test-cover": "make test-cover",
-    "lint": "make lint"
+    "clean": "rm -rf node_modules",
+    "build": "babel ./src --out-dir ./build",
+    "test": "npm run lint && npm run cover",
+    "mocha": "babel-node node_modules/.bin/_mocha",
+    "cover": "babel-node node_modules/isparta/bin/isparta cover node_modules/mocha/bin/_mocha",
+    "lint": "eslint ./src ./test --fix"
   },
   "license": "MIT",
   "devDependencies": {
     "assert": "^1.3.0",
-    "babel": "^5.6.14",
-    "babel-eslint": "^4.0.5",
-    "babel-istanbul": "^0.3.17",
-    "body-parser": "^1.13.3",
-    "chai": "^3.0.0",
-    "eslint": "^1.2.1",
     "express": "^4.13.3",
-    "istanbul-harmony": "^0.3.16",
     "mocha": "^2.2.5",
-    "modli-nedb": "^1.2.0",
+    "modli-nedb": "^2.0.1",
     "pre-commit": "^1.1.1",
-    "should": "^7.0.2"
+    "babel-cli": "~6.1.4",
+    "babel-core": "~6.1.4",
+    "babel-eslint": "~4.1.7",
+    "babel-preset-es2015": "^6.5.0",
+    "chai": "~3.0.0",
+    "chai-as-promised": "^5.2.0",
+    "eslint": "~2.1.0",
+    "isparta": "~4.0.0",
+    "mocha": "~2.2.5",
+    "pre-commit": "~1.1.1",
+    "sinon": "~1.15.4",
+    "sinon-chai": "~2.8.0"
   },
   "dependencies": {
     "bluebird": "^2.9.34",
-    "joi": "^6.6.1",
+    "obey": "^0.9.0",
     "lodash": "^3.10.1"
   },
   "pre-commit": [
-    "lint",
     "test"
-  ]
+  ],
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  }
 }

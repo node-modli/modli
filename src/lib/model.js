@@ -1,19 +1,19 @@
 /**
  * Exports Joi so no additional import/require needed
  */
-export const Joi = require('joi');
+export const obey = require('obey')
 
 /**
  * Exports the core model object
  * @namespace model
  */
-export const model = {};
+export const model = {}
 
 /**
  * Stores the models and their versions in memory
  * @property {Object}
  */
-model.store = {};
+model.store = {}
 
 /**
  * Adds a model to the store
@@ -22,23 +22,28 @@ model.store = {};
 model.add = (m) => {
   // Ensure required properties
   if (!m.name || !m.version || !m.schema) {
-    throw new Error('Model must contain a name, version and schema');
+    throw new Error('Model must contain a name, version and schema')
   }
   // Check if model exists
   if (!model.store[m.name]) {
     // Create new store entry
-    model.store[m.name] = {};
+    model.store[m.name] = {}
   }
   // Build model object
-  let modelObj = {};
+  let modelObj = {}
   Object.keys(m).forEach((prop) => {
     if (prop !== 'version' && prop !== 'name') {
-      modelObj[prop] = m[prop];
+      if (prop === 'schema' && typeof m.schema.validate !== 'function') {
+        // Build model
+        modelObj.schema = obey.model(m.schema)
+      } else {
+        modelObj[prop] = m[prop]
+      }
     }
-  });
+  })
   // Append to existing store entry with version and schema
-  model.store[m.name][m.version] = modelObj;
-};
+  model.store[m.name][m.version] = modelObj
+}
 
 /**
  * Initializes a model
@@ -48,38 +53,34 @@ model.add = (m) => {
 model.init = (m) => {
   // Ensure model is defined
   if (!model.store[m]) {
-    throw new Error('Model not defined');
+    throw new Error('Model not defined')
   }
   // Get model object
   return {
     defaultVersion: Object.keys(model.store[m]).pop(),
     schemas: model.store[m],
-    validate: function (data, version) {
-      const v = version || this.defaultVersion;
+    validate: function(data, version) {
+      const v = version || this.defaultVersion
       // Return validation
-      return Joi.validate(data, Joi.object().keys(this.schemas[v].schema), (err) => {
-        if (err) {
-          return model.formatValidationError(err);
-        }
-        return null;
-      });
+      return this.schemas[v].schema.validate(data)
+        .catch(err => model.formatValidationError(err.collection))
     },
-    sanitize: function (data, version) {
-      const v = version || this.defaultVersion;
+    sanitize: function(data, version) {
+      const v = version || this.defaultVersion
       const itt = (schemaNode, dataNode) => {
         for (let prop in dataNode) {
-          if (schemaNode[prop] && ({}).toString.call(dataNode[prop]).match(/\s([a-zA-Z]+)/)[1].toLowerCase() === 'object') {
-            itt(schemaNode[prop], dataNode[prop]);
+          if (schemaNode[prop] && {}.toString.call(dataNode[prop]).match(/\s([a-zA-Z]+)/)[1].toLowerCase() === 'object') {
+            itt(schemaNode[prop].keys, dataNode[prop])
           } else if (!schemaNode[prop]) {
-            delete dataNode[prop];
+            delete dataNode[prop]
           }
         }
-        return dataNode;
-      };
-      return itt(this.schemas[v].schema, data);
+        return dataNode
+      }
+      return itt(this.schemas[v].schema.def.keys, data)
     }
-  };
-};
+  }
+}
 
 /**
  * Formats validation error
@@ -90,13 +91,13 @@ model.init = (m) => {
 model.formatValidationError = (err) => {
   if (model.customValidationError) {
     // A custom formatter is defined
-    return model.customValidationError(err);
+    throw model.customValidationError(err)
   }
-  return err;
-};
+  throw err
+}
 
 /**
  * Placeholder for custom formatter function
  * @memberof model
  */
-model.customValidationError = false;
+model.customValidationError = false

@@ -97,12 +97,14 @@ describe('integration', () => {
     it('fails when item has invalid property', () => {
       // Test data
       const testFailData = {
-        fname: 123
+        fname: 123,
+        lname: 'smith',
+        email: 'jsmith@gmail.com'
       }
       // Create
       return testModel.create(testFailData)
         .catch((err) => {
-          expect(err[0].key).to.equal('fname')
+          expect(err.message).to.equal('fname (123): Value must be a string')
         })
     })
   })
@@ -133,12 +135,14 @@ describe('integration', () => {
     it('fails when item has invalid property', () => {
       // Test data
       const testFailData = {
-        fname: 123
+        fname: 123,
+        lname: 'smith',
+        email: 'jsmith@gmail.com'
       }
       // Update
       return testModel.update({ _id: testID }, testFailData)
         .catch((err) => {
-          expect(err[0].key).to.equal('fname')
+          expect(err.message).to.equal('fname (123): Value must be a string')
         })
     })
   })

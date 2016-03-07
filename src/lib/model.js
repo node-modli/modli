@@ -66,7 +66,7 @@ model.init = (m) => {
       const v = version || this.defaultVersion
       // Return validation
       return this.schemas[v].schema.validate(data)
-        .catch(err => model.formatValidationError(err.collection))
+        .catch(err => model.formatValidationError(err))
     },
     sanitize: function(data, version) {
       const v = version || this.defaultVersion

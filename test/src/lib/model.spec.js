@@ -121,21 +121,21 @@ describe('model', () => {
           throw new Error(`Should not have data, ${data}`)
         })
         .catch(err => {
-          expect(err[0].key).to.equal('id')
+          expect(err.message.split('\n')[0]).to.equal('id (foo): Value must be a number')
         })
     })
     // Use custom formatter
     it('uses a custom validation error format when specified', () => {
       // Define custom formatter
-      model.customValidationError = (err) => {
-        return err[0].message
+      model.customValidationError = () => {
+        return new Error('Invalid data')
       }
       return testModel.validate(testFailDataV2)
         .then(data => {
           throw new Error(`Should not have data, ${data}`)
         })
         .catch(err => {
-          expect(err).to.equal('Value must be a number')
+          expect(err.message).to.equal('Invalid data')
         })
     })
     // Pass on older version
@@ -149,7 +149,7 @@ describe('model', () => {
     it('fails validation on older version of schema', () => {
       return testModel.validate(testFailDataV1, 1)
         .catch(err => {
-          expect(err).to.equal('\'email\' is not an allowed property')
+          expect(err.message).to.equal('Invalid data')
         })
     })
   })

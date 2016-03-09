@@ -153,24 +153,4 @@ describe('model', () => {
         })
     })
   })
-
-  describe('sanitize', () => {
-    it('removes items from the data which are not present in the schema', () => {
-      const sanitized = testModel.sanitize({
-        fname: 'John',
-        lname: 'Smith',
-        roles: {
-          admin: true
-        },
-        email: 'jdoe@gmail.com' // <- not in v.1 of the model
-      }, 1)
-      expect(sanitized).to.deep.equal({
-        fname: 'John',
-        lname: 'Smith',
-        roles: {
-          admin: true
-        }
-      })
-    })
-  })
 })

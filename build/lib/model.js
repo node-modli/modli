@@ -71,22 +71,11 @@ model.init = function (m) {
       var v = version || this.defaultVersion;
       // Return validation
       return this.schemas[v].schema.validate(data).catch(function (err) {
-        return model.formatValidationError(err.collection);
+        return model.formatValidationError(err);
       });
     },
-    sanitize: function sanitize(data, version) {
-      var v = version || this.defaultVersion;
-      var itt = function itt(schemaNode, dataNode) {
-        for (var prop in dataNode) {
-          if (schemaNode[prop] && {}.toString.call(dataNode[prop]).match(/\s([a-zA-Z]+)/)[1].toLowerCase() === 'object') {
-            itt(schemaNode[prop].keys, dataNode[prop]);
-          } else if (!schemaNode[prop]) {
-            delete dataNode[prop];
-          }
-        }
-        return dataNode;
-      };
-      return itt(this.schemas[v].schema.def.keys, data);
+    sanitize: function sanitize(data) {
+      return data;
     }
   };
 };

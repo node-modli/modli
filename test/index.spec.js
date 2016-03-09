@@ -113,6 +113,7 @@ describe('integration', () => {
     it('reads an item in the datastore', () => {
       return testModel.read({ _id: testID })
         .then(data => {
+          delete data[0]._id
           expect(data[0]).to.deep.equal(testPassData)
         })
     })

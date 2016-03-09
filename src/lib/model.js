@@ -68,19 +68,8 @@ model.init = (m) => {
       return this.schemas[v].schema.validate(data)
         .catch(err => model.formatValidationError(err))
     },
-    sanitize: function(data, version) {
-      const v = version || this.defaultVersion
-      const itt = (schemaNode, dataNode) => {
-        for (let prop in dataNode) {
-          if (schemaNode[prop] && {}.toString.call(dataNode[prop]).match(/\s([a-zA-Z]+)/)[1].toLowerCase() === 'object') {
-            itt(schemaNode[prop].keys, dataNode[prop])
-          } else if (!schemaNode[prop]) {
-            delete dataNode[prop]
-          }
-        }
-        return dataNode
-      }
-      return itt(this.schemas[v].schema.def.keys, data)
+    sanitize: function(data) {
+      return data
     }
   }
 }

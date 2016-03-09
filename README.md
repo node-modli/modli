@@ -196,23 +196,15 @@ model if not specificed.
 
 ### Adapters and Sanitization
 
-Similar to the inherited `validate` method, `sanitize` allows for aligning output,
-or response, data with the model version. Usage is simply:
+The `sanitize` method is available for creating a cross-adapter compatible method
+for parsing data after read. The default action of this method is a simple 
+return of the data, this can be easily overwritten on a model:
 
 ```javascript
-this.sanitize(response, version);
+modelName.sanitize = data => {
+  // Perform actions on data...
+}
 ```
-
-Also similar to `validate`, the `version` argument is optional and will default
-to the latest version of the model.
-
-## Examples
-
-As often times it is easier to understand something when seen in practice, there
-are several [examples](/examples) available.
-
-The [`/test/index.spec.js`](/test/index.spec.js) file also serves as an integration
-test suite which shows how functionality of Modli is designed.
 
 ## Makefile and Scripts
 

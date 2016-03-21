@@ -68,9 +68,11 @@ model.init = function (m) {
     defaultVersion: defaultVersion,
     schemas: model.store[m],
     validate: function validate(data, version) {
+      var partial = arguments.length <= 2 || arguments[2] === undefined ? false : arguments[2];
+
       var v = version || this.defaultVersion;
       // Return validation
-      return this.schemas[v].schema.validate(data).catch(function (err) {
+      return this.schemas[v].schema.validate(data, { partial: partial }).catch(function (err) {
         return model.formatValidationError(err);
       });
     },

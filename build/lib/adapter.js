@@ -42,7 +42,7 @@ adapter.add = function (a) {
  * @returns {Object} Adapter
  */
 adapter.init = function (a) {
-  var adapterObj = undefined;
+  var adapterObj = void 0;
   // Ensure model is defined
   if (!adapter.store[a]) {
     throw new Error('Adapter not defined');

@@ -62,10 +62,10 @@ model.init = (m) => {
     tableName: model.store[m][defaultVersion].tableName,
     defaultVersion,
     schemas: model.store[m],
-    validate: function(data, version) {
+    validate: function(data, version, partial = false) {
       const v = version || this.defaultVersion
       // Return validation
-      return this.schemas[v].schema.validate(data)
+      return this.schemas[v].schema.validate(data, { partial })
         .catch(err => model.formatValidationError(err))
     },
     sanitize: function(data) {
